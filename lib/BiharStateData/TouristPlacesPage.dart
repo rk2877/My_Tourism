@@ -1,5148 +1,1639 @@
 import 'package:flutter/material.dart';
 import 'PlaceDetailsPage.dart';
 
-class TouristPlacesPage extends StatelessWidget {
+class TouristPlacesPage extends StatefulWidget {
   final String districtName;
 
-  TouristPlacesPage({super.key, required this.districtName});
+  const TouristPlacesPage({super.key, required this.districtName});
+
+  @override
+  _TouristPlacesPageState createState() => _TouristPlacesPageState();
+}
+
+class _TouristPlacesPageState extends State<TouristPlacesPage> {
+  String _searchQuery = "";
 
   final Map<String, List<Map<String, String>>> districtPlaces = {
-    "Patna (पटना)": [
+    "Sheohar (शिवहर)": [
       {
-        "name": "Golghar",
-        "image": "assets/images/golghar.jpg",
-        "description": "Golghar, built in 1786 by Captain John Garstin, is a massive granary offering panoramic views of Patna. गोलघर, 1786 में कैप्टन जॉन गार्स्टिन द्वारा बनाया गया एक विशाल अन्नागार है, जहाँ से पटना का शानदार नज़ारा दिखता है।"
+        "name": "Ambika Sthan Temple (अंबिका स्थान मंदिर)",
+        "image": "https://static.punjabkesari.in/multimedia/2023_10image_16_21_422015321ambika.jpg",
+        "description": "Ambika Sthan Temple is a famous shrine of Goddess Durga in Sheohar district. ""अंबिका स्थान मंदिर, शिवहर जिले में माँ दुर्गा का प्रसिद्ध तीर्थ स्थल है।"
       },
       {
-        "name": "Patna Museum",
-        "image": "assets/images/patna_museum.jpg",
-        "description": "Patna Museum houses rare artifacts, paintings, and ancient relics. पटना संग्रहालय में दुर्लभ कलाकृतियाँ और प्राचीन वस्तुएँ रखी हैं।"
+        "name": "Hanuman Mandir (हनुमान मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV-UXBanWBb_ZLXfmm5_n0qcEY3VId2v752g&s",
+        "description":
+        "Hanuman Mandir in Sheohar Bazar is a center of faith for locals. "
+            "शिवहर बाजार का हनुमान मंदिर स्थानीय श्रद्धालुओं का आस्था केंद्र है।"
       },
       {
-        "name": "Sanjay Gandhi Biological Park",
-        "image": "assets/images/sanjay_gandhi_bio_park.jpg",
-        "description": "A famous zoo and botanical garden. प्रसिद्ध चिड़ियाघर और बॉटनिकल गार्डन।"
+        "name": "Sheohar District Museum (शिवहर जिला संग्रहालय)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaf2iyPlfomM8gzABf1zXO7FuCOLiOmDvpPw&s",
+        "description":
+        "The district museum preserves local heritage and cultural items. "
+            "जिला संग्रहालय स्थानीय धरोहर और सांस्कृतिक वस्तुओं को संजोता है।"
       },
       {
-        "name": "Takht Sri Patna Sahib",
-        "image": "assets/images/takht_patina_sahib.jpg",
-        "description": "A sacred Sikh Gurudwara dedicated to Guru Gobind Singh Ji. गुरु गोविंद सिंह जी को समर्पित पवित्र गुरुद्वारा।"
+        "name": "Devkuli Shiv Mandir (देवकुली शिव मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr0xqb1HiV2pdZszQG5WLlrqs1rcL-kDKRyw&s",
+        "description":
+        "An ancient temple dedicated to Lord Shiva, believed to date back to the Dwapar era. "
+            "यह प्राचीन शिव मंदिर है जिसे द्वापर युग का माना जाता है और यह शिवहर जिले का प्रमुख धार्मिक स्थल है।"
       },
-      {
-        "name": "Buddha Smriti Park",
-        "image": "assets/images/buddha_smriti_park.jpg",
-        "description": "Memorial park dedicated to Lord Buddha. भगवान बुद्ध को समर्पित स्मारक पार्क।"
-      },
-      {
-        "name": "Kumhrar Park",
-        "image": "assets/images/kumhrar_park.jpg",
-        "description": "Ancient archaeological site from Mauryan period. मौर्य काल का प्राचीन पुरातात्विक स्थल।"
-      },
-      {
-        "name": "Agam Kuan",
-        "image": "assets/images/agum_kuan.jpg",
-        "description": "Ancient well dating back to Ashoka period. अशोक काल का प्राचीन कुआँ।"
-      },
-      {
-        "name": "Padri Ki Haveli",
-        "image": "assets/images/padri_ki_haveli.jpg",
-        "description": "Oldest church in Bihar built in 1772. बिहार का सबसे पुराना चर्च, 1772 में बना।"
-      },
-      {
-        "name": "Gandhi Maidan",
-        "image": "assets/images/gandhi_maidan.jpg",
-        "description": "Historic ground where major political rallies are held. ऐतिहासिक मैदान, जहाँ महत्वपूर्ण रैलियाँ होती हैं।"
-      },
-      {
-        "name": "Planetarium Patna",
-        "image": "assets/images/patna_planetarium.jpg",
-        "description": "One of Asia’s largest planetariums. एशिया के सबसे बड़े तारामंडलों में से एक।"
-      },
-      {
-        "name": "Eco Park",
-        "image": "assets/images/eco_park.jpg",
-        "description": "Green park with walking tracks and boating. हरियाली से भरा पार्क जिसमें बोटिंग की सुविधा।"
-      },
-      {
-        "name": "Khuda Bakhsh Library",
-        "image": "assets/images/khuda_bakhsh_library.jpg",
-        "description": "Library with rare manuscripts. दुर्लभ पांडुलिपियों वाली लाइब्रेरी।"
-      },
-      {
-        "name": "Funtasia Water Park",
-        "image": "assets/images/funtasia_water_park.jpg",
-        "description": "First water park of Bihar. बिहार का पहला वॉटर पार्क।"
-      },
-      {
-        "name": "Mahavir Mandir",
-        "image": "assets/images/mahavir_mandir.jpg",
-        "description": "Famous Hanuman temple near Patna Junction. पटना जंक्शन के पास प्रसिद्ध हनुमान मंदिर।"
-      },
-      {
-        "name": "ISKCON Temple",
-        "image": "assets/images/iskcon_patna.jpg",
-        "description": "Beautiful temple of Lord Krishna. भगवान कृष्ण का भव्य मंदिर।"
-      },
-      {
-        "name": "Ganga Ghat",
-        "image": "assets/images/ganga_ghat_patna.jpg",
-        "description": "Famous riverfront for Ganga Aarti. गंगा आरती के लिए प्रसिद्ध तट।"
-      },
-      {
-        "name": "Patna Sahib Fort",
-        "image": "assets/images/patna_sahib_fort.jpg",
-        "description": "Historical fort near Gurudwara Patna Sahib. गुरुद्वारा पटना साहिब के पास का ऐतिहासिक किला।"
-      },
-      {
-        "name": "Rajdhani Vatika",
-        "image": "assets/images/rajdhani_vatika.jpg",
-        "description": "Public park for recreation. मनोरंजन के लिए सार्वजनिक पार्क।"
-      },
-      {
-        "name": "Srikrishna Science Centre",
-        "image": "assets/images/science_centre.jpg",
-        "description": "Interactive science exhibits. इंटरएक्टिव विज्ञान प्रदर्शनी।"
-      },
-      {
-        "name": "Japanese Peace Pagoda",
-        "image": "assets/images/peace_pagoda.jpg",
-        "description": "Buddhist monument for peace. शांति के लिए बौद्ध स्मारक।"
-      },
-      {
-        "name": "Badi Patan Devi Temple",
-        "image": "assets/images/badi_patan_devi.jpg",
-        "description": "One of the 51 Shakti Peethas. 51 शक्ति पीठों में से एक।"
-      },
-      {
-        "name": "Chhoti Patan Devi Temple",
-        "image": "assets/images/chhoti_patan_devi.jpg",
-        "description": "Ancient temple of Goddess Durga. माँ दुर्गा का प्राचीन मंदिर।"
-      },
-      {
-        "name": "Pathar Ki Masjid",
-        "image": "assets/images/pathar_ki_masjid.jpg",
-        "description": "Mosque made of stone built in 1621. पत्थर से बनी मस्जिद, 1621 में निर्मित।"
-      },
-      {
-        "name": "Hanuman Mandir Birla Colony",
-        "image": "assets/images/hanuman_mandir_birla.jpg",
-        "description": "Popular Hanuman temple in Birla Colony. बिरला कॉलोनी का प्रसिद्ध हनुमान मंदिर।"
-      },
-      {
-        "name": "NIT Ghat",
-        "image": "assets/images/nit_ghat.jpg",
-        "description": "Popular spot for evening strolls along the Ganga. गंगा किनारे घूमने का लोकप्रिय स्थान।"
-      }
-    ],
-
-    "Gaya (गया)": [
-      {
-        "name": "Mahabodhi Temple",
-        "image": "assets/images/mahabodhi.jpg",
-        "description": "A UNESCO World Heritage Site in Bodh Gaya, where Buddha attained enlightenment. यूनेस्को विश्व धरोहर स्थल, जहाँ बुद्ध को ज्ञान की प्राप्ति हुई।"
-      },
-      {
-        "name": "Bodhi Tree",
-        "image": "assets/images/bodhi_tree.jpg",
-        "description": "Sacred tree under which Buddha meditated. पवित्र वृक्ष जिसके नीचे बुद्ध ने ध्यान किया।"
-      },
-      {
-        "name": "Great Buddha Statue",
-        "image": "assets/images/great_buddha.jpg",
-        "description": "80 feet tall statue of Lord Buddha. भगवान बुद्ध की 80 फीट ऊँची मूर्ति।"
-      },
-      {
-        "name": "Dungeshwari Cave Temples",
-        "image": "assets/images/dungeshwari.jpg",
-        "description": "Caves where Buddha meditated before enlightenment. गुफाएँ जहाँ बुद्ध ने ज्ञान प्राप्ति से पहले ध्यान किया।"
-      },
-      {
-        "name": "Vishnupad Temple",
-        "image": "assets/images/vishnupad.jpg",
-        "description": "Temple dedicated to Lord Vishnu. भगवान विष्णु को समर्पित मंदिर।"
-      },
-      {
-        "name": "Muchalinda Lake",
-        "image": "assets/images/muchalinda.jpg",
-        "description": "Sacred lake near Mahabodhi Temple. महाबोधि मंदिर के पास पवित्र झील।"
-      },
-      {
-        "name": "Barabar Caves",
-        "image": "assets/images/barabar_caves.jpg",
-        "description": "Ancient rock-cut caves from Mauryan period. मौर्य काल की प्राचीन गुफाएँ।"
-      },
-      {
-        "name": "Indosan Nippon Japanese Temple",
-        "image": "assets/images/indosan_temple.jpg",
-        "description": "Japanese style Buddhist temple. जापानी शैली का बौद्ध मंदिर।"
-      },
-      {
-        "name": "Tibetan Monastery",
-        "image": "assets/images/tibetan_monastery.jpg",
-        "description": "Colorful Tibetan Buddhist monastery. रंगीन तिब्बती बौद्ध मठ।"
-      },
-      {
-        "name": "Royal Bhutan Monastery",
-        "image": "assets/images/bhutan_monastery.jpg",
-        "description": "Bhutanese architecture monastery. भूटानी वास्तुकला का मठ।"
-      },
-      {
-        "name": "Chinese Temple",
-        "image": "assets/images/chinese_temple.jpg",
-        "description": "Chinese style Buddhist temple. चीनी शैली का बौद्ध मंदिर।"
-      },
-      {
-        "name": "Thai Monastery",
-        "image": "assets/images/thai_monastery.jpg",
-        "description": "Thai style monastery with golden statue. थाई शैली का मठ, जिसमें स्वर्ण प्रतिमा है।"
-      },
-      {
-        "name": "Vietnamese Temple",
-        "image": "assets/images/vietnamese_temple.jpg",
-        "description": "Vietnamese style Buddhist temple. वियतनामी शैली का बौद्ध मंदिर।"
-      },
-      {
-        "name": "Animesh Lochana Chaitya",
-        "image": "assets/images/animesh_lochana.jpg",
-        "description": "Spot where Buddha meditated without blinking. स्थान जहाँ बुद्ध ने बिना पलक झपकाए ध्यान किया।"
-      },
-      {
-        "name": "Ratnagarh",
-        "image": "assets/images/ratnagarh.jpg",
-        "description": "Place associated with Buddha’s sermons. बुद्ध के उपदेशों से जुड़ा स्थान।"
-      },
-      {
-        "name": "Sujata Stupa",
-        "image": "assets/images/sujata_stupa.jpg",
-        "description": "Stupa dedicated to Sujata who offered kheer to Buddha. सुजाता को समर्पित स्तूप।"
-      },
-      {
-        "name": "Phalgu River",
-        "image": "assets/images/phalgu_river.jpg",
-        "description": "Sacred river for pind daan rituals. पिंड दान के लिए पवित्र नदी।"
-      },
-      {
-        "name": "Pretshila Hills",
-        "image": "assets/images/pretshila_hills.jpg",
-        "description": "Hill known for pind daan rituals. पिंड दान के लिए प्रसिद्ध पहाड़ी।"
-      },
-      {
-        "name": "Ramshila Hills",
-        "image": "assets/images/ramshila_hills.jpg",
-        "description": "Hill with ancient temple of Lord Rama. भगवान राम का प्राचीन मंदिर वाली पहाड़ी।"
-      },
-      {
-        "name": "Dev Ghat",
-        "image": "assets/images/dev_ghat.jpg",
-        "description": "Sacred ghat on Phalgu river. फल्गु नदी का पवित्र घाट।"
-      },
-      {
-        "name": "Bodhgaya Archaeological Museum",
-        "image": "assets/images/bodhgaya_museum.jpg",
-        "description": "Museum with Buddhist relics. बौद्ध अवशेषों वाला संग्रहालय।"
-      },
-      {
-        "name": "Sita Kund",
-        "image": "assets/images/sita_kund.jpg",
-        "description": "Sacred pond related to Goddess Sita. देवी सीता से जुड़ा पवित्र सरोवर।"
-      },
-      {
-        "name": "Hindustan Tibetan Temple",
-        "image": "assets/images/hind_tibetan_temple.jpg",
-        "description": "Buddhist temple with Tibetan influence. तिब्बती प्रभाव वाला बौद्ध मंदिर।"
-      },
-      {
-        "name": "Gaya Pind Daan Center",
-        "image": "assets/images/pind_daan_center.jpg",
-        "description": "Center for performing ancestral rituals. पितृ कर्म कराने का केंद्र।"
-      },
-      {
-        "name": "Niranjana River",
-        "image": "assets/images/niranjana_river.jpg",
-        "description": "River near Bodh Gaya with historical importance. ऐतिहासिक महत्व वाली नदी।"
-      }
-    ],
-
-     "Nalanda (नालंदा)":[
-      {
-        "name": "Nalanda University Ruins (नालंदा विश्वविद्यालय अवशेष)",
-        "image": "assets/images/nalanda_university.jpg",
-        "description": "These are the ruins of the ancient Nalanda University, a world-famous center of learning from the 5th century. यह 5वीं शताब्दी का प्राचीन नालंदा विश्वविद्यालय है, जो विश्व प्रसिद्ध शिक्षा केंद्र था।"
-      },
-      {
-        "name": "Hiuen Tsang Memorial Hall (ह्वेनसांग स्मारक हॉल)",
-        "image": "assets/images/hiuen_tsang.jpg",
-        "description": "A memorial dedicated to Chinese traveler Hiuen Tsang. चीनी यात्री ह्वेनसांग को समर्पित एक स्मारक।"
-      },
-      {
-        "name": "Nalanda Archaeological Museum (नालंदा पुरातत्व संग्रहालय)",
-        "image": "assets/images/nalanda_museum.jpg",
-        "description": "Houses ancient artifacts, sculptures, and manuscripts from Nalanda's history. इसमें नालंदा के इतिहास से जुड़े प्राचीन अवशेष, मूर्तियाँ और पांडुलिपियाँ हैं।"
-      },
-      {
-        "name": "Black Buddha Temple (काला बुद्ध मंदिर)",
-        "image": "assets/images/black_buddha.jpg",
-        "description": "A unique temple with a black stone statue of Lord Buddha. यह भगवान बुद्ध की काले पत्थर की प्रतिमा वाला अद्वितीय मंदिर है।"
-      },
-      {
-        "name": "Surya Mandir, Baragaon (सूर्य मंदिर, बरागांव)",
-        "image": "assets/images/surya_mandir_baragaon.jpg",
-        "description": "An ancient Sun temple famous for Chhath Puja celebrations. यह प्राचीन सूर्य मंदिर है, जो छठ पूजा के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Nav Nalanda Mahavihara (नव नालंदा महाविहार)",
-        "image": "assets/images/nav_nalanda.jpg",
-        "description": "A modern center for Pali and Buddhist studies. पाली और बौद्ध अध्ययन का एक आधुनिक केंद्र।"
-      },
-      {
-        "name": "Bargain Stupa (बरगाँव स्तूप)",
-        "image": "assets/images/bargain_stupa.jpg",
-        "description": "A small ancient stupa related to Buddhist history. बौद्ध इतिहास से जुड़ा एक छोटा प्राचीन स्तूप।"
-      },
-      {
-        "name": "Kundalpur (कुंडलपुर)",
-        "image": "assets/images/kundalpur.jpg",
-        "description": "Believed to be the birthplace of Lord Mahavira. यह भगवान महावीर का जन्मस्थान माना जाता है।"
-      },
-      {
-        "name": "Pawapuri Jal Mandir (पावापुरी जल मंदिर)",
-        "image": "assets/images/pawapuri_jalmandir.jpg",
-        "description": "A beautiful Jain temple in the middle of a lake. एक झील के बीच स्थित सुंदर जैन मंदिर।"
-      },
-      {
-        "name": "Surya Kund (सूर्य कुंड)",
-        "image": "assets/images/surya_kund.jpg",
-        "description": "A sacred pond near the Sun Temple in Nalanda. नालंदा के सूर्य मंदिर के पास स्थित पवित्र कुंड।"
-      },
-      {
-        "name": "Telhara (टेलहारा)",
-        "image": "assets/images/telhara.jpg",
-        "description": "An archaeological site of an ancient Buddhist monastery. एक प्राचीन बौद्ध मठ का पुरातात्विक स्थल।"
-      },
-      {
-        "name": "Rajgir Ropeway (राजगीर रोपवे)",
-        "image": "assets/images/rajgir_ropeway.jpg",
-        "description": "A ropeway ride leading to the Vishwa Shanti Stupa. विश्व शांति स्तूप तक जाने वाली रोपवे सवारी।"
-      },
-      {
-        "name": "Vishwa Shanti Stupa (विश्व शांति स्तूप)",
-        "image": "assets/images/vishwa_shanti_stupa.jpg",
-        "description": "A Japanese-built peace pagoda on Ratnagiri hill. रत्नागिरी पहाड़ी पर जापान निर्मित शांति स्तूप।"
-      },
-      {
-        "name": "Bimbisar Jail (बिंबिसार जेल)",
-        "image": "assets/images/bimbisar_jail.jpg",
-        "description": "Historic prison where King Bimbisar was imprisoned by his son. ऐतिहासिक जेल जहां राजा बिंबिसार को उनके पुत्र ने कैद किया था।"
-      },
-      {
-        "name": "Cyclopean Wall (साइक्लोपियन वॉल)",
-        "image": "assets/images/cyclopean_wall.jpg",
-        "description": "An ancient stone wall surrounding old Rajgir. प्राचीन राजगीर को घेरे हुए पत्थरों की दीवार।"
-      },
-      {
-        "name": "Hot Springs, Rajgir (गरम पानी कुंड, राजगीर)",
-        "image": "assets/images/hot_springs_rajgir.jpg",
-        "description": "Natural hot springs believed to have medicinal value. औषधीय गुणों वाले प्राकृतिक गरम पानी के कुंड।"
-      },
-      {
-        "name": "Ajatshatru Fort (अजातशत्रु किला)",
-        "image": "assets/images/ajatshatru_fort.jpg",
-        "description": "Fort built by King Ajatshatru in 6th century BC. 6वीं शताब्दी ईसा पूर्व में राजा अजातशत्रु द्वारा निर्मित किला।"
-      },
-      {
-        "name": "Griddhakuta Hill (गृद्धकूट पहाड़ी)",
-        "image": "assets/images/griddhakuta_hill.jpg",
-        "description": "A sacred hill where Buddha delivered sermons. पवित्र पहाड़ी जहां बुद्ध ने उपदेश दिए।"
-      },
-      {
-        "name": "Maniyar Math (मणियार मठ)",
-        "image": "assets/images/maniyar_math.jpg",
-        "description": "An archaeological site with ancient relics. प्राचीन अवशेषों वाला पुरातात्विक स्थल।"
-      },
-      {
-        "name": "Son Bhandar Caves (सोन भंडार गुफाएँ)",
-        "image": "assets/images/son_bhandar_caves.jpg",
-        "description": "Ancient rock-cut caves believed to hold treasures. खजाने को संजोए रखने वाली प्राचीन गुफाएँ।"
-      },
-      {
-        "name": "Jarasandh Akhara (जरासंध अखाड़ा)",
-        "image": "assets/images/jarasandh_akhara.jpg",
-        "description": "Historic site associated with Mahabharata's Jarasandh. महाभारत के जरासंध से जुड़ा ऐतिहासिक स्थल।"
-      },
-      {
-        "name": "Veerayatan Museum (वीरायतन संग्रहालय)",
-        "image": "assets/images/veerayatan_museum.jpg",
-        "description": "Jain museum showcasing art and history. जैन कला और इतिहास प्रदर्शित करने वाला संग्रहालय।"
-      },
-      {
-        "name": "Pandu Pokhar (पांडु पोखर)",
-        "image": "assets/images/pandu_pokhar.jpg",
-        "description": "Amusement park and historical pond in Rajgir. राजगीर में मनोरंजन पार्क और ऐतिहासिक पोखर।"
-      },
-      {
-        "name": "Swarna Bhandar (स्वर्ण भंडार)",
-        "image": "assets/images/swarna_bhandar.jpg",
-        "description": "Legendary site believed to store gold treasures. स्वर्ण खजाने को संजोए रखने वाला पौराणिक स्थल।"
-      },
-    ],
-
-    "Sheohar (शिवहर)":[
-    {
-      "name": "Ambika Sthan Temple (अंबिका स्थान मंदिर)",
-      "image": "assets/images/ambika_sthan_temple.jpg",
-      "description":
-      "Ambika Sthan Temple is a famous shrine of Goddess Durga in Sheohar district. "
-          "अंबिका स्थान मंदिर, शिवहर जिले में माँ दुर्गा का प्रसिद्ध तीर्थ स्थल है।"
-    },
-    {
-      "name": "Bhawan Pokhar (भवन पोखर)",
-      "image": "assets/images/bhawan_pokhar.jpg",
-      "description":
-      "Bhawan Pokhar is a sacred pond associated with local religious beliefs. "
-          "भवन पोखर स्थानीय धार्मिक मान्यताओं से जुड़ा एक पवित्र सरोवर है।"
-    },
-    {
-      "name": "Sheohar Kali Mandir (शिवहर काली मंदिर)",
-      "image": "assets/images/sheohar_kali_temple.jpg",
-      "description":
-      "This ancient Kali Temple attracts devotees especially during festivals. "
-          "यह प्राचीन काली मंदिर त्योहारों के समय भक्तों को आकर्षित करता है।"
-    },
-    {
-      "name": "Janaki Asthan (जानकी स्थान)",
-      "image": "assets/images/janaki_asthan.jpg",
-      "description":
-      "Janaki Asthan is a religious site dedicated to Goddess Sita. "
-          "जानकी स्थान माता सीता को समर्पित धार्मिक स्थल है।"
-    },
-    {
-      "name": "Kamala River Ghat (कमला नदी घाट)",
-      "image": "assets/images/kamala_river_ghat.jpg",
-      "description":
-      "Kamala River Ghat is a peaceful place for pilgrims and locals. "
-          "कमला नदी घाट श्रद्धालुओं और स्थानीय लोगों के लिए शांत स्थान है।"
-    },
-    {
-      "name": "Shiv Mandir, Pipra (शिव मंदिर, पिपरा)",
-      "image": "assets/images/shiv_mandir_pipra.jpg",
-      "description":
-      "A temple dedicated to Lord Shiva, known for its religious importance. "
-          "भगवान शिव को समर्पित यह मंदिर धार्मिक महत्व के लिए जाना जाता है।"
-    },
-    {
-      "name": "Hanuman Mandir, Sheohar Bazar (हनुमान मंदिर, शिवहर बाजार)",
-      "image": "assets/images/hanuman_mandir_sheohar.jpg",
-      "description":
-      "Hanuman Mandir in Sheohar Bazar is a center of faith for locals. "
-          "शिवहर बाजार का हनुमान मंदिर स्थानीय श्रद्धालुओं का आस्था केंद्र है।"
-    },
-    {
-      "name": "Baba Bhairav Sthan (बाबा भैरव स्थान)",
-      "image": "assets/images/bhairav_sthan.jpg",
-      "description":
-      "This temple of Bhairav Baba is an important spiritual destination. "
-          "बाबा भैरव स्थान शिवहर का एक प्रमुख आध्यात्मिक स्थल है।"
-    },
-    {
-      "name": "Durga Mandir, Dumri (दुर्गा मंदिर, डुमरी)",
-      "image": "assets/images/durga_mandir_dumri.jpg",
-      "description":
-      "Durga Mandir in Dumri is a place of devotion for Goddess Durga. "
-          "डुमरी का दुर्गा मंदिर माता दुर्गा की भक्ति का केंद्र है।"
-    },
-    {
-      "name": "Panch Mandir (पंच मंदिर)",
-      "image": "assets/images/panch_mandir.jpg",
-      "description":
-      "Panch Mandir is a cluster of five temples reflecting Hindu culture. "
-          "पंच मंदिर हिंदू संस्कृति को दर्शाने वाले पाँच मंदिरों का समूह है।"
-    },
-    {
-      "name": "Rani Sthan (रानी स्थान)",
-      "image": "assets/images/rani_sthan.jpg",
-      "description":
-      "Rani Sthan is a small temple with deep cultural beliefs. "
-          "रानी स्थान एक छोटा मंदिर है जो गहरी सांस्कृतिक मान्यताओं से जुड़ा है।"
-    },
-    {
-      "name": "Sheohar District Museum (शिवहर जिला संग्रहालय)",
-      "image": "assets/images/sheohar_museum.jpg",
-      "description":
-      "The district museum preserves local heritage and cultural items. "
-          "जिला संग्रहालय स्थानीय धरोहर और सांस्कृतिक वस्तुओं को संजोता है।"
-    },
-    {
-      "name": "Mata Kali Asthan (माता काली स्थान)",
-      "image": "assets/images/mata_kali_asthan.jpg",
-      "description":
-      "A temple dedicated to Goddess Kali, visited by many devotees. "
-          "माता काली स्थान देवी काली को समर्पित मंदिर है।"
-    },
-    {
-      "name": "Raj Devi Mandir (राज देवी मंदिर)",
-      "image": "assets/images/raj_devi_mandir.jpg",
-      "description":
-      "Raj Devi Mandir is one of the popular temples in Sheohar. "
-          "राज देवी मंदिर शिवहर के प्रसिद्ध मंदिरों में से एक है।"
-    },
-    {
-      "name": "Sati Mai Sthan (सती माई स्थान)",
-      "image": "assets/images/sati_mai_sthan.jpg",
-      "description":
-      "Sati Mai Sthan is a spiritual site dedicated to local goddess. "
-          "सती माई स्थान एक स्थानीय देवी को समर्पित धार्मिक स्थल है।"
-    },
-    {
-      "name": "Jageshwar Nath Temple (जगेश्वर नाथ मंदिर)",
-      "image": "assets/images/jageshwar_nath_temple.jpg",
-      "description":
-      "This temple is dedicated to Lord Shiva, attracting many devotees. "
-          "जगेश्वर नाथ मंदिर भगवान शिव को समर्पित है।"
-    },
-    {
-      "name": "Bhola Asthan (भोला स्थान)",
-      "image": "assets/images/bhola_sthan.jpg",
-      "description":
-      "Bhola Asthan is a sacred site of faith and devotion. "
-          "भोला स्थान आस्था और भक्ति का पवित्र स्थल है।"
-    },
-    {
-      "name": "Rani Pokhar (रानी पोखर)",
-      "image": "assets/images/rani_pokhar.jpg",
-      "description":
-      "Rani Pokhar is a historical pond linked to ancient folklore. "
-          "रानी पोखर एक ऐतिहासिक सरोवर है जो प्राचीन कथाओं से जुड़ा है।"
-    },
-    {
-      "name": "Baba Basukinath Mandir (बाबा बसुकीनाथ मंदिर)",
-      "image": "assets/images/basukinath_mandir.jpg",
-      "description":
-      "This temple is dedicated to Lord Basukinath, a form of Lord Shiva. "
-          "बाबा बसुकीनाथ मंदिर भगवान शिव के स्वरूप को समर्पित है।"
-    },
-    {
-      "name": "Sundar Asthan (सुंदर स्थान)",
-      "image": "assets/images/sundar_sthan.jpg",
-      "description":
-      "Sundar Asthan is known for its peaceful spiritual environment. "
-          "सुंदर स्थान अपनी शांत आध्यात्मिक वातावरण के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Jagannath Mandir (जगन्नाथ मंदिर)",
-      "image": "assets/images/jagannath_temple.jpg",
-      "description":
-      "A temple dedicated to Lord Jagannath, visited during Rath Yatra. "
-          "जगन्नाथ मंदिर भगवान जगन्नाथ को समर्पित है और रथ यात्रा में विशेष होता है।"
-    },
-    {
-      "name": "Sheohar Fort Remains (शिवहर किला अवशेष)",
-      "image": "assets/images/sheohar_fort.jpg",
-      "description":
-      "The remains of Sheohar Fort tell stories of its glorious past. "
-          "शिवहर किला अवशेष इसके गौरवशाली अतीत की कहानियाँ बताते हैं।"
-    },
-    {
-      "name": "Kali Sthan, Piprahi (काली स्थान, पिपराही)",
-      "image": "assets/images/kali_sthan_piprahi.jpg",
-      "description":
-      "This temple is dedicated to Goddess Kali in Piprahi village. "
-          "पिपराही गाँव का यह काली मंदिर माँ काली को समर्पित है।"
-    },
-    {
-      "name": "Durga Sthan, Dumra (दुर्गा स्थान, डुमरा)",
-      "image": "assets/images/durga_sthan_dumra.jpg",
-      "description":
-      "Durga Sthan in Dumra is an important religious site for worship. "
-          "डुमरा का दुर्गा स्थान एक महत्वपूर्ण धार्मिक स्थल है।"
-    },
-  ],
-
-
-  "Bhagalpur (भागलपुर)":[
+],
+      "Muzaffarpur (मुज़फ़्फ़रपुर)": [
         {
-          "name": "Vikramshila Ruins (विक्रमशिला अवशेष)",
-          "image": "assets/images/vikramshila_ruins.jpg",
-          "description": "The remains of Vikramshila University, established by King Dharampala in the 8th century, are a major historical site. विक्रमशिला विश्वविद्यालय के अवशेष, जो राजा धर्मपाल ने 8वीं शताब्दी में स्थापित किया था, एक प्रमुख ऐतिहासिक स्थल है।"
+          "name": "Garibnath Dham (गरीबनाथ धाम)",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMgZM27qb8dwde9j4JnQnXW_gI3KkY3zWkTg&s",
+          "description": "Famous Shiva temple in the heart of Muzaffarpur. बाबा गरीबनाथ मंदिर, मुजफ्फरपुर का प्रमुख शिव मंदिर है।"
         },
         {
-          "name": "Mandar Hill (मंदर पर्वत)",
-          "image": "assets/images/mandar_hill.jpg",
-          "description": "A sacred hill associated with the Samudra Manthan legend from Hindu mythology. हिन्दू पौराणिक कथाओं के समुद्र मंथन प्रसंग से जुड़ा एक पवित्र पर्वत।"
+          "name": "Ram Chandra Shahi Museum (रामचन्द्र शाही संग्रहालय)",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSTGMH4vQabKqQR55Yn5AIHtEUNVa9ARtH3Q&s",
+          "description": "Museum showcasing historical artifacts. ऐतिहासिक वस्तुओं का संग्रहालय।"
         },
         {
-          "name": "Colganj Rock Cut Temples (कोलगंज रॉक कट मंदिर)",
-          "image": "assets/images/colganj_temple.jpg",
-          "description": "Ancient rock-cut temples featuring intricate carvings from Gupta period. गुप्तकालीन जटिल नक्काशी वाले प्राचीन गुफा मंदिर।"
+          "name": "Jubba Sahni Park (जुब्बा साहनी पार्क)",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfbW90c3v5aibP6cfOcUgT-VissM4mGbM4DQ&s",
+          "description": "Recreational park dedicated to freedom fighter Jubba Sahni. स्वतंत्रता सेनानी जुब्बा साहनी को समर्पित पार्क।"
         },
         {
-          "name": "Kuppaghat Ashram (कुप्पाघाट आश्रम)",
-          "image": "assets/images/kuppaghat_ashram.jpg",
-          "description": "Ashram of Maharshi Mehi, located on the banks of the Ganga river. गंगा नदी के किनारे स्थित महर्षि मेही का आश्रम।"
+          "name": "Simri Mai Temple (सिमरी माई मंदिर)",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjaAWplY8-HZ009KpK85wVLiPRC4d7M9g7Ow&s",
+          "description": "Popular religious site. प्रसिद्ध धार्मिक स्थल।"
         },
-        {
-          "name": "Ajgaibinath Temple (अजगैविनाथ मंदिर)",
-          "image": "assets/images/ajgaibinath_temple.jpg",
-          "description": "A famous Shiva temple located in Sultanganj, a key pilgrimage spot. सुल्तानगंज में स्थित प्रसिद्ध शिव मंदिर, प्रमुख तीर्थ स्थल।"
-        },
-        {
-          "name": "Sultanganj Ganga Ghats (सुल्तानगंज गंगा घाट)",
-          "image": "assets/images/sultanganj_ghat.jpg",
-          "description": "Ghats famous for holy dips and Kanwar Yatra starting point. पवित्र स्नान और कांवड़ यात्रा के प्रारंभ स्थल के लिए प्रसिद्ध घाट।"
-        },
-        {
-          "name": "Khanqah-e-Shahbazia (खानकाह-ए-शाहबाज़िया)",
-          "image": "assets/images/khanqah_shahbazia.jpg",
-          "description": "An important Sufi shrine in Bhagalpur. भागलपुर में स्थित एक महत्वपूर्ण सूफी दरगाह।"
-        },
-        {
-          "name": "Budhanath Temple (बुधनाथ मंदिर)",
-          "image": "assets/images/budhanath_temple.jpg",
-          "description": "Ancient Shiva temple located near Ganga river. गंगा नदी के पास स्थित प्राचीन शिव मंदिर।"
-        },
-        {
-          "name": "Ghuran Peer Baba Dargah (घूरन पीर बाबा दरगाह)",
-          "image": "assets/images/ghuran_peer_dargah.jpg",
-          "description": "Popular dargah attracting devotees of all faiths. सभी धर्मों के श्रद्धालुओं को आकर्षित करने वाली लोकप्रिय दरगाह।"
-        },
-        {
-          "name": "Tilka Manjhi Park (तिलका मांझी पार्क)",
-          "image": "assets/images/tilka_manjhi_park.jpg",
-          "description": "Park dedicated to freedom fighter Tilka Manjhi. स्वतंत्रता सेनानी तिलका मांझी को समर्पित पार्क।"
-        },
-        {
-          "name": "Ghantaghar (घंटाघर)",
-          "image": "assets/images/ghantaghar.jpg",
-          "description": "Iconic clock tower and a popular landmark in Bhagalpur. भागलपुर का प्रसिद्ध घंटाघर और प्रतीक चिन्ह।"
-        },
-        {
-          "name": "Sabour Agricultural University Campus (सबौर कृषि विश्वविद्यालय)",
-          "image": "assets/images/sabour_university.jpg",
-          "description": "Lush green campus of Bihar Agricultural University. बिहार कृषि विश्वविद्यालय का हरा-भरा परिसर।"
-        },
-        {
-          "name": "Champanagar Jain Temple (चंपानगर जैन मंदिर)",
-          "image": "assets/images/champanagar_jain_temple.jpg",
-          "description": "Historic Jain temple known for its beautiful architecture. अपनी सुंदर वास्तुकला के लिए प्रसिद्ध ऐतिहासिक जैन मंदिर।"
-        },
-        {
-          "name": "Nathnagar (नाथनगर)",
-          "image": "assets/images/nathnagar.jpg",
-          "description": "A historical area known for weaving and handicrafts. बुनाई और हस्तशिल्प के लिए प्रसिद्ध ऐतिहासिक क्षेत्र।"
-        },
-        {
-          "name": "Barari Park (बरारी पार्क)",
-          "image": "assets/images/barari_park.jpg",
-          "description": "Recreational park with lush greenery. हरे-भरे वातावरण वाला मनोरंजन पार्क।"
-        },
-        {
-          "name": "Burhanath Mandir (बुर्हानाथ मंदिर)",
-          "image": "assets/images/burhanath_temple.jpg",
-          "description": "Famous Shiva temple with great religious significance. धार्मिक महत्व वाला प्रसिद्ध शिव मंदिर।"
-        },
-        {
-          "name": "Adampur Ghat (आदमपुर घाट)",
-          "image": "assets/images/adampur_ghat.jpg",
-          "description": "Popular riverbank spot for bathing and rituals. स्नान और धार्मिक अनुष्ठानों के लिए लोकप्रिय नदी तट।"
-        },
-        {
-          "name": "Kahalgaon (कहलगाँव)",
-          "image": "assets/images/kahalgaon.jpg",
-          "description": "Town near Vikramshila known for historical importance. विक्रमशिला के पास स्थित ऐतिहासिक महत्व वाला कस्बा।"
-        },
-        {
-          "name": "Shahkund (शाहकुंड)",
-          "image": "assets/images/shahkund.jpg",
-          "description": "Scenic rural area surrounded by hills and greenery. पहाड़ियों और हरियाली से घिरा सुंदर ग्रामीण इलाका।"
-        },
-        {
-          "name": "Mirjanhat Market (मिर्जनहाट मार्केट)",
-          "image": "assets/images/mirjanhat_market.jpg",
-          "description": "Famous for silk sarees and local crafts. रेशमी साड़ियों और स्थानीय शिल्प के लिए प्रसिद्ध।"
-        },
-        {
-          "name": "Tatarpur (टाटरपुर)",
-          "image": "assets/images/tatarpur.jpg",
-          "description": "Historic locality known for trade and old markets. व्यापार और पुराने बाजारों के लिए प्रसिद्ध ऐतिहासिक इलाका।"
-        },
-        {
-          "name": "Shivnarayanpur (शिवनारायणपुर)",
-          "image": "assets/images/shivnarayanpur.jpg",
-          "description": "Village with historical temples and cultural heritage. ऐतिहासिक मंदिरों और सांस्कृतिक धरोहर वाला गाँव।"
-        },
-        {
-          "name": "Karhariya (करहरिया)",
-          "image": "assets/images/karhariya.jpg",
-          "description": "Small village with traditional lifestyle and festivals. पारंपरिक जीवनशैली और त्योहारों वाला छोटा गाँव।"
-        },
-        {
-          "name": "Habibpur (हबीबपुर)",
-          "image": "assets/images/habibpur.jpg",
-          "description": "Village famous for its fairs and religious gatherings. मेलों और धार्मिक आयोजनों के लिए प्रसिद्ध गाँव।"
-        }
       ],
-    "Muzaffarpur (मुज़फ़्फ़रपुर)": [
+    "Bhagalpur (भागलपुर)": [
       {
-        "name": "Baba Garibnath Temple",
-        "image": "assets/images/garibnath_temple.jpg",
-        "description": "Famous Shiva temple in the heart of Muzaffarpur. बाबा गरीबनाथ मंदिर, मुजफ्फरपुर का प्रमुख शिव मंदिर है।"
+        "name": "Vikramshila (विक्रमशिला)",
+        "image": "https://images.shiksha.com/mediadata/images/articles/1744259892phpqKwFvZ.jpeg",
+        "description": "The remains of Vikramshila University, established by King Dharampala in the 8th century, are a major historical site. विक्रमशिला विश्वविद्यालय के अवशेष, जो राजा धर्मपाल ने 8वीं शताब्दी में स्थापित किया था, एक प्रमुख ऐतिहासिक स्थल है।"
       },
       {
-        "name": "Litchi Gardens",
-        "image": "assets/images/litchi_gardens.jpg",
-        "description": "Known for world-famous Shahi Litchis. यह बागीचे शाही लीची के लिए मशहूर हैं।"
+        "name": "Mandar Hill (मंदर पर्वत)",
+        "image": "https://feeds.abplive.com/onecms/images/uploaded-images/2021/08/12/bd270b32154d315777c9aa55d6d6d267_original.jpg?impolicy=abp_cdn&imwidth=640",
+        "description": "A sacred hill associated with the Samudra Manthan legend from Hindu mythology. हिन्दू पौराणिक कथाओं के समुद्र मंथन प्रसंग से जुड़ा एक पवित्र पर्वत।"
       },
       {
-        "name": "Ram Chandra Shahi Museum",
-        "image": "assets/images/rcs_museum.jpg",
-        "description": "Museum showcasing historical artifacts. ऐतिहासिक वस्तुओं का संग्रहालय।"
+        "name": "Tilka Manjhi Park (तिलका मांझी पार्क)",
+        "image": "https://i0.wp.com/angdesh.com/wp-content/uploads/2022/06/tilka-manjhi-bhagalpur.jpg?fit=1200%2C788&ssl=1",
+        "description": "Park dedicated to freedom fighter Tilka Manjhi. स्वतंत्रता सेनानी तिलका मांझी को समर्पित पार्क।"
       },
       {
-        "name": "Jubba Sahni Park",
-        "image": "assets/images/jubba_sahni_park.jpg",
-        "description": "Recreational park dedicated to freedom fighter Jubba Sahni. स्वतंत्रता सेनानी जुब्बा साहनी को समर्पित पार्क।"
+        "name": "Sri Champapur Digambar (श्री चम्पापुर दिगंबर)",
+        "image": "https://avathioutdoors.gumlet.io/travelGuide/dev/bhagalpur_P3163.jpg",
+        "description":
+        "A famous Jain pilgrimage site, believed to be the place of all five Kalyanaks of Lord Vasupujya. "
+            "यह प्रसिद्ध जैन तीर्थ स्थल है, जहाँ भगवान वासुपूज्य के पाँचों कल्याणक हुए माने जाते हैं।"
       },
       {
-        "name": "Simri Mai Temple",
-        "image": "assets/images/simri_mai_temple.jpg",
-        "description": "Popular religious site. प्रसिद्ध धार्मिक स्थल।"
-      },
-      {
-        "name": "Khudi Ram Bose Memorial",
-        "image": "assets/images/khudi_ram_memorial.jpg",
-        "description": "Memorial of young freedom fighter Khudi Ram Bose. युवा स्वतंत्रता सेनानी खुदीराम बोस की स्मृति।"
-      },
-      {
-        "name": "Motijheel",
-        "image": "assets/images/motijheel.jpg",
-        "description": "Beautiful lake area. सुंदर झील का क्षेत्र।"
-      },
-      {
-        "name": "Rajkhand Temple",
-        "image": "assets/images/rajkhand_temple.jpg",
-        "description": "Ancient temple of Lord Shiva. भगवान शिव का प्राचीन मंदिर।"
-      },
-      {
-        "name": "Amawari Temple",
-        "image": "assets/images/amawari_temple.jpg",
-        "description": "Sacred temple for locals. स्थानीय लोगों का पवित्र मंदिर।"
-      },
-      {
-        "name": "Chaturbhuj Sthan",
-        "image": "assets/images/chaturbhuj_sthan.jpg",
-        "description": "Temple of Lord Vishnu. भगवान विष्णु का मंदिर।"
-      },
-      {
-        "name": "Lalganj",
-        "image": "assets/images/lalganj.jpg",
-        "description": "Famous for religious gatherings. धार्मिक आयोजनों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Bariarpur",
-        "image": "assets/images/bariarpur.jpg",
-        "description": "Village known for natural beauty. प्राकृतिक सुंदरता के लिए प्रसिद्ध गांव।"
-      },
-      {
-        "name": "Shri Ram Temple, Bela",
-        "image": "assets/images/bela_temple.jpg",
-        "description": "Lord Ram temple in Bela. बेला में भगवान राम का मंदिर।"
-      },
-      {
-        "name": "Company Bagh",
-        "image": "assets/images/company_bagh.jpg",
-        "description": "Public park for leisure. मनोरंजन के लिए सार्वजनिक पार्क।"
-      },
-      {
-        "name": "Shri Krishna Stadium",
-        "image": "assets/images/krishna_stadium.jpg",
-        "description": "Sports complex for local events. स्थानीय खेल आयोजनों का मैदान।"
-      },
-      {
-        "name": "Patahi Airport Area",
-        "image": "assets/images/patahi_airport.jpg",
-        "description": "Old airport location. पुराना हवाई अड्डा स्थल।"
-      },
-      {
-        "name": "Khabra",
-        "image": "assets/images/khabra.jpg",
-        "description": "Village with historical importance. ऐतिहासिक महत्व वाला गांव।"
-      },
-      {
-        "name": "Bhagwanpur",
-        "image": "assets/images/bhagwanpur.jpg",
-        "description": "Local marketplace. स्थानीय बाजार।"
-      },
-      {
-        "name": "Deoria",
-        "image": "assets/images/deoria.jpg",
-        "description": "Natural scenery spot. प्राकृतिक सुंदरता का स्थल।"
-      },
-      {
-        "name": "Damodarpur",
-        "image": "assets/images/damodarpur.jpg",
-        "description": "Ancient archaeological site. प्राचीन पुरातत्व स्थल।"
-      },
-      {
-        "name": "Harahi Pond",
-        "image": "assets/images/harahi_pond.jpg",
-        "description": "Peaceful pond area. शांतिपूर्ण तालाब क्षेत्र।"
-      },
-      {
-        "name": "Purani Bazar",
-        "image": "assets/images/purani_bazar.jpg",
-        "description": "Historic market. ऐतिहासिक बाजार।"
-      },
-      {
-        "name": "Baruraj",
-        "image": "assets/images/baruraj.jpg",
-        "description": "Religious site in outskirts. बाहरी क्षेत्र का धार्मिक स्थल।"
-      },
-      {
-        "name": "Jhapahan",
-        "image": "assets/images/jhapahan.jpg",
-        "description": "Village with cultural heritage. सांस्कृतिक विरासत वाला गांव।"
+        "name": "Maharshi Mehi Ashram (महर्षि मेही आश्रम)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNd9fnSH5J_yZBsuLWGfxtQ_5phAT8p2lAMA&s",
+        "description":
+        "A spiritual center dedicated to Maharshi Mehi, promoting Santmat and meditation practices. "
+            "यह महर्षि मेही को समर्पित आध्यात्मिक केंद्र है, जहाँ संतमत और ध्यान साधना का प्रचार किया जाता है।"
       },
     ],
     "Darbhanga (दरभंगा)": [
       {
-        "name": "Darbhanga Fort",
-        "image": "assets/images/darbhanga_fort.jpg",
-        "description": "Historic fort of Darbhanga Raj. दरभंगा राज का ऐतिहासिक किला।"
+        "name": "Ahilya Asthan (अहिल्या स्थान)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7NFfUuOHIamCbX__dlzWzyipJ2NLZNWvjQg&s",
+        "description": "Historic temple connected with Ramayana. ऐतिहासिक मंदिर, रामायण कथा से जुड़ा।"
       },
       {
-        "name": "Shyama Temple",
-        "image": "assets/images/shyama_temple.jpg",
-        "description": "Famous temple dedicated to Goddess Kali. देवी काली को समर्पित प्रसिद्ध मंदिर।"
+        "name": "Brahmpur (ब्राह्मपुर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxhDFWUqIxYMG_rqcTFq9nfYEAHsr2vrY3wA&s",
+        "description": "Home to Gautam Kund and Gautam Rishi Temple. गौतम कुंड और गौतम ऋषि मंदिर।"
       },
       {
-        "name": "Ahilya Asthan",
-        "image": "assets/images/ahilya_asthan.jpg",
-        "description": "Religious place connected to Ramayana. रामायण से जुड़ा धार्मिक स्थल।"
+        "name": "Kusheshwar Asthan (कुशेश्वर स्थान)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6bHXNiKVtjp8TsrxhSXowN3TJtRxG-XrRcg&s",
+        "description": "Shiva temple and bird sanctuary. शिव मंदिर और बर्ड सैंक्चुरी।"
       },
       {
-        "name": "Manokamna Temple",
-        "image": "assets/images/manokamna_temple.jpg",
-        "description": "Temple believed to fulfill wishes. मनोकामना पूरी करने वाला मंदिर।"
+        "name": "Mahinam Mahadeo Sthan (महिनाम महादेव स्थान)",
+        "image": "https://www.nativeplanet.com/photos/560x292/2018/08/photo-92-155232-3.jpg",
+        "description": "Shiva temple with fairs on Kartik and Magh Purnima. शिव मंदिर, कार्तिक व माघ पूर्णिमा पर मेला।"
       },
       {
-        "name": "Chandradhari Museum",
-        "image": "assets/images/chandradhari_museum.jpg",
-        "description": "Museum with historical artifacts. ऐतिहासिक वस्तुओं का संग्रहालय।"
+        "name": "Nawadah Durga Sthan (नवादा दुर्गा स्थान)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaqO2H9f0YezInOfoTgtBloUzfB3Dal2RHaA&s",
+        "description": "Durga temple with grand Dussehra fair. दुर्गा मंदिर, दशहरा मेला।"
       },
       {
-        "name": "Kusheshwar Asthan Bird Sanctuary",
-        "image": "assets/images/kusheshwar_sanctuary.jpg",
-        "description": "Bird sanctuary for migratory birds. प्रवासी पक्षियों का अभयारण्य।"
+        "name": "Shyama Temple (श्यामा मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk0G1xQ5BdmLTnFsR96JwImYvP5j9JwzvNIQ&s",
+        "description": "Famous Kali temple linked to Darbhanga Raj family. काली मंदिर, दरभंगा राज परिवार से जुड़ा।"
       },
       {
-        "name": "Mithila University Campus",
-        "image": "assets/images/mithila_university.jpg",
-        "description": "Educational hub of Mithila region. मिथिला क्षेत्र का शैक्षिक केंद्र।"
+        "name": "Manokamna Temple (मनोकामना मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHw7LuaCT2vm2DtI4YCSCXJxgfJqj0j0W3sg&s",
+        "description": "Hanuman temple near Nargona Palace. हनुमान मंदिर (नर्गौना पैलेस के पास)।"
       },
       {
-        "name": "Rambag Palace",
-        "image": "assets/images/rambag_palace.jpg",
-        "description": "Palace with royal heritage. शाही विरासत वाला महल।"
+        "name": "Kankali Temple (कंकाली मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSiFdh9AvhHZQWGDPCAJti8xcMlCDFHdHUWg&s",
+        "description": "Shakti Peeth inside Darbhanga Fort. दरभंगा किला परिसर का शक्तिपीठ।"
       },
       {
-        "name": "Anandbagh Palace",
-        "image": "assets/images/anandbagh_palace.jpg",
-        "description": "Historic palace of Darbhanga Raj. दरभंगा राज का ऐतिहासिक महल।"
+        "name": "Catholic Church (कैथोलिक चर्च / Holy Rosary Church)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpk0SFZCWDBPFEZNV5mPQujcEmQ9tcVNSYpw&s",
+        "description": "Established in 1891, famous for Christmas celebrations. 1891 में स्थापित, क्रिसमस प्रसिद्ध।"
       },
       {
-        "name": "Kameshwar Nath Mahadev Temple",
-        "image": "assets/images/kameshwar_temple.jpg",
-        "description": "Ancient Shiva temple. प्राचीन शिव मंदिर।"
+        "name": "Bhikha Salami Majar (भिखा सलामी मजार)",
+        "image": "https://www.nativeplanet.com/photos/412x309x100/2013/07/_13736095900.jpg",
+        "description": "Famous for Ramadan fair. रमजान मेले के लिए प्रसिद्ध।"
       },
       {
-        "name": "Harahi Pond",
-        "image": "assets/images/harahi_darbhanga.jpg",
-        "description": "Scenic pond area. सुंदर तालाब क्षेत्र।"
+        "name": "Masjid at Darbhanga Tower (दरभंगा टॉवर मस्जिद)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXUS4d-bSAbLwHNGgu2dI2Du7HyaJzkcUOeA&s",
+        "description": "Important Islamic site of Darbhanga. मुख्य इस्लामी स्थल।"
       },
       {
-        "name": "Donar",
-        "image": "assets/images/donar.jpg",
-        "description": "Village with historical sites. ऐतिहासिक स्थलों वाला गांव।"
+        "name": "Mazar of Makhdoom Baba (मखदूम बाबा मजार)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq44HXip2doXJxsMxUza6nCTZrmZNSaGCxDQ&s",
+        "description": "Symbol of communal harmony. साम्प्रदायिक सौहार्द का प्रतीक।"
       },
       {
-        "name": "Pindaruch",
-        "image": "assets/images/pindaruch.jpg",
-        "description": "Cultural village of Mithila. मिथिला का सांस्कृतिक गांव।"
+        "name": "Maharaja Laxmiswar Singh Museum (महाराजा लक्ष्मेश्वर सिंह संग्रहालय)",
+        "image": "https://i0.wp.com/eindiatourism.in/wp-content/uploads/2025/02/DARBHANGA_RAJ.jpg?resize=640%2C480&ssl=1",
+        "description": "Royal artifacts, weapons, and statues. राजसी कलाकृतियाँ, हथियार, मूर्तियाँ।"
       },
       {
-        "name": "Tinkathia",
-        "image": "assets/images/tinkathia.jpg",
-        "description": "Historic protest site during freedom struggle. स्वतंत्रता संग्राम का ऐतिहासिक स्थल।"
+        "name": "Chandradhari Museum (चंद्रधारी संग्रहालय)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXaj2BVGTL4rN7PmuOuy7vaTEbJveDsgY_sw&s",
+        "description": "Rare objects, paintings, and sculptures. दुर्लभ वस्तुएँ, चित्रकला, मूर्तियाँ।"
       },
       {
-        "name": "Brahmpur",
-        "image": "assets/images/brahmpur.jpg",
-        "description": "Spiritual village. आध्यात्मिक गांव।"
-      },
-      {
-        "name": "Bahera",
-        "image": "assets/images/bahera.jpg",
-        "description": "Known for crafts and culture. हस्तशिल्प और संस्कृति के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Hayaghat",
-        "image": "assets/images/hayaghat.jpg",
-        "description": "Area with river views. नदी के दृश्यों वाला क्षेत्र।"
-      },
-      {
-        "name": "Sakatpur",
-        "image": "assets/images/sakatpur.jpg",
-        "description": "Religious and cultural site. धार्मिक और सांस्कृतिक स्थल।"
-      },
-      {
-        "name": "Keoti",
-        "image": "assets/images/keoti.jpg",
-        "description": "Known for fairs and festivals. मेलों और त्योहारों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Simri",
-        "image": "assets/images/simri.jpg",
-        "description": "Cultural heritage village. सांस्कृतिक विरासत वाला गांव।"
-      },
-      {
-        "name": "Sadar Bazaar",
-        "image": "assets/images/sadar_bazaar.jpg",
-        "description": "Main market of Darbhanga. दरभंगा का मुख्य बाजार।"
-      },
-      {
-        "name": "Lohna",
-        "image": "assets/images/lohna.jpg",
-        "description": "Village with historical importance. ऐतिहासिक महत्व वाला गांव।"
-      },
-      {
-        "name": "Singhwara",
-        "image": "assets/images/singhwara.jpg",
-        "description": "Town known for temples. मंदिरों के लिए प्रसिद्ध कस्बा।"
-      },
-      {
-        "name": "Benipur",
-        "image": "assets/images/benipur.jpg",
-        "description": "Town with cultural events. सांस्कृतिक आयोजनों वाला कस्बा।"
-      },
-    ],
-    "Samastipur (समस्तीपुर)": [
-      {
-        "name": "Janaki Mandir, Sitamarhi",
-        "image": "assets/images/janaki_mandir_sitamarhi.jpg",
-        "description": "This temple is dedicated to Goddess Sita and holds immense religious significance. माता सीता को समर्पित यह मंदिर धार्मिक दृष्टि से अत्यंत महत्वपूर्ण है।"
-      },
-      {
-        "name": "Punaura Dham",
-        "image": "assets/images/punaura_dham.jpg",
-        "description": "Believed to be the birthplace of Goddess Sita. माना जाता है कि यह माता सीता का जन्मस्थान है।"
-      },
-      {
-        "name": "Haleshwar Sthan",
-        "image": "assets/images/haleshwar_sthan.jpg",
-        "description": "A Shiva temple associated with the marriage of Lord Shiva and Parvati. भगवान शिव और पार्वती के विवाह से जुड़ा एक शिव मंदिर।"
-      },
-      {
-        "name": "Baghachaura",
-        "image": "assets/images/baghachaura.jpg",
-        "description": "A scenic picnic spot surrounded by greenery. हरियाली से घिरा एक खूबसूरत पिकनिक स्थल।"
-      },
-      {
-        "name": "Panth Pakar",
-        "image": "assets/images/panth_pakar.jpg",
-        "description": "Historical spot where Sita is said to have rested. ऐतिहासिक स्थल जहाँ माता सीता ने विश्राम किया था।"
-      },
-      {
-        "name": "Bathnaha Wildlife Sanctuary",
-        "image": "assets/images/bathnaha_wildlife.jpg",
-        "description": "A sanctuary with a variety of wildlife and birds. विभिन्न वन्यजीव और पक्षियों वाला अभयारण्य।"
-      },
-      {
-        "name": "Rajopatti",
-        "image": "assets/images/rajopatti.jpg",
-        "description": "Known for its rural beauty and cultural heritage. अपनी ग्रामीण सुंदरता और सांस्कृतिक विरासत के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Parihar Fort",
-        "image": "assets/images/parihar_fort.jpg",
-        "description": "A historical fort reflecting ancient architecture. प्राचीन स्थापत्य कला को दर्शाने वाला ऐतिहासिक किला।"
-      },
-      {
-        "name": "Sursand",
-        "image": "assets/images/sursand.jpg",
-        "description": "A border town with Indo-Nepal cultural blend. भारत-नेपाल सांस्कृतिक मिश्रण वाला सीमा नगर।"
-      },
-      {
-        "name": "Bairgania",
-        "image": "assets/images/bairgania.jpg",
-        "description": "Popular for trade and cross-border interaction. व्यापार और सीमा पार मेलजोल के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Majorganj",
-        "image": "assets/images/majorganj.jpg",
-        "description": "A town with historical and cultural importance. ऐतिहासिक और सांस्कृतिक महत्व वाला नगर।"
-      },
-      {
-        "name": "Pupri",
-        "image": "assets/images/pupri.jpg",
-        "description": "Known for its temples and fairs. अपने मंदिरों और मेलों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Riga Sugar Factory",
-        "image": "assets/images/riga_sugar_factory.jpg",
-        "description": "One of the oldest sugar factories in Bihar. बिहार की सबसे पुरानी चीनी मिलों में से एक।"
-      },
-      {
-        "name": "Pipra",
-        "image": "assets/images/pipra.jpg",
-        "description": "A serene rural location with agricultural charm. शांत ग्रामीण क्षेत्र जिसकी कृषि सुंदरता है।"
-      },
-      {
-        "name": "Belsand",
-        "image": "assets/images/belsand.jpg",
-        "description": "Known for its weekly markets and fairs. अपने साप्ताहिक बाजारों और मेलों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Bathnaha",
-        "image": "assets/images/bathnaha.jpg",
-        "description": "Rich in biodiversity and green cover. जैव विविधता और हरियाली से भरपूर।"
-      },
-      {
-        "name": "Koilakh Village",
-        "image": "assets/images/koilakh_village.jpg",
-        "description": "A village with traditional Mithila art culture. पारंपरिक मिथिला कला संस्कृति वाला गाँव।"
-      },
-      {
-        "name": "Choraut",
-        "image": "assets/images/choraut.jpg",
-        "description": "Known for its scenic beauty and cultural traditions. प्राकृतिक सुंदरता और सांस्कृतिक परंपराओं के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Nanpur",
-        "image": "assets/images/nanpur.jpg",
-        "description": "A peaceful area with rural charm. ग्रामीण आकर्षण वाला शांत क्षेत्र।"
-      },
-      {
-        "name": "Runisaidpur",
-        "image": "assets/images/runisaidpur.jpg",
-        "description": "Famous for its temples and local festivals. अपने मंदिरों और स्थानीय त्योहारों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Sonbarsa",
-        "image": "assets/images/sonbarsa.jpg",
-        "description": "Close to the Nepal border, rich in cultural mix. नेपाल सीमा के पास, सांस्कृतिक मिश्रण से भरपूर।"
-      },
-      {
-        "name": "Parsauni",
-        "image": "assets/images/parsauni.jpg",
-        "description": "Known for its farming and traditional markets. खेती और पारंपरिक बाजारों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Bajpatti",
-        "image": "assets/images/bajpatti.jpg",
-        "description": "A small town with a vibrant local culture. जीवंत स्थानीय संस्कृति वाला छोटा नगर।"
-      },
-      {
-        "name": "Sheohar Border",
-        "image": "assets/images/sheohar_border.jpg",
-        "description": "Known for Indo-Nepal trade and cultural exchange. भारत-नेपाल व्यापार और सांस्कृतिक आदान-प्रदान के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Sita Kund",
-        "image": "assets/images/sita_kund.jpg",
-        "description": "A sacred pond associated with Sita’s life. माता सीता के जीवन से जुड़ा पवित्र तालाब।"
+        "name": "Darbhanga Town (दरभंगा शहर / राज परिसर)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Darbhanga_1.jpg",
+        "description": "Includes Nargona Palace, Anandbagh Bhavan, Bela Palace, and University campus. नर्गौना पैलेस, आनंदबाग भवन, बेला पैलेस, विश्वविद्यालय।"
       }
     ],
-
-    "Madhubani (मधुबनी)": [
-      {
-        "name": "Saurath Sabha",
-        "image": "assets/images/saurath_sabha.jpg",
-        "description": "Saurath Sabha is famous for annual marriage gatherings of Maithil Brahmins. यह स्थल मिथिला ब्राह्मणों के वार्षिक विवाह सम्मेलनों के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Kapileshwar Sthan",
-        "image": "assets/images/kapileshwar_sthan.jpg",
-        "description": "An ancient Shiva temple attracting devotees. एक प्राचीन शिव मंदिर जो भक्तों को आकर्षित करता है।"
-      },
-      {
-        "name": "Uchaitha Temple",
-        "image": "assets/images/uchaitha_temple.jpg",
-        "description": "Dedicated to Goddess Durga, known for its religious significance. माता दुर्गा को समर्पित धार्मिक महत्व का स्थान।"
-      },
-      {
-        "name": "Bhawanipur",
-        "image": "assets/images/bhawanipur.jpg",
-        "description": "Known for Vidyapati’s house and memorial. विद्वान कवि विद्यापति के घर और स्मारक के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Laukaha Market",
-        "image": "assets/images/laukaha_market.jpg",
-        "description": "A famous Indo-Nepal trade market. भारत-नेपाल का प्रसिद्ध व्यापारिक बाज़ार।"
-      },
-      {
-        "name": "Madhubani Painting Village",
-        "image": "assets/images/madhubani_painting.jpg",
-        "description": "Home to world-famous Mithila paintings. विश्व प्रसिद्ध मिथिला पेंटिंग का घर।"
-      },
-      {
-        "name": "Supaul Bazar",
-        "image": "assets/images/supaul_bazar.jpg",
-        "description": "Cultural hub and shopping spot. सांस्कृतिक केंद्र और खरीदारी की जगह।"
-      },
-      {
-        "name": "Rahu Village",
-        "image": "assets/images/rahu_village.jpg",
-        "description": "Historical village with temples. मंदिरों वाला ऐतिहासिक गाँव।"
-      },
-      {
-        "name": "Khajauli",
-        "image": "assets/images/khajauli.jpg",
-        "description": "Town with vibrant local culture. जीवंत स्थानीय संस्कृति वाला नगर।"
-      },
-      {
-        "name": "Phulparas",
-        "image": "assets/images/phulparas.jpg",
-        "description": "Famous for rural fairs and cultural events. ग्रामीण मेलों और सांस्कृतिक आयोजनों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Pandawari",
-        "image": "assets/images/pandawari.jpg",
-        "description": "Known for ancient ruins. प्राचीन खंडहरों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Jhanjharpur",
-        "image": "assets/images/jhanjharpur.jpg",
-        "description": "Railway hub and cultural center. रेलवे केंद्र और सांस्कृतिक स्थल।"
-      },
-      {
-        "name": "Andhratharhi",
-        "image": "assets/images/andhratharhi.jpg",
-        "description": "Traditional crafts and art center. पारंपरिक शिल्प और कला का केंद्र।"
-      },
-      {
-        "name": "Basuara",
-        "image": "assets/images/basuara.jpg",
-        "description": "Known for village tourism. ग्रामीण पर्यटन के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Benipatti",
-        "image": "assets/images/benipatti.jpg",
-        "description": "Religious temples and cultural heritage. धार्मिक मंदिर और सांस्कृतिक विरासत।"
-      },
-      {
-        "name": "Nirmali",
-        "image": "assets/images/nirmali.jpg",
-        "description": "Historical town with scenic views. ऐतिहासिक नगर और सुंदर दृश्य।"
-      },
-      {
-        "name": "Jitwarpur",
-        "image": "assets/images/jitwarpur.jpg",
-        "description": "Famous for Mithila paintings. मिथिला पेंटिंग के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Sapti",
-        "image": "assets/images/sapti.jpg",
-        "description": "A rural hamlet with natural beauty. प्राकृतिक सुंदरता वाला ग्रामीण इलाका।"
-      },
-      {
-        "name": "Rajnagar Palace",
-        "image": "assets/images/rajnagar_palace.jpg",
-        "description": "Historic palace ruins. ऐतिहासिक महल के खंडहर।"
-      },
-      {
-        "name": "Shiv Sagar Lake",
-        "image": "assets/images/shiv_sagar.jpg",
-        "description": "Beautiful lake near Kapileshwar. कपिलेश्वर के पास सुंदर झील।"
-      },
-      {
-        "name": "Chandrayan Ghat",
-        "image": "assets/images/chandrayan_ghat.jpg",
-        "description": "Popular religious ghat. प्रसिद्ध धार्मिक घाट।"
-      },
-      {
-        "name": "Pandaul",
-        "image": "assets/images/pandaul.jpg",
-        "description": "Town known for cultural fairs. सांस्कृतिक मेलों के लिए प्रसिद्ध नगर।"
-      },
-      {
-        "name": "Haripur",
-        "image": "assets/images/haripur.jpg",
-        "description": "Village with temples and ponds. मंदिरों और तालाबों वाला गाँव।"
-      },
-      {
-        "name": "Ghoghardih",
-        "image": "assets/images/ghoghardih.jpg",
-        "description": "Historical village with ancient temples. प्राचीन मंदिरों वाला ऐतिहासिक गाँव।"
-      },
-      {
-        "name": "Bela",
-        "image": "assets/images/bela.jpg",
-        "description": "Scenic rural location. सुंदर ग्रामीण स्थल।"
-      },
-    ],
-
     "Kishanganj (किशनगंज)": [
       {
         "name": "Har Gauri Temple (हर गौरी मंदिर)",
-        "image": "assets/images/har_gauri_temple.jpg",
-        "description": "A historic Shiva temple known for its unique architecture and religious importance. हर गौरी मंदिर अपनी अनोखी स्थापत्य कला और धार्मिक महत्व के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Khagra Mela (खगड़ा मेला)",
-        "image": "assets/images/khagra_mela.jpg",
-        "description": "An annual fair attracting visitors from nearby regions with cultural performances. खगड़ा मेला सांस्कृतिक कार्यक्रमों और धार्मिक अनुष्ठानों के लिए मशहूर है।"
-      },
-      {
-        "name": "Kishanganj Jama Masjid (किशनगंज जामा मस्जिद)",
-        "image": "assets/images/kishanganj_jama_masjid.jpg",
-        "description": "A beautiful mosque reflecting Mughal architecture. जामा मस्जिद अपनी मुगल शैली की सुंदरता के लिए जानी जाती है।"
-      },
-      {
-        "name": "Baisi Eidgah (बैसी ईदगाह)",
-        "image": "assets/images/baisi_eidgah.jpg",
-        "description": "A large open-air prayer ground for Eid celebrations. बैसी ईदगाह ईद के अवसर पर हजारों लोगों के जुटने का स्थल है।"
-      },
-      {
-        "name": "Kochadhaman Fort (कोचाधामन किला)",
-        "image": "assets/images/kochadhaman_fort.jpg",
-        "description": "An old fort narrating tales of local rulers. कोचाधामन किला क्षेत्र के ऐतिहासिक महत्व का प्रतीक है।"
-      },
-      {
-        "name": "Bahadurganj Market (बहादुरगंज बाजार)",
-        "image": "assets/images/bahadurganj_market.jpg",
-        "description": "A bustling market famous for local handicrafts. बहादुरगंज बाजार स्थानीय हस्तशिल्प और व्यापार के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Kishanganj Clock Tower (किशनगंज घड़ी टावर)",
-        "image": "assets/images/kishanganj_clock_tower.jpg",
-        "description": "A landmark in the city centre. घड़ी टावर शहर के मध्य का एक प्रमुख चिन्ह है।"
-      },
-      {
-        "name": "Pothia Hills (पोठिया पहाड़ियां)",
-        "image": "assets/images/pothia_hills.jpg",
-        "description": "A scenic hill area ideal for trekking. पोठिया पहाड़ियां प्राकृतिक सौंदर्य और ट्रैकिंग के लिए मशहूर हैं।"
+        "image": "https://i0.wp.com/angdesh.com/wp-content/uploads/2022/07/har-gauri-temple-kishanganj-purnea.jpg?resize=582%2C436&ssl=1",
+        "description": "A famous Shiva temple with great religious significance. हर गौरी मंदिर धार्मिक महत्व और श्रद्धा का प्रमुख केंद्र है।"
       },
       {
         "name": "Haldibari Tea Gardens (हल्दीबाड़ी चाय बागान)",
-        "image": "assets/images/haldibhari_tea_gardens.jpg",
-        "description": "Tea gardens offering a peaceful escape. हल्दीबाड़ी चाय बागान सुकून और प्राकृतिक सौंदर्य का आनंद देते हैं।"
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKXjpGZsU8bmy_nX5w8Eu2M2iOYvEdyW_j5w&s",
+        "description": "Lush green tea gardens offering a unique tea tourism experience. हल्दीबाड़ी चाय बागान हरियाली और चाय पर्यटन के लिए मशहूर हैं।"
       },
       {
-        "name": "Kishanganj Railway Station (किशनगंज रेलवे स्टेशन)",
-        "image": "assets/images/kishanganj_railway_station.jpg",
-        "description": "A historic railway junction connecting regions. रेलवे स्टेशन का ऐतिहासिक महत्व है।"
-      },
-      {
-        "name": "Bahadurganj Eidgah (बहादुरगंज ईदगाह)",
-        "image": "assets/images/bahadurganj_eidgah.jpg",
-        "description": "Open ground for large religious gatherings. यह स्थान धार्मिक आयोजनों के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Churliya Village (चुर्लिया गांव)",
-        "image": "assets/images/churliya_village.jpg",
-        "description": "A picturesque village with rich culture. चुर्लिया गांव अपनी संस्कृति और सौंदर्य के लिए मशहूर है।"
-      },
-      {
-        "name": "Thakurganj Bazaar (ठाकुरगंज बाजार)",
-        "image": "assets/images/thakurganj_bazaar.jpg",
-        "description": "Market famous for fresh produce. ठाकुरगंज बाजार ताजी सब्जियों और फलों के लिए मशहूर है।"
-      },
-      {
-        "name": "Dighalbank Mosque (डिघलबैंक मस्जिद)",
-        "image": "assets/images/dighalbank_mosque.jpg",
-        "description": "Historic mosque of the region. डिघलबैंक मस्जिद का ऐतिहासिक महत्व है।"
-      },
-      {
-        "name": "Kishanganj Eco Park (किशनगंज इको पार्क)",
-        "image": "assets/images/kishanganj_eco_park.jpg",
-        "description": "A park with greenery and play areas. इको पार्क प्राकृतिक सौंदर्य और मनोरंजन का केंद्र है।"
-      },
-      {
-        "name": "Pothia Wildlife Area (पोठिया वन्य क्षेत्र)",
-        "image": "assets/images/pothia_wildlife_area.jpg",
-        "description": "A small wildlife habitat. यह क्षेत्र छोटे वन्यजीवों का घर है।"
-      },
-      {
-        "name": "Kishanganj Library (किशनगंज पुस्तकालय)",
-        "image": "assets/images/kishanganj_library.jpg",
-        "description": "Public library with local literature. पुस्तकालय में स्थानीय साहित्य का संग्रह है।"
-      },
-      {
-        "name": "Kishanganj Stadium (किशनगंज स्टेडियम)",
-        "image": "assets/images/kishanganj_stadium.jpg",
-        "description": "Sports ground for cricket and football. यह स्टेडियम खेल गतिविधियों के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Baisi Bazaar (बैसी बाजार)",
-        "image": "assets/images/baisi_bazaar.jpg",
-        "description": "Popular for street food and local shopping. बैसी बाजार स्ट्रीट फूड और खरीदारी के लिए मशहूर है।"
-      },
-      {
-        "name": "Pothia Mandir (पोठिया मंदिर)",
-        "image": "assets/images/pothia_mandir.jpg",
-        "description": "Ancient temple of local belief. पोठिया मंदिर स्थानीय आस्था का केंद्र है।"
-      },
-      {
-        "name": "Kishanganj River Bank (किशनगंज नदी किनारा)",
-        "image": "assets/images/kishanganj_river_bank.jpg",
-        "description": "Scenic spot for picnics. नदी किनारा पिकनिक और विश्राम के लिए उत्तम है।"
-      },
-      {
-        "name": "Harobari Tea Estate (हरोबाड़ी चाय बागान)",
-        "image": "assets/images/harobari_tea_estate.jpg",
-        "description": "Lush tea gardens offering scenic walks. हरोबाड़ी चाय बागान सुंदर पैदल यात्रा के लिए मशहूर है।"
-      },
-      {
-        "name": "Kishanganj Handloom Centre (किशनगंज हैंडलूम केंद्र)",
-        "image": "assets/images/kishanganj_handloom.jpg",
-        "description": "Centre promoting local weaving art. यह केंद्र स्थानीय बुनाई कला को बढ़ावा देता है।"
-      },
-      {
-        "name": "Bahadurganj Bridge (बहादुरगंज पुल)",
-        "image": "assets/images/bahadurganj_bridge.jpg",
-        "description": "Bridge over local river. यह पुल आसपास के गांवों को जोड़ता है।"
-      },
+        "name": "Nehru Shanti Park (नेहरू शांति पार्क)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw05y3YsgatGRyoUKQu-HqMeZ8LeYzvKnGsw&s",
+        "description": "A peaceful park ideal for relaxation and family outings. नेहरू शांति पार्क शांति और परिवार संग समय बिताने का बेहतरीन स्थल है।"
+      }
     ],
-
-     "Araria (अररिया)":[
+    "Patna (पटना)": [
       {
-        "name": "Forbesganj Clock Tower (फोर्ब्सगंज घड़ी टावर)",
-        "image": "assets/images/forbesganj_clock_tower.jpg",
-        "description": "A colonial-era clock tower. यह टावर औपनिवेशिक युग का स्मारक है।"
+        "name": "Golghar",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Golghar_%E0%A5%AA.jpg/500px-Golghar_%E0%A5%AA.jpg",
+        "description": "Golghar, built in 1786 by Captain John Garstin, is a massive granary offering panoramic views of Patna. गोलघर, 1786 में कैप्टन जॉन गार्स्टिन द्वारा बनाया गया एक विशाल अन्नागार है, जहाँ से पटना का शानदार नज़ारा दिखता है।"
       },
       {
-        "name": "Kosi River Bank (कोसी नदी किनारा)",
-        "image": "assets/images/kosi_river_bank.jpg",
-        "description": "Popular picnic spot along the Kosi River. कोसी नदी का किनारा पिकनिक और घूमने के लिए मशहूर है।"
+        "name": "Patna Museum",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/patna-museum-patna-bihar1-attr-hero?qlt=82&ts=1742184173282",
+        "description": "Patna Museum houses rare artifacts, paintings, and ancient relics. पटना संग्रहालय में दुर्लभ कलाकृतियाँ और प्राचीन वस्तुएँ रखी हैं।"
       },
       {
-        "name": "Raniganj Bazaar (रानीगंज बाजार)",
-        "image": "assets/images/raniganj_bazaar.jpg",
-        "description": "Famous for local produce and handicrafts. यह बाजार स्थानीय उत्पाद और हस्तशिल्प के लिए प्रसिद्ध है।"
+        "name": "Sanjay Gandhi Biological Park",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDpzAdy2SnR7BYbyFHJhYBv-ygBCnSWfZAg&s",
+        "description": "A famous zoo and botanical garden. प्रसिद्ध चिड़ियाघर और बॉटनिकल गार्डन।"
       },
       {
-        "name": "Narpatganj Fort (नरपतगंज किला)",
-        "image": "assets/images/narpatganj_fort.jpg",
-        "description": "Historic fort ruins. यह किला स्थानीय इतिहास की कहानी कहता है।"
+        "name": "Takht Sri Patna Sahib",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/takht-sri-patna-sahib-patna1-bihar-attr-hero?qlt=82&ts=1742157323645",
+        "description": "A sacred Sikh Gurudwara dedicated to Guru Gobind Singh Ji. गुरु गोविंद सिंह जी को समर्पित पवित्र गुरुद्वारा।"
       },
       {
-        "name": "Araria Jama Masjid (अररिया जामा मस्जिद)",
-        "image": "assets/images/araria_jama_masjid.jpg",
-        "description": "Beautiful mosque with Indo-Islamic architecture. यह मस्जिद अपनी खूबसूरत वास्तुकला के लिए जानी जाती है।"
+        "name": "Buddha Smriti Park",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6OSGPcShJym7zYiPXcBJ96SCbkipFUGjCOA&s",
+        "description": "Memorial park dedicated to Lord Buddha. भगवान बुद्ध को समर्पित स्मारक पार्क।"
       },
       {
-        "name": "Kursakanta Hills (कुर्साकांटा पहाड़ियां)",
-        "image": "assets/images/kursakanta_hills.jpg",
-        "description": "Small hill range ideal for short treks. ये पहाड़ियां ट्रेकिंग के लिए उपयुक्त हैं।"
+        "name": "Kumhrar Park",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/kumhrar-park-patna-1-attr-hero?qlt=82&ts=1742197952471",
+        "description": "Ancient archaeological site from Mauryan period. मौर्य काल का प्राचीन पुरातात्विक स्थल।"
       },
       {
-        "name": "Sarsi Eco Park (सरसी इको पार्क)",
-        "image": "assets/images/sarsi_eco_park.jpg",
-        "description": "Green park with children's play area. यह पार्क हरियाली और बच्चों के लिए खेल क्षेत्र के लिए मशहूर है।"
+        "name": "Agam Kuan",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/agam-kuan-patna-bihar-1-musthead-hero?qlt=82&ts=1742176399502",
+        "description": "Ancient well dating back to Ashoka period. अशोक काल का प्राचीन कुआँ।"
       },
       {
-        "name": "Forbesganj Railway Station (फोर्ब्सगंज रेलवे स्टेशन)",
-        "image": "assets/images/forbesganj_railway_station.jpg",
-        "description": "Important railway hub of the district. यह स्टेशन क्षेत्र का प्रमुख रेलवे जंक्शन है।"
+        "name": "Padri Ki Haveli",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrs3mdU5wuvkVlZTkNWuWsYxMfPpgnBtXaQ&s",
+        "description": "Oldest church in Bihar built in 1772. बिहार का सबसे पुराना चर्च, 1772 में बना।"
       },
       {
-        "name": "Bhargama Market (भरगामा बाजार)",
-        "image": "assets/images/bhargama_market.jpg",
-        "description": "Weekly market known for fresh produce. यह बाजार ताजे फलों और सब्जियों के लिए प्रसिद्ध है।"
+        "name": "Gandhi Maidan",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Gandhi_Maidan.jpg",
+        "description": "Historic ground where major political rallies are held. ऐतिहासिक मैदान, जहाँ महत्वपूर्ण रैलियाँ होती हैं।"
       },
       {
-        "name": "Kosi Barrage View Point (कोसी बैराज व्यू प्वाइंट)",
-        "image": "assets/images/kosi_barrage_view.jpg",
-        "description": "Scenic view of the Kosi Barrage. यहां से बैराज का सुंदर दृश्य दिखता है।"
+        "name": "Planetarium Patna",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/61/fc/a2/crop-20170822-233322.jpg?w=900&h=500&s=1",
+        "description": "One of Asia’s largest planetariums. एशिया के सबसे बड़े तारामंडलों में से एक।"
       },
       {
-        "name": "Jankinagar Temple (जानकीनगर मंदिर)",
-        "image": "assets/images/jankinagar_temple.jpg",
-        "description": "Ancient temple dedicated to Goddess Sita. यह मंदिर माता सीता को समर्पित है।"
+        "name": "Eco Park",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIGpOAYSqANXRH2OQDTzJ6LB-aBl-M5VKP8w&s",
+        "description": "Green park with walking tracks and boating. हरियाली से भरा पार्क जिसमें बोटिंग की सुविधा।"
       },
       {
-        "name": "Belsar Eidgah (बेलसर ईदगाह)",
-        "image": "assets/images/belsar_eidgah.jpg",
-        "description": "Open ground for Eid prayers. यह ईदगाह धार्मिक आयोजनों के लिए प्रसिद्ध है।"
+        "name": "Khuda Bakhsh Library",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/khuda-bakhsh-oriental-public-library-1-attr-hero?qlt=82&ts=1742156627752",
+        "description": "Library with rare manuscripts. दुर्लभ पांडुलिपियों वाली लाइब्रेरी।"
       },
       {
-        "name": "Sikti Wildlife Spot (सिकटी वन्य स्थल)",
-        "image": "assets/images/sikti_wildlife.jpg",
-        "description": "Home to local birds and small animals. यह स्थल पक्षियों और छोटे वन्यजीवों का घर है।"
+        "name": "Funtasia Water Park",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzWQW8YMKaEih17jC5GIcwpxhYx9rZTIeSRw&s",
+        "description": "First water park of Bihar. बिहार का पहला वॉटर पार्क।"
       },
       {
-        "name": "Palasi War Memorial (पालासी युद्ध स्मारक)",
-        "image": "assets/images/palasi_war_memorial.jpg",
-        "description": "Memorial dedicated to historical battles. यह स्मारक ऐतिहासिक युद्धों की याद में बना है।"
+        "name": "Mahavir Mandir",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgC1mr1YX3zPvdKXS2l077S-nheDGwULsUPQ&s",
+        "description": "Famous Hanuman temple near Patna Junction. पटना जंक्शन के पास प्रसिद्ध हनुमान मंदिर।"
       },
       {
-        "name": "Ratuwa River Side (रतुवा नदी किनारा)",
-        "image": "assets/images/ratuwa_river_side.jpg",
-        "description": "Quiet riverside picnic location. यह स्थान पिकनिक और विश्राम के लिए उत्तम है।"
+        "name": "ISKCON Temple",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjCELksw3b8FVLheO89TqEdkWuOlSPq6tYwQ&s",
+        "description": "Beautiful temple of Lord Krishna. भगवान कृष्ण का भव्य मंदिर।"
       },
       {
-        "name": "Forbesganj Gurudwara (फोर्ब्सगंज गुरुद्वारा)",
-        "image": "assets/images/forbesganj_gurudwara.jpg",
-        "description": "Sikh place of worship with peaceful surroundings. यह गुरुद्वारा शांति का प्रतीक है।"
+        "name": "Ganga Ghat",
+        "image": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202001/Patna_Ganga_ghats_01.jpeg",
+        "description": "Famous riverfront for Ganga Aarti. गंगा आरती के लिए प्रसिद्ध तट।"
       },
       {
-        "name": "Sarsi Hanuman Mandir (सरसी हनुमान मंदिर)",
-        "image": "assets/images/sarsi_hanuman_temple.jpg",
-        "description": "Popular temple dedicated to Lord Hanuman. यह मंदिर हनुमान जी को समर्पित है।"
+        "name": "Patna Sahib Fort",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKxNe89VfIFJIl6kzqW7aMoSnK3jm2lv082g&s",
+        "description": "Historical fort near Gurudwara Patna Sahib. गुरुद्वारा पटना साहिब के पास का ऐतिहासिक किला।"
       },
       {
-        "name": "Jogbani Border (जोगबनी बॉर्डर)",
-        "image": "assets/images/jogbani_border.jpg",
-        "description": "Indo-Nepal border town famous for cross-border trade. यह स्थान भारत-नेपाल व्यापार के लिए प्रसिद्ध है।"
+        "name": "Rajdhani Vatika",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDLaY21Hee-vZ5lOtyTmaa4N9sPzzIQn74-w&s",
+        "description": "Public park for recreation. मनोरंजन के लिए सार्वजनिक पार्क।"
       },
       {
-        "name": "Araria Stadium (अररिया स्टेडियम)",
-        "image": "assets/images/araria_stadium.jpg",
-        "description": "Sports hub for cricket and football. यह स्टेडियम खेलों के लिए प्रसिद्ध है।"
+        "name": "Srikrishna Science Centre",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/sri-krishna-science-centre-patna-2-attr-hero?qlt=82&ts=1742196044627",
+        "description": "Interactive science exhibits. इंटरएक्टिव विज्ञान प्रदर्शनी।"
       },
       {
-        "name": "Bhargama Kali Mandir (भरगामा काली मंदिर)",
-        "image": "assets/images/bhargama_kali_temple.jpg",
-        "description": "Temple dedicated to Goddess Kali. यह मंदिर काली माता को समर्पित है।"
+        "name": "Japanese Peace Pagoda",
+        "image": "https://www.shutterstock.com/image-photo/vishwa-shanti-stupa-vaishali-biharindiais-260nw-2468092653.jpg",
+        "description": "Buddhist monument for peace. शांति के लिए बौद्ध स्मारक।"
       },
       {
-        "name": "Kursakanta Market (कुर्साकांटा बाजार)",
-        "image": "assets/images/kursakanta_market.jpg",
-        "description": "Local market for daily needs. यह बाजार रोजमर्रा की वस्तुओं के लिए मशहूर है।"
+        "name": "Badi Patan Devi Temple",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/patan-devi-mandir-patna-bihar-2-attr-hero?qlt=82&ts=1742160519674",
+        "description": "One of the 51 Shakti Peethas. 51 शक्ति पीठों में से एक।"
       },
       {
-        "name": "Palasi Bazaar (पालासी बाजार)",
-        "image": "assets/images/palasi_bazaar.jpg",
-        "description": "Known for traditional sweets and snacks. यह बाजार मिठाइयों और स्नैक्स के लिए प्रसिद्ध है।"
+        "name": "Chhoti Patan Devi Temple",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwhB1iaDOBwTGCv1yWDO3ql5SMnEVgIMO6Ow&s",
+        "description": "Ancient temple of Goddess Durga. माँ दुर्गा का प्राचीन मंदिर।"
       },
       {
-        "name": "Sikti Bridge (सिकटी पुल)",
-        "image": "assets/images/sikti_bridge.jpg",
-        "description": "Bridge connecting remote villages. यह पुल दूरदराज के गांवों को जोड़ता है।"
+        "name": "Pathar Ki Masjid",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDuwvyfH_zOmjOlQ0SrW8M1yRN6dvxBqi3Ug&s",
+        "description": "Mosque made of stone built in 1621. पत्थर से बनी मस्जिद, 1621 में निर्मित।"
       },
       {
-        "name": "Araria Public Library (अररिया सार्वजनिक पुस्तकालय)",
-        "image": "assets/images/araria_library.jpg",
-        "description": "Library with collection of local literature. इस पुस्तकालय में स्थानीय साहित्य का संग्रह है।"
+        "name": "Hanuman Mandir Birla Colony",
+        "image": "https://media-cdn.tripadvisor.com/media/photo-i/11/ec/95/4d/hanuman-mandir-patna.jpg",
+        "description": "Popular Hanuman temple in Birla Colony. बिरला कॉलोनी का प्रसिद्ध हनुमान मंदिर।"
+      },
+      {
+        "name": "NIT Ghat",
+        "image": "https://d2kihw5e8drjh5.cloudfront.net/eyJidWNrZXQiOiJ1dGEtaW1hZ2VzIiwia2V5IjoicGxhY2VfaW1nLzRiNzg4NDgxOTgwNjRiMjg5YzU5NjBlYTllYTE4OTQ4IiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo2NDAsImhlaWdodCI6NjQwLCJmaXQiOiJpbnNpZGUifSwicm90YXRlIjpudWxsLCJ0b0Zvcm1hdCI6ICJ3ZWJwIn19",
+        "description": "Popular spot for evening strolls along the Ganga. गंगा किनारे घूमने का लोकप्रिय स्थान।"
       }
     ],
 
-    "Purnia (पूर्णिया)": [
+    "Gaya ji (गया जी)": [
       {
-        "name": "Jalalgarh Fort",
-        "image": "assets/images/jalalgarh_fort.jpg",
-        "description": "A historic fort built in the 18th century by Saif Khan. जलालगढ़ किला 18वीं सदी में सैफ खान द्वारा बनवाया गया था।"
+        "name": "Mahabodhi Temple",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSplPP6pKfS1HVvScBf838xidRNRVmFhF6_jQ&s",
+        "description": "Mahabodhi Temple in Bodh Gaya is one of the most sacred and revered Buddhist pilgrimage sites in the world. It is the place where Lord Buddha attained enlightenment under the Bodhi Tree more than 2500 years ago. The temple complex features magnificent architecture, intricate carvings, stupas, and shrines, drawing pilgrims, tourists, and scholars alike. Visitors can experience spiritual tranquility, meditate in the serene surroundings, and witness the grandeur of ancient Buddhist art and heritage. The temple is a UNESCO World Heritage Site and attracts thousands of devotees annually. महाबोधि मंदिर, गया में विश्व के सबसे पवित्र बौद्ध तीर्थस्थलों में से एक है। यह वही स्थान है जहाँ भगवान बुद्ध ने पवित्र बोधि वृक्ष के नीचे ज्ञान प्राप्त किया। मंदिर परिसर में भव्य वास्तुकला, जटिल नक्काशी, स्तूप और मंदिर हैं।"
       },
       {
-        "name": "Kosi River View Point",
-        "image": "assets/images/kosi_river_view.jpg",
-        "description": "Beautiful riverside view with boating facilities. खूबसूरत नदी किनारे का दृश्य और नौकायन सुविधा।"
+        "name": "Bodhi Tree",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bodhi_Tree_Distant_View_-_panoramio.jpg/250px-Bodhi_Tree_Distant_View_-_panoramio.jpg",
+        "description": "The Bodhi Tree is the sacred fig tree under which Lord Buddha attained enlightenment in Bodh Gaya. Pilgrims from around the world come to meditate, offer prayers, and experience a deep spiritual connection. Surrounded by temples, stupas, and peaceful gardens, this holy tree is a symbol of wisdom, peace, and awakening. Visitors often circumambulate the tree, chant mantras, and engage in reflective meditation, feeling the serene energy of the site. The Bodhi Tree is central to Buddhist heritage and attracts spiritual seekers, historians, and tourists alike. पवित्र बोधि वृक्ष, गया में भगवान बुद्ध ने ज्ञान प्राप्त किया। यह शांति और ध्यान का प्रतीक है।"
       },
       {
-        "name": "Purnia Kali Mandir",
-        "image": "assets/images/kali_mandir.jpg",
-        "description": "Famous temple dedicated to Goddess Kali. माता काली को समर्पित प्रसिद्ध मंदिर।"
+        "name": "Great Buddha Statue",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuZKtEGYaWu2q-zc_Hs9GSzMUylmXkJ7gZCw&s",
+        "description": "The Great Buddha Statue in Bodh Gaya stands 80 feet tall and is a magnificent example of modern Buddhist sculpture. Surrounded by serene gardens and monasteries, it provides an ideal spot for meditation and reflection. Tourists and devotees admire its serene expression, golden hue, and intricate detailing. The statue symbolizes peace, enlightenment, and the teachings of Lord Buddha. It is visited by thousands annually for photography, spiritual practice, and learning about Buddhist art and culture. The site offers a panoramic view of the surroundings and a calming atmosphere for all visitors. गया में स्थित महान बुद्ध प्रतिमा 80 फीट ऊँची है और बौद्ध धर्म की शिक्षाओं का प्रतीक है।"
       },
       {
-        "name": "Line Bazar Market",
-        "image": "assets/images/line_bazar.jpg",
-        "description": "Main commercial hub of Purnia. पूर्णिया का मुख्य व्यावसायिक केंद्र।"
+        "name": "Dungeshwari Cave Temples",
+        "image": "https://static2.tripoto.com/media/filter/tst/img/1682066/TripDocument/1568776459_1568776458503.jpg",
+        "description": "Dungeshwari Cave Temples, located near Bodh Gaya, are historically important as the caves where Lord Buddha meditated before attaining enlightenment. Carved into rocky hills, these caves allow visitors to experience the austere monastic life and spiritual practices of Buddha. The tranquil environment, surrounded by natural beauty, provides a perfect atmosphere for meditation and reflection. Pilgrims often engage in silent contemplation and rituals here. The caves are an archaeological treasure and a significant pilgrimage site, attracting tourists, historians, and spiritual seekers from across the world. गुफाएँ, गया के पास स्थित, भगवान बुद्ध ने ज्ञान प्राप्ति से पहले यहाँ ध्यान किया।"
       },
       {
-        "name": "Purnia Science Centre",
-        "image": "assets/images/science_centre.jpg",
-        "description": "Educational spot with science exhibits. विज्ञान प्रदर्शनों वाला शैक्षिक स्थल।"
+        "name": "Vishnupad Temple",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Vishnupadh_Temple.jpg",
+        "description": "Vishnupad Temple in Gaya is an ancient Hindu temple dedicated to Lord Vishnu. Built around a sacred footprint believed to be of Lord Vishnu, it is a major pilgrimage site for Hindus. The temple architecture is intricate with stone carvings, sacred ghats, and ceremonial spaces. Devotees perform pind daan rituals, offer prayers, and celebrate festivals, making it a culturally vibrant place. Surrounded by serene surroundings and ghats on the Phalgu River, the temple offers a spiritual and tranquil experience. Every year, thousands of pilgrims visit to seek blessings and perform religious rites. गया में स्थित विष्णुपद मंदिर भगवान विष्णु को समर्पित है।"
       },
       {
-        "name": "Ganga–Kosi Sangam",
-        "image": "assets/images/ganga_kosi_sangam.jpg",
-        "description": "Holy confluence of Ganga and Kosi rivers. गंगा और कोसी नदियों का पवित्र संगम।"
+        "name": "Muchalinda Lake",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsiZYo4KvkM8PAOgLsfciTGlhGAB2qxDsBUg&s",
+        "description": "Muchalinda Lake near Mahabodhi Temple is a serene water body where Buddha is believed to have been protected by the serpent Muchalinda while meditating. It is a peaceful spot surrounded by lush greenery and temples. Pilgrims meditate, perform rituals, and enjoy the calm environment. The lake adds spiritual and historical significance to the area, attracting tourists, photographers, and scholars who wish to experience the sacredness of Bodh Gaya. Visitors feel connected to the spiritual legacy and the teachings of Buddha. महाबोधि मंदिर के पास मुचालिंदा झील शांतिपूर्ण स्थल है जहाँ बुद्ध का संरक्षण हुआ।"
       },
       {
-        "name": "Chandni Chowk Purnia",
-        "image": "assets/images/chandni_chowk_purnia.jpg",
-        "description": "Popular food and shopping destination. लोकप्रिय भोजन और खरीदारी स्थल।"
+        "name": "Barabar Caves",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBqdNXL8a_DH93iBRfXQ_5ELQzjgTfm_ctrw&s",
+        "description": "Barabar Caves are the oldest rock-cut caves in India, dating back to the Mauryan period. These granite caves feature intricate carvings and serve as a historical testament to Buddhist monastic life. Visitors can explore the serene interiors, inscriptions, and architectural marvels, feeling a connection with ancient spiritual practices. The site is surrounded by lush forests and hills, enhancing its tranquil atmosphere. Barabar Caves attract historians, archaeologists, and tourists eager to experience India’s ancient heritage. They are also associated with meditation, asceticism, and early Buddhist monastic traditions. भारत की सबसे पुरानी चट्टान-खोदी गुफाएँ, मौर्य काल की।"
       },
       {
-        "name": "Sarsi Dam",
-        "image": "assets/images/sarsi_dam.jpg",
-        "description": "Water reservoir ideal for picnics. पिकनिक के लिए आदर्श जलाशय।"
+        "name": "Indosan Nippon Japanese Temple",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQzwDAzLwc_x1ZRhgCMpqwd1MMhWMJOxy59Q&s",
+        "description": "Indosan Nippon Japanese Temple in Bodh Gaya is a stunning Buddhist temple built in Japanese architectural style. The temple showcases Japanese art, serene gardens, and meditation halls. Pilgrims and tourists experience spiritual peace, cultural exchange, and meditation here. It serves as a bridge between Japanese Buddhism and Indian Buddhist heritage, attracting devotees, students, and travelers interested in learning about Buddhist traditions. The temple's peaceful ambiance and aesthetic appeal make it a popular destination in Bodh Gaya for contemplation and spiritual practice. गया में जापानी शैली का बौद्ध मंदिर।"
       },
       {
-        "name": "Purnia Golf Ground",
-        "image": "assets/images/golf_ground.jpg",
-        "description": "Leisure and sports facility. मनोरंजन और खेल की सुविधा।"
+        "name": "Tibetan Monastery",
+        "image": "https://c8.alamy.com/comp/CE6688/tibetan-monastery-bodh-gaya-bihar-india-asia-CE6688.jpg",
+        "description": "The Tibetan Monastery in Bodh Gaya is a colorful and spiritually significant center of Tibetan Buddhism. With vibrant prayer flags, meditation halls, and Buddhist shrines, it provides a serene environment for study, contemplation, and rituals. Pilgrims and tourists from all over the world visit to learn about Tibetan practices, participate in meditation sessions, and experience the unique architecture and culture. The monastery is surrounded by lush landscapes and peaceful surroundings, making it ideal for spiritual seekers and photographers. This monastery strengthens cultural exchange and Buddhist heritage preservation. गया में रंगीन तिब्बती बौद्ध मठ।"
       },
       {
-        "name": "Banmankhi Temple",
-        "image": "assets/images/banmankhi_temple.jpg",
-        "description": "Ancient temple with historical importance. ऐतिहासिक महत्व वाला प्राचीन मंदिर।"
+        "name": "Royal Bhutan Monastery",
+        "image": "https://avathioutdoors.gumlet.io/travelGuide/dev/bodh-gaya_P9913.jpg",
+        "description": "The Royal Bhutan Monastery in Bodh Gaya represents Bhutanese architectural excellence and Buddhist culture. With beautifully painted walls, statues, and meditation spaces, it attracts devotees, students, and tourists seeking spiritual knowledge. The monastery organizes teachings, rituals, and meditation sessions while maintaining a serene atmosphere. Surrounded by natural beauty, it offers a peaceful retreat for contemplation and learning. Pilgrims from Bhutan and around the world visit this site to experience cultural exchange, religious practices, and the heritage of Himalayan Buddhism. गया में भूटानी वास्तुकला का बौद्ध मठ।"
       },
       {
-        "name": "Purnia District Museum",
-        "image": "assets/images/purnia_museum.jpg",
-        "description": "Museum showcasing local history and culture. स्थानीय इतिहास और संस्कृति का संग्रहालय।"
+        "name": "Chinese Temple",
+        "image": "https://c8.alamy.com/comp/BFN0W4/chinese-temple-bodhgaya-bihar-india-asia-BFN0W4.jpg",
+        "description": "The Chinese Temple in Bodh Gaya is a significant center for Chinese Buddhist traditions. With elegant architecture, statues, and gardens, it provides a serene place for meditation, prayers, and learning. Visitors experience cultural exchange, spiritual practice, and a deeper understanding of Buddhism. The temple hosts rituals and celebrations, attracting pilgrims, tourists, and scholars. Its aesthetic design, peaceful surroundings, and historical significance make it a must-visit for those exploring Bodh Gaya’s rich Buddhist heritage. गया में चीनी शैली का बौद्ध मंदिर।"
       },
       {
-        "name": "Baisi Hat",
-        "image": "assets/images/baisi_hat.jpg",
-        "description": "Traditional rural market. पारंपरिक ग्रामीण बाजार।"
+        "name": "Thai Monastery",
+        "image": "https://media1.thrillophilia.com/filestore/0v4thdb3ou0t1hcxu64q9y8z4mt4_1625840529_thai_bihar.jpg",
+        "description": "The Thai Monastery in Bodh Gaya features distinctive Thai architecture with a golden Buddha statue and vibrant decorations. The monastery provides meditation halls, classrooms, and peaceful gardens, allowing pilgrims and tourists to immerse in spiritual practices. Cultural programs, rituals, and teachings take place here, strengthening Buddhist heritage and Thai-Indian connections. Visitors enjoy the aesthetic beauty, serene environment, and a unique glimpse into Thai Buddhist traditions. The monastery is surrounded by lush greenery and tranquil spaces, ideal for reflection and mindfulness. गया में थाई शैली का बौद्ध मठ।"
       },
       {
-        "name": "Kursela Ghat",
-        "image": "assets/images/kursela_ghat.jpg",
-        "description": "Peaceful riverbank perfect for morning walks. सुबह की सैर के लिए शांत नदी तट।"
+        "name": "Vietnamese Temple",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjC0dUH7Cc_YCBxy7c8kXkSjubbemd9RtuPg&s",
+        "description": "The Vietnamese Temple in Bodh Gaya showcases Vietnamese Buddhist art, culture, and architecture. With peaceful gardens, meditation halls, and intricate decorations, it offers visitors a serene environment for spiritual practices. Pilgrims perform rituals, meditate, and participate in cultural programs here. The temple strengthens Buddhist heritage connections and provides a unique experience of Vietnamese traditions in India. Surrounded by natural beauty, it is ideal for study, reflection, and photography. This temple attracts devotees, tourists, and scholars from around the world, contributing to Bodh Gaya’s diverse religious landscape. गया में वियतनामी शैली का बौद्ध मंदिर।"
       },
       {
-        "name": "Kali Bari Road",
-        "image": "assets/images/kali_bari_road.jpg",
-        "description": "Famous street with temples and shops. मंदिरों और दुकानों वाली प्रसिद्ध सड़क।"
+        "name": "Animesh Lochana Chaitya",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2k-m81I3ZubRFSBgX_cIy6Gme8NMXRFYPuA&s",
+        "description": "Animesh Lochana Chaitya in Bodh Gaya marks the place where Lord Buddha meditated without blinking, demonstrating extraordinary concentration and discipline. It is a revered pilgrimage site where visitors reflect on mindfulness, meditation, and spiritual awakening. The surroundings are peaceful, with gardens, shrines, and pathways for contemplation. Pilgrims and tourists engage in prayer, meditation, and rituals here, feeling inspired by the sacred energy. This chaitya preserves Buddhist heritage and serves as an educational site for learning about the life and teachings of Lord Buddha. गया में वह स्थान जहाँ बुद्ध ने बिना पलक झपकाए ध्यान किया।"
       },
       {
-        "name": "Bhatta Bazaar",
-        "image": "assets/images/bhatta_bazaar.jpg",
-        "description": "Crowded local market with fresh produce. ताजा उत्पादों वाला भीड़भाड़ वाला बाजार।"
+        "name": "Sujata Stupa",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJMeLc5anHkne5ejfwn3L4lH5Z1wcn8FyjbA&s",
+        "description": "Sujata Stupa commemorates the generous milk-rice offering by Sujata to Lord Buddha before his enlightenment. It is a revered spot for pilgrims, surrounded by serene landscapes and small temples. Visitors reflect on generosity, devotion, and the importance of acts of kindness in spiritual practice. The stupa is maintained with care, and devotees perform rituals, meditate, and seek blessings. It is an important historical and cultural site, offering a peaceful ambiance for learning and contemplation. Sujata’s act symbolizes the support and compassion that aid spiritual journeys. गया में सुजाता को समर्पित स्तूप।"
       },
       {
-        "name": "Chhoti Kosi Barrage",
-        "image": "assets/images/chhoti_kosi_barrage.jpg",
-        "description": "Small barrage over Kosi river. कोसी नदी पर बना छोटा बैराज।"
+        "name": "Phalgu River",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7BVh1jcw88ArFEhTkQOpZNdYiiaiza1PD7g&s",
+        "description": "Phalgu River in Gaya holds immense religious significance for Hindus performing pind daan rituals. The riverbanks are lined with ghats, temples, and sacred spaces, offering a spiritual environment for devotees. Pilgrims immerse themselves in rituals, prayers, and reflection, honoring ancestors and seeking blessings. The serene flow of the river, surrounded by hills and temples, enhances the sacred experience. Tourists can also enjoy scenic beauty, photography, and cultural learning. The river continues to be a central site for religious ceremonies, festivals, and spiritual practices in Gaya. गया में पवित्र फल्गु नदी पिंड दान के लिए प्रसिद्ध है।"
       },
       {
-        "name": "Rani Sati Mandir",
-        "image": "assets/images/rani_sati_mandir.jpg",
-        "description": "Beautifully designed temple with daily prayers. सुंदर मंदिर जिसमें दैनिक पूजा होती है।"
+        "name": "Mangla Gauri",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBNJFF_uKtIvISvpv7F5ABqxJh7zGPjghIGw&s",
+        "description": "Mangla Gauri Temple in Gaya is one of the 18 Maha Shakti Peethas, dedicated to Goddess Parvati (Gauri). It is believed that a part of Goddess Sati fell here, making it extremely sacred. Pilgrims visit for blessings related to prosperity, health, and marital bliss. The temple is perched on a hill, offering panoramic views of the surroundings. Rituals, prayers, and festivals are celebrated with devotion. The temple complex includes beautiful architecture, peaceful gardens, and pathways for contemplation, making it a spiritual and culturally rich site. गया में मंगला गौरी मंदिर 18 महा शक्ति पीठों में से एक है।"
       },
       {
-        "name": "Purnia Clock Tower",
-        "image": "assets/images/clock_tower.jpg",
-        "description": "Historical landmark in Purnia city. पूर्णिया शहर का ऐतिहासिक स्थल।"
+        "name": "Gurpa Hill",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAmfhBDMUfGYqRrmfmB1olg9P89SLTImiYoQ&s",
+        "description": "Gurpa Hill, also known as Gurupada Giri, is a sacred Buddhist-Hindu pilgrimage site near Gaya. It is believed that Mahakasyapa, Buddha’s last disciple, attained nirvana here while awaiting Maitreya. The hill features caves, stupas, and temples, along with Lord Vishnu’s sacred footprints. Pilgrims meditate, explore the historical monuments, and enjoy panoramic views. The serene and spiritual environment makes it ideal for reflection and devotion. Gurpa Hill is an important site preserving the religious and cultural heritage of the region, attracting tourists, monks, and scholars. गुरुपद गिरि, गया के पास एक पवित्र बौद्ध-हिंदू तीर्थ स्थल है।"
       },
       {
-        "name": "Balrampur Chowk",
-        "image": "assets/images/balrampur_chowk.jpg",
-        "description": "Famous junction for street food lovers. स्ट्रीट फूड प्रेमियों के लिए प्रसिद्ध स्थान।"
-      },
-      {
-        "name": "Purnia Stadium",
-        "image": "assets/images/purnia_stadium.jpg",
-        "description": "Sports events and matches are organized here. यहां खेल आयोजन और मैच होते हैं।"
-      },
-      {
-        "name": "Maranga Kali Temple",
-        "image": "assets/images/maranga_kali.jpg",
-        "description": "Ancient temple dedicated to Goddess Kali. माता काली को समर्पित प्राचीन मंदिर।"
-      },
-      {
-        "name": "Barhara Ghat",
-        "image": "assets/images/barhara_ghat.jpg",
-        "description": "Scenic spot on the riverbank. नदी किनारे का सुंदर स्थल।"
-      },
-      {
-        "name": "Purnia Art Gallery",
-        "image": "assets/images/art_gallery.jpg",
-        "description": "Showcases local artwork. स्थानीय कलाकृतियों का प्रदर्शन।"
-      },
-      {
-        "name": "Chunapur Airport Area",
-        "image": "assets/images/chunapur_airport.jpg",
-        "description": "Historic airfield area. ऐतिहासिक हवाई पट्टी क्षेत्र।"
-      },
-      {
-        "name": "Krishna Mandir",
-        "image": "assets/images/krishna_mandir.jpg",
-        "description": "Temple dedicated to Lord Krishna. भगवान कृष्ण को समर्पित मंदिर।"
+        "name": "Niranjana River",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrHVU-qIl9RotQINPT33vUsb4RGtUZwUVTCA&s",
+        "description": "The Niranjana River, flowing near Bodh Gaya, holds historical and spiritual significance. Pilgrims perform rituals, meditation, and prayers along its banks. The river enhances the tranquility and sacredness of the Bodh Gaya region, surrounded by lush greenery, temples, and stupas. It is believed that spiritual energy is strong here, aiding meditation and reflection. Tourists and devotees experience peace, historical connection, and cultural insight. The river is part of the spiritual landscape that shaped Buddha’s journey and continues to attract visitors seeking religious and historical experiences. गया में निर्वाण नदी ऐतिहासिक और पवित्र स्थल।"
       },
     ],
 
+
+    "Nalanda (नालंदा)": [
+
+      {
+        "name": "Rajgir Glass Bridge (राजगीर ग्लास ब्रिज)",
+        "image": "https://images.news18.com/ibnkhabar/uploads/2023/04/6.jpeg",
+        "description": "राजगीर की पहाड़ियों पर बना यह कांच का पुल रोमांच और साहसिक पर्यटन का नया आकर्षण है। यहाँ से घाटियों का मनोरम दृश्य दिखाई देता है। The Rajgir Glass Bridge is a thrilling adventure spot offering stunning views of the valleys from the hills of Rajgir."
+      },
+
+      {
+        "name": "Nalanda University (नालंदा विश्वविद्यालय)",
+        "image": "https://i0.wp.com/apeejay.news/wp-content/uploads/2023/10/041023-Taresh-Datta-Feature-1.jpg?fit=569%2C509&ssl=1",
+        "description": "Nalanda University, dating back to the 5th century, is one of the world’s oldest centers of learning. The ruins showcase grand monasteries, classrooms, and libraries that once attracted students from across Asia. It remains a symbol of ancient India’s academic excellence and Buddhist scholarship. यह 5वीं शताब्दी का प्राचीन विश्वविद्यालय है, जिसमें भव्य मठ, कक्षाएं और पुस्तकालय शामिल हैं।"
+      },
+      {
+        "name": "Hiuen Tsang Memorial Hall (ह्वेनसांग स्मारक हॉल)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5rzuyTfSGHiSAhQGS2Txj0Bw5s7GXdvXxQA&s",
+        "description": "Dedicated to the Chinese traveler Hiuen Tsang, this memorial hall celebrates his journey to Nalanda University in the 7th century. Visitors can explore exhibits showcasing his travels, artifacts, and historical accounts, providing insight into ancient cultural exchanges. यह स्मारक हॉल ह्वेनसांग के नालंदा यात्रा को समर्पित है, जिसमें उनके यात्रा दस्तावेज़ और ऐतिहासिक वस्तुएं प्रदर्शित हैं।"
+      },
+      {
+        "name": "Nalanda Archaeological Museum (नालंदा पुरातत्व संग्रहालय)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0c74bbHOd9nssn7Qvi97GvbGAAwmcy4xyAA&s",
+        "description": "Housing ancient artifacts, sculptures, and manuscripts, this museum offers a detailed glimpse into Nalanda’s rich history. Visitors can explore relics of the Buddhist era and understand the intellectual and cultural significance of the site. इसमें प्राचीन अवशेष, मूर्तियां और पांडुलिपियां रखी हैं, जो नालंदा के समृद्ध इतिहास की जानकारी देती हैं।"
+      },
+      {
+        "name": "Black Buddha Temple (काला बुद्ध मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStSB6q_XwYX6e-C2Gx8MAeTSfIoozu0_YtRQ&s",
+        "description": "A unique temple featuring a black stone statue of Lord Buddha, attracting pilgrims and tourists alike. The temple architecture is a fine example of ancient Indian craftsmanship and spiritual art, making it a must-visit site in Nalanda. यह भगवान बुद्ध की काले पत्थर की प्रतिमा वाला अद्वितीय मंदिर है, जो पर्यटकों और तीर्थयात्रियों को आकर्षित करता है।"
+      },
+      {
+        "name": "Nav Nalanda Mahavihara (नव नालंदा महाविहार)",
+        "image": "https://cache.careers360.mobi/media/colleges/social-media/media-gallery/1015/2021/11/26/Campus%20Buliding%20of%20Nava%20Nalanda%20Mahavihara%20Nalanda_Campus-View.jpg",
+        "description": "Established as a modern center for Pali and Buddhist studies, Nav Nalanda Mahavihara revives Nalanda’s ancient scholarly tradition. Scholars from India and abroad come here to study and conduct research on Buddhist philosophy and culture. यह पाली और बौद्ध अध्ययन का आधुनिक केंद्र है, जहां विद्वान शोध करते हैं।"
+      },
+      {
+        "name": "Kundalpur (कुंडलपुर)",
+        "image": "https://www.hlimg.com/images/things2do/738X538/download-1-1506080704t.jpg",
+        "description": "Believed to be the birthplace of Lord Mahavira, Kundalpur attracts Jain pilgrims from across India. The site is historically significant and features ancient temples and serene surroundings conducive to meditation and reflection. यह भगवान महावीर का जन्मस्थान माना जाता है और जैन तीर्थयात्रियों के लिए महत्वपूर्ण स्थल है।"
+      },
+      {
+        "name": "Pawapuri Jal Mandir (पावापुरी जल मंदिर)",
+        "image": "https://www.hlimg.com/images/things2do/738X538/pawapuri_jal_mandir_1507868346t.jpg",
+        "description": "Located in the middle of a lake, Pawapuri Jal Mandir is a serene Jain temple dedicated to Lord Mahavira. The temple’s reflection in water creates a picturesque scene, offering both spiritual solace and visual beauty. यह झील के बीच स्थित जैन मंदिर है, जो भगवान महावीर को समर्पित है।"
+      },
+      {
+        "name": "Surya Kund (सूर्य कुंड)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6WmAwq3vKof7p54eFVxIMoy8TnFjvJ06pPA&s",
+        "description": "Surya Kund is a sacred pond located near the Sun Temple, attracting devotees and tourists. It is believed that taking a dip here cleanses sins and brings blessings. The serene environment enhances spiritual experience and tranquility. सूर्य मंदिर के पास स्थित यह पवित्र कुंड पर्यटकों और श्रद्धालुओं के लिए आकर्षण का केंद्र है।"
+      },
+      {
+        "name": "Telhara (टेलहारा)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0dO3Gmcm6XoBJYPE-RBPKIxAp4ozrPIGfpQ&s",
+        "description": "An important archaeological site of an ancient Buddhist monastery, Telhara features excavated ruins of stupas, viharas, and monastic complexes. It provides insight into Buddhist monastic life and Nalanda’s religious history. यह प्राचीन बौद्ध मठ का पुरातात्विक स्थल है, जो नालंदा के धार्मिक इतिहास की जानकारी देता है।"
+      },
+      {
+        "name": "Rajgir Ropeway (राजगीर रोपवे)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoaIJgr4Xt_LgBTlXerdEIaEEeYVTFJXfzKA&s",
+        "description": "The Rajgir Ropeway offers a scenic ride up to the Vishwa Shanti Stupa, providing panoramic views of Rajgir hills and valleys. It’s both an adventurous and spiritual experience for tourists and devotees visiting the area. यह रोपवे पर्यटकों और श्रद्धालुओं के लिए अद्भुत दृश्य और अनुभव प्रदान करता है।"
+      },
+      {
+        "name": "Vishwa Shanti Stupa (विश्व शांति स्तूप)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHjRqMbS6WhSDLvaiTfcyiEgI7XTgNtbT-TQ&s",
+        "description": "A Japanese-built peace pagoda located on Ratnagiri Hill, Vishwa Shanti Stupa promotes peace and meditation. It offers breathtaking views of the surrounding landscape and represents global Buddhist harmony. रत्नागिरी पहाड़ी पर स्थित यह शांति स्तूप पर्यटकों और साधकों के लिए ध्यान और शांति का प्रतीक है।"
+      },
+      {
+        "name": "Bimbisar Jail (बिंबिसार जेल)",
+        "image": "https://avathioutdoors.gumlet.io/travelGuide/dev/rajgir_P3959.jpg",
+        "description": "Historic prison where King Bimbisar was imprisoned by his son Ajatashatru. The site is an important historical landmark and attracts tourists interested in ancient Indian history and royal legacies. राजा बिंबिसार को उनके पुत्र ने कैद किया था, यह स्थल ऐतिहासिक दृष्टि से महत्वपूर्ण है।"
+      },
+      {
+        "name": "Cyclopean Wall (साइक्लोपियन वॉल)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZl0As8mvPXu9YWm7VFqIT9Jyck7nu7wdFgA&s",
+        "description": "An ancient stone wall surrounding old Rajgir, Cyclopean Wall represents architectural ingenuity of the past. The massive stones are carefully placed without mortar, showcasing early construction techniques. यह प्राचीन दीवार राजगीर को घेरे हुए है और प्राचीन निर्माण तकनीक का उदाहरण है।"
+      },
+      {
+        "name": "Hot Springs, Rajgir (गरम पानी कुंड, राजगीर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc-6UaIlw-SKVg3DL1ywQdZk1uIMhYbk3Uxw&s",
+        "description": "Natural hot springs believed to have medicinal properties, located in Rajgir. Visitors come for relaxation, health benefits, and the scenic surroundings. The springs hold spiritual and therapeutic significance. राजगीर में स्थित प्राकृतिक गरम पानी के कुंड, स्वास्थ्य और विश्राम के लिए प्रसिद्ध हैं।"
+      },
+      {
+        "name": "Ajatshatru Fort (अजातशत्रु किला)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOmjCJpJ_86ZeKxGf6ZTzaEeHejOfA6Olhpw&s",
+        "description": "Built by King Ajatshatru in the 6th century BC, this fort stands atop a hill offering panoramic views. It has historical significance from the Magadha kingdom and remains a popular tourist attraction. 6वीं शताब्दी ईसा पूर्व में निर्मित यह किला ऐतिहासिक दृष्टि से महत्वपूर्ण है।"
+      },
+      {
+        "name": "Griddhakuta Hill (गृद्धकूट पहाड़ी)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaCsxeaQtCR70nS4T49w5TSQNbdb7IvT7Xaw&s",
+        "description": "A sacred hill where Buddha delivered sermons, Griddhakuta Hill is an important pilgrimage site. The hill offers stunning views and spiritual ambiance for meditation and reflection. यह पवित्र पहाड़ी जहां बुद्ध ने उपदेश दिए, तीर्थयात्रियों के लिए महत्वपूर्ण है।"
+      },
+      {
+        "name": "Maniyar Math (मणियार मठ)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_FxOK1yaWZaaWUPMaGM1_H3QmR1EVC2bn3A&s",
+        "description": "An archaeological site featuring ancient relics and ruins of monastic settlements, Maniyar Math offers insight into Nalanda’s historical Buddhist community and their lifestyle. प्राचीन अवशेषों और मठ की खंडहरों वाला स्थल, नालंदा के बौद्ध समुदाय की जानकारी देता है।"
+      },
+      {
+        "name": "Son Bhandar Caves (सोन भंडार गुफाएँ)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh0NOCbFzbbKIRtfyOg24h_oVxCqpMy0bQvg&s",
+        "description": "These ancient rock-cut caves are believed to contain hidden treasures. The caves have religious significance and attract history enthusiasts and tourists for exploration and study. खजाने से जुड़ी प्राचीन गुफाएँ, जो इतिहास प्रेमियों के लिए आकर्षण का केंद्र हैं।"
+      },
+      {
+        "name": "Jarasandh Akhara (जरासंध अखाड़ा)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwJAMv4INClkTsolCqUdP9dal-Q4t3QQzwZA&s",
+        "description": "Historically associated with Jarasandh from Mahabharata, this site offers cultural and mythological insights. Tourists visit to explore its legendary connections and archaeological importance. महाभारत के जरासंध से जुड़ा ऐतिहासिक स्थल, जो पर्यटकों को आकर्षित करता है।"
+      },
+      {
+        "name": "Veerayatan Museum (वीरायतन संग्रहालय)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0IrO04Dc8ZqpMuGnM8-J1mnpozRM1z447Nw&s",
+        "description": "A Jain museum showcasing art, culture, and history. Visitors can view ancient manuscripts, sculptures, and artifacts, highlighting the spiritual heritage of Jainism in Nalanda region. जैन कला, संस्कृति और इतिहास प्रदर्शित करने वाला संग्रहालय।"
+      },
+      {
+        "name": "Pandu Pokhar (पांडु पोखर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-CO7ON_oc36UNMmKRwtsNMnAjQ-GoOy-Y1A&s",
+        "description": "An amusement park and historical pond in Rajgir, Pandu Pokhar is ideal for family visits. It combines leisure with history, offering a serene environment and recreational facilities for tourists. राजगीर में मनोरंजन पार्क और ऐतिहासिक पोखर, परिवार और पर्यटकों के लिए उत्तम स्थल।"
+      },
+
+    ],
+
+    "Samastipur (समस्तीपुर)": [
+      {
+        "name": "Chhatneshwar (छतनश्वर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031361-1-1024x828.jpg",
+        "description": "A famous religious site with historical importance. ऐतिहासिक महत्व वाला प्रसिद्ध धार्मिक स्थल।"
+      },
+      {
+        "name": "Collectorate Samastipur (कलेक्टरेट समस्तीपुर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031316-1-1024x842.jpg",
+        "description": "The main administrative office of Samastipur district. समस्तीपुर जिले का प्रमुख प्रशासनिक कार्यालय।"
+      },
+      {
+        "name": "Railway Station Samastipur (रेलवे स्टेशन समस्तीपुर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031312-1024x872.jpg",
+        "description": "A major railway junction connecting Bihar with other regions. बिहार को अन्य क्षेत्रों से जोड़ने वाला प्रमुख रेलवे जंक्शन।"
+      },
+      {
+        "name": "Lal Kothi Samastipur (लाल कोठी समस्तीपुर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031326-1024x861.jpg",
+        "description": "A historic building representing colonial architecture. औपनिवेशिक स्थापत्य कला का प्रतीक ऐतिहासिक भवन।"
+      },
+      {
+        "name": "Thaneshwar Mandir (थानेश्वर मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031385-606x1024.jpg",
+        "description": "A revered temple dedicated to Lord Shiva. भगवान शिव को समर्पित पूजनीय मंदिर।"
+      },
+      {
+        "name": "Rajendra Agricultural University (राजेंद्र कृषि विश्वविद्यालय)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031361-2-1024x919.jpg",
+        "description": "One of India’s prominent agricultural universities. भारत के प्रमुख कृषि विश्वविद्यालयों में से एक।"
+      },
+      {
+        "name": "Khatu Shyam Mandir (खाटू श्याम मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031325-1024x880.jpg",
+        "description": "A temple dedicated to Khatu Shyam Ji, visited by devotees. खाटू श्याम जी को समर्पित, भक्तों द्वारा पूजनीय मंदिर।"
+      },
+      {
+        "name": "Dhamaun (धमौं)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031365-1-1024x922.jpg",
+        "description": "A village with cultural and religious importance. सांस्कृतिक और धार्मिक महत्व वाला गाँव।"
+      },
+      {
+        "name": "Hazrat Mazar (हज़रत मजार)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031376-1024x934.jpg",
+        "description": "A shrine visited by people of different communities. विभिन्न समुदायों द्वारा पूजनीय दरगाह।"
+      },
+      {
+        "name": "Vidyapati Dham (विद्यापति धाम)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031338-1024x973.jpg",
+        "description": "Associated with the great Maithili poet Vidyapati. महान मैथिली कवि विद्यापति से जुड़ा धाम।"
+      },
+      {
+        "name": "Tirmuhani Vidyapati Ashmarak (तीरमुहानी विद्यापति अश्मारक)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031314-1024x969.jpg",
+        "description": "A memorial site of poet Vidyapati. कवि विद्यापति की स्मृति में बना स्थल।"
+      },
+      {
+        "name": "Narhan (नरहन)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031329-1024x864.jpg",
+        "description": "Known for its fort and historical background. अपने किले और ऐतिहासिक पृष्ठभूमि के लिए प्रसिद्ध।"
+      },
+      {
+        "name": "Jageshwar Dham (जागेश्वर धाम)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031339-1024x845.jpg",
+        "description": "A sacred place dedicated to Lord Shiva. भगवान शिव को समर्पित पवित्र स्थल।"
+      },
+      {
+        "name": "Parvati Mandir (पार्वती मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031332-1024x858.jpg",
+        "description": "A popular temple dedicated to Goddess Parvati. देवी पार्वती को समर्पित प्रसिद्ध मंदिर।"
+      },
+      {
+        "name": "Jute Mill (जूट मिल)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031323-1024x894.jpg",
+        "description": "An industrial site contributing to the local economy. स्थानीय अर्थव्यवस्था में योगदान देने वाला औद्योगिक स्थल।"
+      },
+      {
+        "name": "Jama Masjid (जामा मस्जिद)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031327-1024x934.jpg",
+        "description": "A historic mosque and center of Islamic faith. इस्लामी आस्था का केंद्र और ऐतिहासिक मस्जिद।"
+      },
+      {
+        "name": "Samastipur Dairy (समस्तीपुर डेयरी)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031374-1024x918.jpg",
+        "description": "A major dairy unit of the region. क्षेत्र की एक प्रमुख डेयरी इकाई।"
+      },
+      {
+        "name": "Khudneshwar Mandir (खुदनेश्वर मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031316-2-731x1024.jpg",
+        "description": "An ancient temple dedicated to Lord Shiva. भगवान शिव को समर्पित प्राचीन मंदिर।"
+      },
+      {
+        "name": "Mannipur Durga Mandir (मन्नीपुर दुर्गा मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031320-1024x873.jpg",
+        "description": "A temple of Goddess Durga with festive celebrations. देवी दुर्गा का मंदिर जहाँ भव्य पर्व मनाए जाते हैं।"
+      },
+      {
+        "name": "Samastipur Church (समस्तीपुर चर्च)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031397-645x1024.jpg",
+        "description": "A Christian religious site with peaceful surroundings. शांत वातावरण वाला ईसाई धार्मिक स्थल।"
+      },
+      {
+        "name": "Sugar Mill Hasanpur (शुगर मिल हसनपुर)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031360-1024x885.jpg",
+        "description": "One of the important sugar mills of the district. जिले की प्रमुख चीनी मिलों में से एक।"
+      },
+      {
+        "name": "Baba Kewal Maharaj (बाबा केवल महाराज)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031334-1024x926.jpg",
+        "description": "A revered saint’s shrine visited by devotees. एक पूजनीय संत का दरबार, जहाँ भक्त आते हैं।"
+      },
+      {
+        "name": "Chhatta Holi Dhamoun (छत्ता होली धमौं)",
+        "image": "https://cdn.s3waas.gov.in/s32838023a778dfaecdc212708f721b788/uploads/2017/06/2018031326-1-1024x852.jpg",
+        "description": "A local religious site with cultural gatherings. सांस्कृतिक आयोजनों वाला स्थानीय धार्मिक स्थल।"
+      }
+    ],
+    "Araria (अररिया)": [
+      {
+        "name": "Purnagiri Temple (पूर्णागिरि मंदिर, Forbesganj)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjjDzCG7QZCB3bCcC8B8YvwXEntWOkjc7LCg&s",
+        "description": "One of the most famous temples in Araria, attracting lakhs of devotees every year, especially during Navratri. Religious and cultural importance. अररिया जिले का सबसे प्रसिद्ध मंदिर, जहाँ हर साल लाखों श्रद्धालु आते हैं, विशेषकर नवरात्रि के समय।"
+      },
+      {
+        "name": "Mahadev Mandir (महादेव मंदिर, Araria Town)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBmyMpVjlYf7A2ZFh8vWWgSbI-hcawKsMqiQ&s",
+        "description": "A sacred Shiva temple known for its spiritual atmosphere and festivals like Mahashivratri. धार्मिक महत्व का प्रसिद्ध शिव मंदिर, जहाँ महाशिवरात्रि और अन्य पर्वों पर भारी भीड़ लगती है।"
+      },
+
+      {
+        "name": "RaniGanj Vriksh Vatika (रानीगंज वृक्ष वाटिका)",
+        "image": "https://cdn.s3waas.gov.in/s368ce199ec2c5517597ce0a4d89620f55/uploads/bfi_thumb/2018041047-olw9o7uww9ozckm3dlqfdaseyht1dd08hxhbazlcd0.jpg",
+        "description": "Araria's first biodiversity park, known for its greenery and rare species of plants. अररिया का पहला जैव विविधता पार्क, जो हरियाली और दुर्लभ प्रजातियों के पौधों के लिए प्रसिद्ध है।"
+      },
+      {
+        "name": "Kusiyargaon Biodiversity Park (कुसियारगांव बायोडायवर्सिटी पार्क)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMmAm0LRTLd5t511KAY3XBvWM3tW5Y077f_A&s",
+        "description": "A biodiversity park that preserves natural flora and fauna of the region. क्षेत्र की प्राकृतिक वनस्पति और जीवों को संरक्षित करने वाला जैव विविधता पार्क।"
+      },
+      {
+        "name": "Thakurbari Shiv Mandir (ठाकुरबाड़ी शिव मंदिर, Araria Town)",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/58/5c/98/thakurbari-temple.jpg?w=1200&h=1200&s=1",
+        "description": "A famous Shiva temple located in the center of Araria town, popular among devotees. अररिया शहर के केंद्र में स्थित प्रसिद्ध शिव मंदिर, जो भक्तों के बीच लोकप्रिय है।"
+      },
+      {
+        "name": "Madanpur Shiv Mandir (मदनपुर शिव मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkbmyCZ3siIozPDL6k6WT4jm09OA6SvRsAp1R51k2NWyxPO_Rf2RMw5yEbjBwoZT6ZurU&usqp=CAU",
+        "description": "A temple dedicated to Lord Shiva in Madanpur, known for local festivals and spiritual gatherings. मदनपुर का शिव मंदिर, जहाँ धार्मिक उत्सव और आध्यात्मिक सभाएँ आयोजित होती हैं।"
+      },
+
+      {
+        "name": "Kali Mandir (काली मंदिर, Araria Town)",
+        "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqpOEFPmsQKgQfjuEtX6r69DrdCwkolQxZ4tmrOGzTEnypVYKwlTYsgGPnU2EBljOs_lpFHR2axXd06PO0pmSdhrBNaxAPpJHaoiVfCo8KtsQiy2AahhxtDWiHm-jJ79dCr0ttW=s1360-w1360-h1020-rw",
+        "description": "A famous temple dedicated to Goddess Kali, especially crowded during Kali Puja and Durga Puja festivals. अररिया शहर का प्रसिद्ध काली मंदिर, जहाँ काली पूजा और दुर्गा पूजा के समय भारी भीड़ होती है।"
+      }
+],
+      "Arwal (अरवल)": [
+        {
+          "name": "Makhdum Shah Ka Mazaar (मख़दूम शाह का मज़ार)",
+          "image": "https://cdn.s3waas.gov.in/s366808e327dc79d135ba18e051673d906/uploads/bfi_thumb/2018022752-olw9m5ln23id7ar7iqtuub1j8fdso6a1wbs1d9ndaw.jpg",
+          "description": "यह मज़ार अरवल का एक प्रमुख धार्मिक स्थल है। यहाँ श्रद्धालु दूर-दूर से आते हैं। इसे सड़क मार्ग से NH-98 द्वारा पटना से पहुँचा जा सकता है।"
+        },
+        {
+          "name": "Madhusrava Ashram (मधुस्रवा आश्रम)",
+          "image": "https://cdn.s3waas.gov.in/s366808e327dc79d135ba18e051673d906/uploads/bfi_thumb/2018022735-1-olw9m5ln23id7ar7iqtuub1j8fdso6a1wbs1d9ndaw.jpg",
+          "description": "यह आश्रम अरवल जिले का एक शांत धार्मिक स्थल है। यहाँ आध्यात्मिक वातावरण लोगों को आकर्षित करता है।"
+        },
+        {
+          "name": "Gautam Budh Mandir (गौतम बुद्ध मंदिर)",
+          "image": "https://cdn.s3waas.gov.in/s366808e327dc79d135ba18e051673d906/uploads/bfi_thumb/2018022778-olw9m6jh8xjniwpud98hessztt95vvds8gfiujlz4o.jpg",
+          "description": "गौतम बुद्ध को समर्पित यह मंदिर अरवल का प्रसिद्ध स्थल है। यहाँ NH-98 के रास्ते पटना से पहुँचा जा सकता है।"
+        },
+        {
+          "name": "Fakharpur Mandir (फखरपुर मंदिर)",
+          "image": "https://cdn.s3waas.gov.in/s366808e327dc79d135ba18e051673d906/uploads/bfi_thumb/2018022755-olw9m5ln23id7ar7iqtuub1j8fdso6a1wbs1d9ndaw.jpg",
+          "description": "यह मंदिर फखरपुर पंचायत, अरवल में स्थित है। यह स्थानीय श्रद्धालुओं के लिए धार्मिक महत्व रखता है।"
+        },
+        {
+          "name": "Aganoor Jal Vidyut Pariyojna (अगनूर जल विद्युत परियोजना)",
+          "image": "https://cdn.s3waas.gov.in/s366808e327dc79d135ba18e051673d906/uploads/bfi_thumb/2018022712-olw9lx53cl6sat3hw567pv6dvyjhqwcgv5wo1rzwuw.jpg",
+          "description": "यह जल विद्युत परियोजना अरवल जिले के कालेर प्रखंड में स्थित है। NH-98 से सड़क मार्ग द्वारा यहाँ पहुँचा जा सकता है।"
+        }
+      ],
+
+    "Aurangabad (औरंगाबाद)": [
+      {
+        "name": "Deo Sun Temple (देव सूर्य मंदिर)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Sun-temple_DEO_Aurangabad_Bihar%2CIndia.jpg",
+        "description": "देव सूर्य मंदिर औरंगाबाद का सबसे प्रसिद्ध स्थल है। इसे 15वीं सदी में चंद्रवंशी राजा भैरवेंद्र सिंह ने बनवाया था। 100 फीट ऊँचा यह मंदिर छत्रनुमा शिखर वाला है। छठ पर्व पर यहाँ लाखों श्रद्धालु ब्रह्मा कुंड में स्नान कर सूर्य देव की पूजा करते हैं।"
+      },
+      {
+        "name": "Deo Kund (देव कुंड)",
+        "image": "https://www.nativeplanet.com/photos/212x302x100/2018/12/photo-92-104209-1.jpg",
+        "description": "देव कुंड एक ऐतिहासिक स्थल है, जहाँ भगवान शिव का प्राचीन मंदिर स्थित है। महाशिवरात्रि पर हजारों श्रद्धालु यहाँ दर्शन के लिए आते हैं। मान्यता है कि यही स्थान वह है जहाँ च्यवन ऋषि ने तपस्या की थी।"
+      },
+      {
+        "name": "Umga Temple (उमगा मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEXQwhIIf6VR8kf55oIr1hVPqjbd41AJjWog&s",
+        "description": "उमगा एक प्रसिद्ध तीर्थ स्थल है, जहाँ वैष्णव मंदिर स्थित है। इसका स्थापत्य देव सूर्य मंदिर से मिलता-जुलता है। ग्रेनाइट पत्थरों से बना यह मंदिर भगवान गणेश, सूर्य देव और भगवान शिव को समर्पित है।"
+      },
+      {
+        "name": "Amjhar Sharif Dargah (अमझर शरीफ़ दरगाह)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF2s3fO3SoNlZinOwnEtzOwnRx_0HbZHnU-g&s",
+        "description": "अमझर शरीफ़ औरंगाबाद का प्रमुख इस्लामी तीर्थ स्थल है। यह सूफी संत हज़रत सैयदना मोहम्मद जिलानी अमझरी क़ादरी की दरगाह है। हर साल जून के पहले सप्ताह में यहाँ उर्स मनाया जाता है और संत के पवित्र बाल भी प्रदर्शित किए जाते हैं।"
+      },
+      {
+        "name": "Pawai, Mali and Chandangadh (पवाई, माली और चंदनगढ़ किले)",
+        "image": "https://www.nativeplanet.com/photos/325x244x100/2018/12/photo-92-104350-1.jpg",
+        "description": "पवाई, माली और चंदनगढ़ औरंगाबाद के ऐतिहासिक स्थल हैं। यहाँ राजस्थान से आए राजाओं के किलों के अवशेष पाए जाते हैं। इतिहास और पुरातत्व में रुचि रखने वालों के लिए ये स्थल विशेष महत्व रखते हैं।"
+      },
+      {
+        "name": "Piru (पीरु)",
+        "image": "https://www.nativeplanet.com/photos/325x244x100/2018/12/photo-92-104440-1.jpg",
+        "description": "पीरु, जिसे प्रीतिकूट भी कहा जाता था, प्रख्यात कवि और सम्राट हर्षवर्धन के दरबारी बाणभट्ट का जन्मस्थान है। यह स्थल साहित्य और इतिहास प्रेमियों के लिए आकर्षण का केंद्र है।"
+      },
+      {
+        "name": "Siris (सीरीस)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8UXFPCOQRt5i7zGAfpk6j5koGch0bDSCBfg&s",
+        "description": "सीरीस एक ऐतिहासिक स्थल है जो शेरशाह और मुग़ल साम्राज्य के समय परगना था। यह 1857 के विद्रोह के कुछ अनसुने नायकों और राजा नारायण सिंह की गतिविधियों का प्रमुख स्थल रहा है। यहाँ एक प्राचीन मस्जिद भी स्थित है।"
+      }
+    ],
+    "Begusarai (बेगूसराय)": [
+      {
+        "name": "Jaimanglagarh Fort (जयमंगलगढ़ किला)",
+        "image": "https://cdn.s3waas.gov.in/s3f4be00279ee2e0a53eafdaa94a151e2c/uploads/bfi_thumb/2018041899-olwdvreeccqzqsnthfxdnsgld96p0b6hmdi1jc9k7e.jpg",
+        "description": "A historical fort located on the banks of River Ganga, known for its ancient architecture and cultural significance. गंगा नदी के किनारे स्थित एक ऐतिहासिक किला, जो अपने प्राचीन स्थापत्य और सांस्कृतिक महत्व के लिए प्रसिद्ध है।"
+      },
+      {
+        "name": "Naulakha Temple (नौलखा मंदिर, Begusarai Town)",
+        "image": "https://cdn.s3waas.gov.in/s3f4be00279ee2e0a53eafdaa94a151e2c/uploads/bfi_thumb/2018041749-olwdvreeccqzqsnthfxdnsgld96p0b6hmdi1jc9k7e.jpg",
+        "description": "A famous temple in Begusarai town dedicated to Lord Radha-Krishna, attracting devotees throughout the year. बेगूसराय शहर का प्रसिद्ध राधा-कृष्ण मंदिर, जहाँ सालभर श्रद्धालु दर्शन करने आते हैं।"
+      },
+      {
+        "name": "Kanwar Lake (कावर झील / काबर ताल)",
+        "image": "https://media2.thrillophilia.com/images/photos/000/365/567/original/1611686680_Over-11-lakh-migratory-birds-visit-Odishas-Chilika-lake.jpg?",
+        "description": "Asia's largest freshwater oxbow lake, a Ramsar site and a paradise for migratory birds. एशिया की सबसे बड़ी मीठे पानी की प्राकृतिक झील, जो रामसर साइट है और प्रवासी पक्षियों का स्वर्ग मानी जाती है।"
+      },
+      {
+        "name": "Simaria Dham (सिमरिया धाम)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJPyHqPS3NsvcDPeVKuJ5AnSHfRZ35FUABQQ&s",
+        "description": "A sacred pilgrimage site on the banks of the Ganga River, famous for Simaria Mela and religious gatherings. गंगा नदी के तट पर स्थित पवित्र तीर्थ स्थल, जो सिमरिया मेला और धार्मिक आयोजनों के लिए प्रसिद्ध है।"
+      }
+    ],
+    "Banka (बांका)": [
+  {
+    "name": "Papharni Mandir (पफरनी मंदिर)",
+    "image": "https://i0.wp.com/angdesh.com/wp-content/uploads/2022/07/papharni-talab-banka-7.jpg?resize=445%2C297&ssl=1",
+    "description": "यह मंदिर बांका जिले का एक प्रमुख धार्मिक स्थल है, जहाँ बड़ी संख्या में श्रद्धालु दर्शन के लिए आते हैं।"
+  },
+  {
+  "name": "Chuteshwar Nath Temple (चुटेश्वर नाथ मंदिर)",
+  "image": "https://i0.wp.com/angdesh.com/wp-content/uploads/2022/07/chutonath-mandir-dumka-5.jpg?fit=400%2C300&ssl=1&resize=350%2C200",
+  "description": "यह प्राचीन शिव मंदिर अपनी धार्मिक मान्यताओं और पौराणिक महत्व के लिए जाना जाता है।"
+},
+{
+"name": "Mandar Hill (मंदर पर्वत)",
+"image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/4f/7c/30/mandar-hill-parvat.jpg?w=1200&h=-1&s=1",
+"description": "मंदर पर्वत बांका जिले का सबसे प्रमुख तीर्थ स्थल है। मान्यता है कि समुद्र मंथन यहीं हुआ था। पर्वत पर विष्णु और अन्य देवी-देवताओं के मंदिर स्थित हैं।"
+},
+      {
+        "name": "Digghi Talab (दिग्घी तालाब)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgy4m4JpeXEPtivlzPFcTEfGGBdZiL3pBxow&s",
+        "description": "दिग्घी तालाब धार्मिक स्नान और मेलों के लिए प्रसिद्ध है। स्थानीय परंपराओं और संस्कृति का अनुभव यहाँ किया जा सकता है।"
+      }
+    ],
+    "Buxar (बक्सर)": [
+      {
+        "name": "Ramrekha Ghat (रामरेखा घाट, सिद्धाश्रम)",
+        "image": "data:image/jpeg;base64,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",
+        "description": "A sacred site on the banks of the Ganga, believed to be associated with Lord Rama. Lakhs of devotees visit during festivals and Ganga snan. गंगा तट पर स्थित पवित्र स्थल, जिसे भगवान राम से जोड़ा जाता है। पर्व और गंगा स्नान पर लाखों श्रद्धालु यहाँ आते हैं।"
+      },
+
+      {
+        "name": "Kila (किला)",
+        "image": "https://www.hlimg.com/images/things2do/300X200/images%20(20)_1511370063t.jpg?w=400&dpr=2.6",
+        "description": "A historical fort known for its architecture and cultural significance. ऐतिहासिक किला जो अपनी वास्तुकला और सांस्कृतिक महत्व के लिए प्रसिद्ध है।"
+      },
+
+      {
+        "name": "Bramheshwar Nath Temple (ब्रह्मेश्वरनाथ मंदिर, Dumraon)",
+        "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npYQliI6QDFqodKZXNJVwZj30iVfWHljL2wrLt1-_JHzjflfdYnT0QUOwK90qwWZjEAINc15xEGdyL882u9J4Me8xjueLkUNEcrhHmNFyIgDJmenJc-iQXwVyb3yyW-roqAP7aAPw=w243-h244-n-k-no-nu",
+        "description": "A famous Shiva temple often called 'Mini Deoghar'. During Shravan month, lakhs of devotees visit. प्रसिद्ध शिव मंदिर जिसे 'मिनी देवघर' कहा जाता है। सावन में लाखों श्रद्धालु यहाँ आते हैं।"
+      },
+      {
+        "name": "Katkauli Ka Maidan (कठकौली का मैदान)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlmYe-O6nAtWATuBL7wuxRsfMsxOoD0dSHAg&s",
+        "description": "The battlefield of the historic Battle of Buxar (1764) between the British and Indian rulers. ऐतिहासिक 'बक्सर का युद्ध' (1764) का मैदान, जहाँ अंग्रेजों और भारतीय शासकों के बीच युद्ध हुआ था।"
+      },
+      {
+        "name": "Mata Ahilya Asthan (माता अहिल्या स्थान, Ahirauli)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQvvVda_n6d4zrW-wRGC1GawSYPBizKkeTUxfYOoobZvePZLHP&s",
+        "description": "A temple dedicated to Mata Ahilya, associated with Ramayana legends. रामायण काल से जुड़ा पौराणिक स्थल, माता अहिल्या को समर्पित प्रसिद्ध मंदिर।"
+      },
+      {
+        "name": "Bihari Ji Mandir (बिहारी जी मंदिर, Dumraon)",
+        "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq5oL720LWJmsz4LCFnBNGj5KKEd5jLXxRcxfIf4RW3ZLaosZx7yr2Jmx7ZZb7NBqIj2MgmWqCZ1gHELT-QwBAOys6Z7loXczmTj1sQPNe5MS1b_dxYEzRXn0-5QZg6iKqFEyg=s1360-w1360-h1020-rw",
+        "description": "A famous temple in Dumraon dedicated to Lord Krishna, visited by devotees year-round. दु्मरांव स्थित भगवान श्रीकृष्ण को समर्पित प्रसिद्ध मंदिर, जहाँ सालभर श्रद्धालु दर्शन करने आते हैं।"
+      },
+      {
+        "name": "Nath Baba Mandir (नाथ बाबा मंदिर, Buxar)",
+        "image": "https://i0.wp.com/www.buxarkhabar.com/wp-content/uploads/2018/09/11-sep-nath-baba-mandir.jpg?fit=709%2C425&ssl=1",
+        "description": "A sacred Shiva temple and a major religious center for local devotees. धार्मिक आस्था का प्रमुख केंद्र, शिव भक्तों के लिए अत्यंत महत्वपूर्ण।"
+      },
+      {
+        "name": "Sita Ram Upadhyaya Museum (सीता राम उपाध्याय संग्रहालय, Buxar)",
+        "image": "https://www.mappls.com/place/IYZKCW_1686226708720_0.png",
+        "description": "A museum housing ancient sculptures, coins, and artifacts from the Maurya, Gupta, and Magadh period. An important site for history lovers. एक संग्रहालय जहाँ मौर्य, गुप्त और मगध काल की मूर्तियाँ, सिक्के और प्राचीन वस्तुएँ रखी गई हैं। इतिहास प्रेमियों के लिए महत्वपूर्ण स्थल।"
+      }
+
+    ],
+    "Bhojpur (भोजपुर)": [
+      {
+        "name": "Rarheswar Shiv Mandir (राढ़ेश्वर शिव मंदिर)",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/rarheshwar-shiv-mandir-durgapur-west-bengal-2-attr-hero?qlt=82&ts=1726643643395",
+        "description": "Rarheshwar Shiv Mandir is one of the ancient Shiva temples located near Durgapur, around 4 km from Muchipara. It holds great religious and historical significance. | राढ़ेश्वर शिव मंदिर दुर्गापुर के पास स्थित प्राचीन शिव मंदिरों में से एक है, जो मुचिपारा से लगभग 4 किमी दूर है। इसका धार्मिक और ऐतिहासिक महत्व है।"
+      },
+      {
+        "name": "Masarh (मसरh)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-08dcrtU-ncGvnw_TRtx2ak7gC86eChtzQ&s",
+        "description": "Masarh is derived from the word 'Mahasara'. It has a 600-year-old Jain inscription in the Parshvanatha temple where this place is mentioned as Mahasara. | मसरh का नाम 'महासरा' शब्द से निकला है। यहाँ के पार्श्वनाथ मंदिर में 600 वर्ष पुराना जैन शिलालेख है, जिसमें इस स्थान का उल्लेख महासरा के रूप में किया गया है।"
+      },
+      {
+        "name": "Holy Saviour Church (होली सेवियर चर्च)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS785dnpXqhqZhXPdq5yuvthM_3wsbN6Z_hjw&s",
+        "description": "Also known as St. Mary's Church, this was built in the early 1890s in Arrah with extraordinary British architecture. | सेंट मेरी चर्च के नाम से भी प्रसिद्ध यह चर्च आरा में 1890 के दशक में ब्रिटिश स्थापत्य कला से बनाया गया था।"
+      },
+      {
+        "name": "Arrah House, Maharaja College (आरा हाउस, महाराजा कॉलेज)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Arrah_House.jpg/250px-Arrah_House.jpg",
+        "description": "Arrah House is a historic building that witnessed the Siege of Arrah during the Revolt of 1857. Today, it is known as Veer Kunwar Singh Museum under the ASI. | आरा हाउस एक ऐतिहासिक भवन है जिसने 1857 के विद्रोह के दौरान आरा की घेराबंदी देखी थी। आज यह भारतीय पुरातत्व सर्वेक्षण के अधीन वीर कुंवर सिंह संग्रहालय के नाम से जाना जाता है।"
+      },
+      {
+        "name": "Bisram Jain Temple (बिसराम जैन मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgCwroQMTFBmOc3L3vOvSdSeGYdjIAeNO3-g&s",
+        "description": "Bisram is a religious site dedicated to Lord Mahavira, the 24th Tirthankar of Jainism. The name 'Bisram' means 'rest' in Hindi. | बिसराम जैन धर्म का प्रमुख स्थल है जो भगवान महावीर, 24वें तीर्थंकर को समर्पित है। 'बिसराम' का अर्थ हिंदी में 'विश्राम' होता है।"
+      },
+      {
+        "name": "Jagdishpur Fort (जगदीशपुर किला)",
+        "image": "https://s7ap1.scene7.com/is/image/incredibleindia/st.-marys-church-arrah-bihar-1-attr-nearby?qlt=82&ts=1726740513737",
+        "description": "Jagdishpur Fort was the residence of Babu Veer Kunwar Singh, one of the greatest leaders of the Revolt of 1857. | जगदीशपुर किला 1857 के विद्रोह के महान नेता बाबू वीर कुंवर सिंह का निवास स्थान था।"
+      },
+      {
+        "name": "Aranya Devi Temple (आरण्य देवी मंदिर)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Aranya_Devi_Temple%2C_Arrah.jpg/500px-Aranya_Devi_Temple%2C_Arrah.jpg",
+        "description": "One of the most famous temples in Arrah, dedicated to Goddess Aranya Devi (forest deity). Thousands of devotees visit every year. | आरा का प्रसिद्ध मंदिर, जो नगर की अधिष्ठात्री देवी आरण्य देवी को समर्पित है। हर साल हजारों श्रद्धालु यहाँ आते हैं।"
+      },
+      {
+        "name": "Sun Temple, Tarari (सूर्य मंदिर, तरारी)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRrdhh8AV7mEElui65k-oKN0vKXoEqKLeOA&s",
+        "description": "तरारी ब्लॉक के देव गांव में स्थित यह सूर्य मंदिर 14वीं शताब्दी या उससे भी प्राचीन माना जाता है। यहाँ सूर्य देव की प्रतिमा के साथ अन्य देवी-देवताओं की मूर्तियाँ भी हैं।"
+      },
+      {
+        "name": "Veer Kunwar Singh Qila, Jagdishpur (वीर कुंवर सिंह किला, जगदीशपुर)",
+        "image": "https://images.news18.com/ibnkhabar/uploads/2023/01/2439329_HYP_0_FEATURE20230125_153441-16747230683x2.jpg",
+        "description": "1857 के महान स्वतंत्रता सेनानी वीर कुंवर सिंह का किला जगदीशपुर में स्थित है। यह किला उनकी वीरता और बलिदान की स्मृतियों को संजोए हुए है।"
+      }
+    ],
+
+    "Gopalganj (गोपालगंज)": [
+      {
+        "name": "Thawe Durga Mandir (थावे दुर्गा मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdaYyFO78KNKQepxVkYvHf0fx66tKPECqLqg&s",
+        "description": "The most famous Shakti Peeth in Gopalganj, where lakhs of devotees visit during Navratri. गोपालगंज का सबसे प्रसिद्ध शक्तिपीठ, जहाँ नवरात्रि में लाखों श्रद्धालु आते हैं।"
+      },
+      {
+        "name": "Shri Pitambara Peeth, Maa Baglamukhi (श्री पीताम्बरा पीठ, माँ बगलामुखी)",
+        "image": "https://nonprod-media.webdunia.com/public_html/_media/hi/img/article/2022-05/04/full/1651659391-0807.jpg",
+        "description": "A divine temple dedicated to Maa Baglamukhi, worshipped for victory and protection. माँ बगलामुखी को समर्पित दिव्य मंदिर, जहाँ विजय और सुरक्षा के लिए पूजा होती है।"
+      },
+
+      {
+        "name": "Lakri Dargah (लकड़ी दरगाह)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOwftLcqdawVlfobxX0RrydsN5uFqrdwPMfw&s",
+        "description": "A famous Sufi shrine visited by people of all religions, known for communal harmony. सभी धर्मों के लोग इस सूफी दरगाह में आते हैं, जो साम्प्रदायिक एकता का प्रतीक है।"
+      },
+      {
+        "name": "Hathua Raj Palace (हथुआ राज पैलेस)",
+        "image": "https://i.ytimg.com/vi/rw0o0Ca3YJ4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCoUnRl_YdtKl0dYxzX7LJwV36b0w", // ऊपर दिखाए गए इमेज को किसी भरोसेमंद होस्टिंग में अपलोड करें
+        "description": "A historic white palace built in Mughal-British architectural style, located in Hathua, symbolizing royal heritage. Part of the estate now houses Sainik School Gopalganj. हथुआ में स्थित एक ऐतिहासिक सफेद महल, जो मुगल-ब्रिटिश स्थापत्य शैली में बना है और शाही विरासत का प्रतीक है। इसका एक हिस्सा अब सैनिक स्कूल गोपालगंज के रूप में उपयोग में है।"
+      }
+    ],
+    "East Champaran (पूर्वी चंपारण)": [
+      {
+        "name": "George Orwell Birthplace, Motihari (जॉर्ज ऑरवेल जन्मस्थान, मोतिहारी)",
+        "image": "https://cdn.s3waas.gov.in/s3bac9162b47c56fc8a4d2a519803d51b3/uploads/bfi_thumb/2022010712-1-pin8sz3efdqtcotx7l5xputyjn91jhzvolxxsihj0e.jpeg",
+        "description": "George Orwell, a world-renowned novelist of English literature, was born on June 25, 1903, near Gopal Sah High School in Motihari. The site is preserved as a historic landmark. | जॉर्ज ऑरवेल, अंग्रेजी साहित्य के विश्वप्रसिद्ध उपन्यासकार, का जन्म 25 जून 1903 को मोतिहारी के गोपाल साह हाई स्कूल के पास हुआ था। यह स्थल आज एक ऐतिहासिक धरोहर के रूप में संरक्षित है।"
+      },
+      {
+        "name": "Gandhi Memorial, Chandrahiya (गांधी स्मारक, चंद्रहिया)",
+        "image": "https://cdn.s3waas.gov.in/s3bac9162b47c56fc8a4d2a519803d51b3/uploads/bfi_thumb/2018033063-olwccjdhi9gqddjtp8jq53tuxp5kl1ulld4t2agdxa.jpg",
+        "description": "Chandrahiya village in East Champaran holds special significance in the Champaran Satyagraha. On April 18, 1917, Mahatma Gandhi was stopped here by the British during the movement. | पूर्वी चंपारण का चंद्रहिया गाँव चंपारण सत्याग्रह में विशेष महत्व रखता है। 18 अप्रैल 1917 को महात्मा गांधी को यहाँ अंग्रेजों ने आंदोलन के दौरान रोका था।"
+      },
+      {
+        "name": "Someshwar Nath Mandir, Areraj (सोमेश्वर नाथ मंदिर, अरेराज)",
+        "image": "https://cdn.s3waas.gov.in/s3bac9162b47c56fc8a4d2a519803d51b3/uploads/bfi_thumb/2018031343-e1520936977530-olwccburzl6fshuqx5apl5q66m6mvh0qwbwx82rjb2.jpg",
+        "description": "Areraj is a holy city in North Bihar, 28 km southwest of Motihari. The Someshwar Nath Temple here is an ancient and highly revered Shiva temple. | अरेराज उत्तर बिहार का एक पवित्र नगर है, जो मोतिहारी से 28 किमी दक्षिण-पश्चिम में स्थित है। यहाँ का सोमेश्वर नाथ मंदिर एक प्राचीन और अत्यंत श्रद्धेय शिव मंदिर है।"
+      },
+      {
+        "name": "Ashokan Pillar, Lauria Areraj (अशोक स्तंभ, लौरिया अरेराज)",
+        "image": "https://cdn.s3waas.gov.in/s3bac9162b47c56fc8a4d2a519803d51b3/uploads/bfi_thumb/2018031421-olwcccsm6f7q43tdrnpc5nhms020364h8gkepcq54u.jpg",
+        "description": "This lofty stone column was erected by Emperor Ashoka in 249 BC at Lauria village under Areraj subdivision. It is an important monument of Buddhist and Mauryan history. | यह विशाल पत्थर का स्तंभ 249 ईसा पूर्व सम्राट अशोक द्वारा अरेराज प्रखंड के लौरिया गाँव में स्थापित किया गया था। यह बौद्ध और मौर्यकालीन इतिहास का एक महत्वपूर्ण स्मारक है।"
+      },
+      {
+        "name": "Gandhi Sangrahalaya, Motihari (गांधी संग्रहालय, मोतिहारी)",
+        "image": "https://cdn.s3waas.gov.in/s3bac9162b47c56fc8a4d2a519803d51b3/uploads/bfi_thumb/2018031331-olwccburzl6fshuqx5apl5q66m6mvh0qwbwx82rjb2.jpg",
+        "description": "The foundation stone of this Gandhi memorial and library was laid on June 10, 1972 by the Governor D.K. Barooch. It preserves rare documents and materials related to Gandhi and Champaran Satyagraha. | गांधी स्मारक और पुस्तकालय की आधारशिला 10 जून 1972 को तत्कालीन राज्यपाल डी.के. बारूच द्वारा रखी गई थी। यहाँ गांधीजी और चंपारण सत्याग्रह से जुड़े दुर्लभ दस्तावेज़ व सामग्री संरक्षित हैं।"
+      },
+      {
+        "name": "Kesaria Baudh Stupa (केसरीया बौद्ध स्तूप)",
+        "image": "https://cdn.s3waas.gov.in/s3bac9162b47c56fc8a4d2a519803d51b3/uploads/bfi_thumb/2018031361-olwccburzl6fshuqx5apl5q66m6mvh0qwbwx82rjb2.jpg",
+        "description": "The discovery of the Kesaria Stupa reestablished Bihar’s historic importance. It is considered the largest Buddhist stupa ever found in the world. | केसरीया स्तूप की खोज ने बिहार के ऐतिहासिक महत्व को पुनः स्थापित किया। इसे दुनिया का सबसे बड़ा बौद्ध स्तूप माना जाता है।"
+      }
+      ],
+    "West Champaran (पश्चिम चंपारण)": [
+      {
+        "name": "Valmikinagar Barrage (वाल्मीकिनगर बैराज)",
+        "image": "https://cdn.s3waas.gov.in/s3c6e19e830859f2cb9f7c8f8cacb8d2a6/uploads/2018/03/2018031099-300x199.jpg",
+        "description": "The Valmikinagar Barrage on the Gandak River is a major attraction, offering scenic views and picnic spots. | गंडक नदी पर स्थित वाल्मीकिनगर बैराज एक प्रमुख आकर्षण है, जहाँ सुंदर दृश्य और पिकनिक स्थल उपलब्ध हैं।"
+      },
+      {
+        "name": "Chanki Garh Fort (चंकीगढ़ किला)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTee9DwbqmIp_sWb5W7RVISci6pexAHJgMRfg&s",
+        "description": "Chanki Garh is an ancient fort located near Valmikinagar, known for its historical importance and scenic surroundings. | चंकीगढ़ एक प्राचीन किला है जो वाल्मीकिनगर के पास स्थित है, यह अपने ऐतिहासिक महत्व और सुंदर प्राकृतिक परिवेश के लिए प्रसिद्ध है।"
+      },
+      {
+        "name": "Someshwar Fort (सोमेश्वर किला)",
+        "image": "https://scontent.fdel1-2.fna.fbcdn.net/v/t39.30808-6/485885326_1071389895021763_4845036170938945016_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_ohc=piyfQcoOsiwQ7kNvwE5hJ6p&_nc_oc=Adn5KnDPI_TN2eSAb5EmM7F-oJemxY4BHgf-rSC4rn8Sr4M7LB23rYxqpFl3Jaa59Lw&_nc_zt=23&_nc_ht=scontent.fdel1-2.fna&_nc_gid=RMphlhR7u-RlzmeCliqM_Q&oh=00_Afat0n6hzYG6S1lz0Qao8lG-7Tc3bbUgmL2LLhJ44fD2_w&oe=68C7040A",
+        "description": "Someshwar Fort, located near the Indo-Nepal border in West Champaran, is a historical site surrounded by dense forests and scenic hills. | पश्चिम चंपारण में भारत-नेपाल सीमा के पास स्थित सोमेश्वर किला एक ऐतिहासिक स्थल है, जो घने जंगलों और सुंदर पहाड़ियों से घिरा हुआ है।"
+      },
+      {
+        "name": "Valmiki Tiger Reserve (वाल्मीकि टाइगर रिज़र्व)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnuEy1RXtKzRDQGem01CPJ1OCjvEA40O_9Mg&s",
+        "description": "Valmiki Tiger Reserve, located in West Champaran, is the only tiger reserve in Bihar. Spread over the Himalayan Terai region, it is home to tigers, leopards, elephants, and rich biodiversity. | पश्चिम चंपारण में स्थित वाल्मीकि टाइगर रिज़र्व बिहार का एकमात्र टाइगर रिज़र्व है। यह हिमालयी तराई क्षेत्र में फैला है और यहाँ बाघ, तेंदुए, हाथी तथा समृद्ध जैव विविधता पाई जाती है।"
+      },
+      {
+        "name": "Thori Red Hill (थोरी रेड हिल)",
+        "image": "https://media-cdn.tripadvisor.com/media/photo-c/1280x250/13/5e/4a/00/jim-corbett-national.jpg",
+        "description": "Thori Red Hill, located near Valmikinagar in West Champaran, is known for its unique red-colored soil and natural beauty. It is a popular spot for nature lovers and trekkers. | पश्चिम चंपारण के वाल्मीकिनगर के पास स्थित थोरी रेड हिल अपनी लाल मिट्टी और प्राकृतिक सुंदरता के लिए प्रसिद्ध है। यह प्रकृति प्रेमियों और ट्रैकिंग करने वालों के लिए एक लोकप्रिय स्थल है।"
+      },
+
+      {
+        "name": "Ramnagar Shiv Mandir (रामनगर शिव मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn3HDNWCnl8kwZRcqlFkoZQJHaQqgyn5Z2lA&s",
+        "description": "Ramnagar Shiv Mandir is a famous temple dedicated to Lord Shiva, known for its religious importance and large gatherings during Maha Shivratri. | रामनगर शिव मंदिर भगवान शिव को समर्पित एक प्रसिद्ध मंदिर है, जो अपनी धार्मिक महत्ता और महाशिवरात्रि के विशाल मेले के लिए जाना जाता है।"
+      },
+
+      {
+        "name": "Bhiknathori (भिखनाथोरी)",
+        "image": "https://media-cdn.tripadvisor.com/media/photo-c/1280x250/13/5e/4a/00/jim-corbett-national.jpg",
+        "description": "A scenic spot near the Nepal border offering clear Himalayan views, once visited by King George V for hunting. | नेपाल सीमा के पास स्थित यह सुंदर स्थल हिमालय की झलक दिखाता है, जहाँ किंग जॉर्ज पंचम शिकार के लिए आए थे।"
+      },
+      {
+        "name": "Sumeswer Fort (सुमेश्वर किला)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPw1opi1NeGuYrsofty92Cz6uGxOuQeThyig&s",
+        "description": "Located atop the Sumeswer Hills at 2,884 feet, the fort offers breathtaking Himalayan views and ancient water reservoirs. | 2,884 फीट ऊँचे सुमेश्वर पहाड़ पर स्थित यह किला शानदार हिमालयी दृश्य और प्राचीन जलाशयों के लिए जाना जाता है।"
+      },
+      {
+        "name": "Bhitiharwa Ashram (भितिहरवा आश्रम)",
+        "image": "https://cdn.s3waas.gov.in/s3c6e19e830859f2cb9f7c8f8cacb8d2a6/uploads/2018/03/2018031068-300x230.png",
+        "description": "This ashram is where Mahatma Gandhi began the Champaran Satyagraha, now a pilgrimage site of Gandhian legacy. | यहीं से महात्मा गांधी ने चंपारण सत्याग्रह शुरू किया था, अब यह गाँधीवादी धरोहर का तीर्थ स्थल है।"
+      },
+      {
+        "name": "Nandangarh and Chankigarh (नंदनगढ़ और चाणकिगढ़)",
+        "image": "https://cdn.s3waas.gov.in/s3c6e19e830859f2cb9f7c8f8cacb8d2a6/uploads/2018/03/2018031072.jpg",
+        "description": "These ancient mounds are believed to be remains of Nanda dynasty palaces and associated with Chanakya. | ये प्राचीन टीले नंद वंश के महलों और चाणक्य से जुड़े अवशेष माने जाते हैं।"
+      },
+      {
+        "name": "Ashoka Pillars, Lauriya (अशोक स्तंभ, लौरिया)",
+        "image": "https://cdn.s3waas.gov.in/s3c6e19e830859f2cb9f7c8f8cacb8d2a6/uploads/2018/03/2018031071-270x300.jpg",
+        "description": "A 2300-year-old Ashokan pillar, standing 35 feet tall, showcases Mauryan artistry and history. | लगभग 2300 वर्ष पुराना अशोक स्तंभ, 35 फीट ऊँचा, मौर्यकालीन कला और इतिहास का अद्भुत प्रमाण है।"
+      }
+    ],
+    "Jehanabad (जहानाबाद)": [
+      {
+        "name": "Barabar Caves (बाराबर गुफाएँ)",
+        "image": "https://cdn.s3waas.gov.in/s34e4b5fbbbb602b6d35bea8460aa8f8e5/uploads/bfi_thumb/2021020354-scaled-p2bdqjgz588u51gwoqho3bqrznv3f6a7nr82fp2ah6.jpg",
+        "description": "The Barabar Caves, located near Makhdumpur about 25 km south of Jehanabad, are the oldest surviving rock-cut caves in India. Dating back to the Mauryan period (3rd century BCE), they were used by the Ajivika sect and later associated with Buddhism and Jainism. The caves are famous for their polished granite interiors and echo effect. | बाराबर गुफाएँ, जहानाबाद से लगभग 25 किमी दक्षिण में मखदूमपुर के पास स्थित, भारत की सबसे प्राचीन शिलाचित्रित गुफाएँ मानी जाती हैं। ये मौर्य काल (ईसा पूर्व 3री शताब्दी) की हैं और पहले आजीवक संप्रदाय द्वारा उपयोग में लाई जाती थीं। बाद में इनका संबंध बौद्ध और जैन धर्म से भी रहा। गुफाओं की ग्रेनाइट की दीवारों पर चमकदार पॉलिश और गूँजने की विशेषता प्रसिद्ध है।"
+      },
+      {
+        "name": "Barabar Hills (बाराबर पहाड़ियाँ)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3WGVavI60xEZmNF3TmP3Fda1HThtaqqe4ug&s",
+        "description": "Barabar Hills surround the famous caves and offer a scenic natural landscape with historic charm, making them a popular trekking and picnic spot. | बाराबर गुफाओं को घेरे हुए ये पहाड़ियाँ प्राकृतिक सौंदर्य और ऐतिहासिक महत्व से भरपूर हैं। यह स्थान ट्रेकिंग और पिकनिक के लिए भी प्रसिद्ध है।"
+      },
+      {
+        "name": "Dawthu, Hulasganj (दावथू, हुलासगंज)",
+        "image": "https://cdn.s3waas.gov.in/s34e4b5fbbbb602b6d35bea8460aa8f8e5/uploads/bfi_thumb/2022101172-pw1m5vqqgqmubcogk7esbtffoyd31usvnw8su7qah6.jpeg",
+        "description": "This site contains ancient remains of temples and sculptures resembling early historic structures, making it an archaeological interest point. | इस स्थल पर प्राचीन मंदिरों और मूर्तियों के अवशेष मिलते हैं, जिनका ढांचा प्राचीन ऐतिहासिक स्थापत्य जैसा है। यह स्थान पुरातत्व की दृष्टि से महत्वपूर्ण है।"
+      },
+      {
+        "name": "Amthua Sharif (अमथुआ शरीफ)",
+        "image": "https://cdn.s3waas.gov.in/s34e4b5fbbbb602b6d35bea8460aa8f8e5/uploads/bfi_thumb/2022101118-pw1m713mtg7gi70dupaddizptwp8gjd2hky5ye0yve.jpeg",
+        "description": "Amthua Sharif is a Sufi shrine located 13 km from Jehanabad headquarters and 8 km from Kako, known for its religious significance. | अमथुआ शरीफ एक सूफी दरगाह है, जो जिला मुख्यालय से 13 किमी और काको से 8 किमी दूर स्थित है। यह धार्मिक दृष्टि से अत्यंत महत्वपूर्ण स्थल है।"
+      },
+      {
+        "name": "Vishnu Temple, Kako (विष्णु मंदिर, काको)",
+        "image": "https://cdn.s3waas.gov.in/s34e4b5fbbbb602b6d35bea8460aa8f8e5/uploads/bfi_thumb/2022092128-pv374dti692jjonjc8f9guxvxh6njo2fn6gjn8qvm2.jpeg",
+        "description": "The Vishnu Temple at Kako is an ancient shrine with both historical and religious value, attracting devotees and historians alike. | काको का विष्णु मंदिर एक प्राचीन धार्मिक स्थल है, जिसका ऐतिहासिक और धार्मिक दोनों दृष्टि से महत्व है। यहाँ श्रद्धालु और इतिहास प्रेमी बड़ी संख्या में आते हैं।"
+      },
+      {
+        "name": "Bibi Kamal’s Dargah (बीबी कमाल की दरगाह)",
+        "image": "https://cdn.s3waas.gov.in/s34e4b5fbbbb602b6d35bea8460aa8f8e5/uploads/bfi_thumb/2018030881-olw8p6fpq9bz5bokzshdpvgodstr38glyvma40wvbe.jpg",
+        "description": "This is the shrine of Hazrat Bibi Kamal, considered the first woman Sufi saint of India, and holds immense spiritual importance. | यह हज़रत बीबी कमाल की दरगाह है, जिन्हें भारत की पहली महिला सूफी संत माना जाता है। यह स्थान अत्यधिक आध्यात्मिक महत्व रखता है।"
+      }
+    ],
+    "Jamui (जमुई)": [
+      {
+        "name": "Jain Mandir, Lachhuar (जैन मंदिर, लच्छुआर)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Lachhuar_Jain_Temple.jpg/375px-Lachhuar_Jain_Temple.jpg",
+        "description": "This large Dharmsala with 65 rooms was built for Jain pilgrims. Inside is a temple of Lord Mahavira with a 2,600-year-old black stone idol weighing about 250 kg. | यह विशाल धर्मशाला जैन तीर्थयात्रियों के लिए 65 कमरों के साथ बनाई गई है। इसके भीतर भगवान महावीर का मंदिर है, जिसमें 2600 साल पुरानी काले पत्थर की प्रतिमा विराजमान है, जिसका वज़न लगभग 250 किलो है।"
+      },
+      {
+        "name": "Giddheswar Temple (गिद्धेश्वर मंदिर)",
+        "image": "https://images.news18.com/ibnkhabar/uploads/2025/06/HYP_5260029_20250622_134513_watermark_24062025_011517_1.jpg?im=Resize,width=400,aspect=fit,type=normal",
+        "description": "A famous Shiva temple located atop stone boulders, about 15 km south of Jamui town. | यह प्रसिद्ध शिव मंदिर पत्थरों की चट्टानों के ऊपर स्थित है, जो जमुई मुख्यालय से लगभग 15 किमी दक्षिण में है।"
+      },
+      {
+        "name": "Simultalla Hill Station (सिमुलतल्ला हिल स्टेशन)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiynfWmNEA4X4Kqi2-9Q96Yxit3WDQIY9iDw&s",
+        "description": "Known for its scenic beauty and pleasant weather, Simultalla is believed to be the meditation land (Tapo-Bhumi) of Sri Ramakrishna Paramhans. | अपनी प्राकृतिक सुंदरता और सुहावने मौसम के लिए प्रसिद्ध सिमुलतल्ला को श्री रामकृष्ण परमहंस की तपो-भूमि माना जाता है।"
+      },
+      {
+        "name": "Kali Mandir, Malaypur (काली मंदिर, मलयपुर)",
+        "image": "https://i.ytimg.com/vi/lc4MrU6u5B8/maxresdefault.jpg",
+        "description": "This temple of Goddess Kali is located near Jamui railway station in Malaypur village, Barhat block. A grand Kali Mela is organized here annually. | देवी काली का यह मंदिर मलयपुर गाँव (बरहट प्रखंड) में जमुई रेलवे स्टेशन के पास स्थित है। यहाँ हर साल भव्य काली मेला आयोजित होता है।"
+      },
+      {
+        "name": "Minto Tower, Gidhaur (मिंटो टॉवर, गिद्धौर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6AX4-MNBpMlY63VNbMqG3OJCvaqJviYw1Og&s",
+        "description": "Built in 1909 by the Maharaja of Gidhaur to honor the visit of British Viceroy Lord Irwin, the Minto Tower is a landmark in the Gidhaur market. | गिद्धौर के महाराजा ने 1909 में ब्रिटिश वायसराय लॉर्ड इर्विन की यात्रा की स्मृति में मिंटो टॉवर का निर्माण कराया। यह गिद्धौर बाज़ार का प्रमुख आकर्षण है।"
+      },
+      {
+        "name": "Patneswar Mandir (पटनेश्वर मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs8cMXVfsiHmZOEcbVF-QutTHqnEKPFsOmUw&s",
+        "description": "A famous Shiva temple located about 5 km north of Jamui town on Station Road. | यह प्रसिद्ध शिव मंदिर स्टेशन रोड पर जमुई से लगभग 5 किमी उत्तर की ओर स्थित है।"
+      },
+      {
+        "name": "Maa Netula Temple (माँ नेटुला मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMPABNp7lw_n2eyMQyAGRRy38tqdB9Vtz49Q&s",
+        "description": "This temple of Maa Ambe is situated in Kumar village, Sikandra block, about 26 km west of Jamui town. | माँ अम्बे का यह प्रसिद्ध मंदिर कुमार गाँव (सिकंदरा प्रखंड) में स्थित है, जो जमुई मुख्यालय से लगभग 26 किमी पश्चिम में है।"
+      },
+      {
+        "name": "Bhim Bandh (भीमबांध)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEVZfovHX5SOKsQtB89QmvHa5v9PcxS6nXFw&s",
+        "description": "Located in the forest between Lakshmipur and Haveli Kharagpur, Bhim Bandh has several natural hot springs and is a popular winter picnic spot. | लक्ष्मीपुर और हवेली खरगपुर के जंगलों के बीच स्थित भीमबांध प्राकृतिक गर्म जलस्रोतों के लिए प्रसिद्ध है और अक्टूबर से फरवरी तक यह एक लोकप्रिय पिकनिक स्थल है।"
+      }
+    ],
+
+
+
+    "Kaimur (कैमूर)": [
+      {
+        "name": "Mundeshwari Temple (मुण्डेश्वरी मंदिर)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Maa_Mundeshwari_Devi.jpg/500px-Maa_Mundeshwari_Devi.jpg",
+        "description": "विश्व का सबसे प्राचीन जीवित मंदिर, माता मुंडेश्वरी को समर्पित। यहां लाखों श्रद्धालु हर साल दर्शन करने आते हैं।"
+      },
+      {
+        "name": "Kaimur Wildlife Sanctuary (कैमूर वन्यजीव अभयारण्य)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYdSYiU-I2bTXNqEcELEfRbJUCxBs6ZxUSVw&s",
+        "description": "बिहार का सबसे बड़ा वन्यजीव अभयारण्य, जहाँ कई दुर्लभ जीव और प्राकृतिक सुंदरता देखने को मिलती है।"
+      },
+      {
+        "name": "Telhar Kund Waterfall (टेल्हार कुंड जलप्रपात)",
+        "image": "https://pbs.twimg.com/media/FwaY09YagAAHZrd.jpg",
+        "description": "पर्वतीय क्षेत्र में स्थित यह खूबसूरत जलप्रपात पर्यटकों और पिकनिक मनाने वालों के लिए स्वर्ग समान है।"
+      },
+      {
+        "name": "Baidyanath Village & Archaeological Site (बैद्यनाथ गांव एवं पुरातात्विक स्थल)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQATu8ipHOXTmJN_T9cwGwtBc6j8v3066zcaA&s",
+        "description": "यहां प्राचीन मंदिर और ऐतिहासिक धरोहरें हैं, जो इसे एक प्रमुख सांस्कृतिक स्थल बनाते हैं।"
+      },
+      {
+        "name": "Chainpur Fort (चैनपुर किला)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWm9zIxGYxiZxLvPf5UmxjdBnGcrT1S-mYEw&s",
+        "description": "इतिहास और वास्तुकला का अद्भुत उदाहरण, कैमूर का यह किला सैलानियों को आकर्षित करता है।"
+      }
+    ],
     "Katihar (कटिहार)": [
       {
-        "name": "Goga Lake",
-        "image": "assets/images/goga_lake.jpg",
-        "description": "A scenic lake surrounded by greenery, perfect for picnics and boating. हरे-भरे वातावरण से घिरा एक सुंदर झील, पिकनिक और नौका विहार के लिए उपयुक्त।"
+        "name": "Satsang Mandir (सत्संग मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s3b5b41fac0361d157d9673ecb926af5ae/uploads/bfi_thumb/2018031332-olwbt7sydjgvxby956ok3jtjfiqpg0r9j72tsjyjfk.jpg",
+        "description": "A peaceful spiritual center in Katihar where devotees gather for satsang and prayers. | कटिहार का एक शांतिपूर्ण आध्यात्मिक स्थल, जहाँ भक्तजन सत्संग और प्रार्थना के लिए एकत्र होते हैं।"
       },
       {
-        "name": "Manihari Ghat",
-        "image": "assets/images/manihari_ghat.jpg",
-        "description": "A popular riverside spot on the banks of the Ganga, known for scenic sunsets. गंगा के किनारे का एक प्रसिद्ध स्थल, खूबसूरत सूर्यास्त के लिए मशहूर।"
+        "name": "Peer Mazar, Manihari (पीर मजार, मनिहारी)",
+        "image": "https://cdn.s3waas.gov.in/s3b5b41fac0361d157d9673ecb926af5ae/uploads/bfi_thumb/2018031327-1-olwbt6v46pfllpzmao9xj222u4vc8bnj72fcb9zxls.jpg",
+        "description": "A popular dargah in Manihari visited by devotees of all faiths for blessings. | मनिहारी में स्थित एक प्रसिद्ध दरगाह, जहाँ सभी धर्मों के लोग आशीर्वाद लेने आते हैं।"
       },
       {
-        "name": "Kursela",
-        "image": "assets/images/kursela.jpg",
-        "description": "A town at the confluence of the Ganga and Koshi rivers with cultural significance. गंगा और कोशी नदियों के संगम पर बसा सांस्कृतिक महत्व का स्थान।"
+        "name": "Gurudwara Saheb, Barari (गुरुद्वारा साहेब, बरारी)",
+        "image": "https://cdn.s3waas.gov.in/s3b5b41fac0361d157d9673ecb926af5ae/uploads/bfi_thumb/2018031345-olwbt7sydjgvxby956ok3jtjfiqpg0r9j72tsjyjfk.jpg",
+        "description": "A historic Sikh Gurudwara in Barari, serving as a center of devotion and langar. | बरारी का ऐतिहासिक सिख गुरुद्वारा, जहाँ श्रद्धा और लंगर की परंपरा चलती है।"
       },
       {
-        "name": "Barari Park",
-        "image": "assets/images/barari_park.jpg",
-        "description": "A green public park with walking trails and playgrounds for families. हरे-भरे पगडंडियों और बच्चों के खेल के मैदान वाला सार्वजनिक पार्क।"
+        "name": "Gorkhanath Temple (गोरखनाथ मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s3b5b41fac0361d157d9673ecb926af5ae/uploads/bfi_thumb/2018031329-1-olwbt6v46pfllpzmao9xj222u4vc8bnj72fcb9zxls.jpg",
+        "description": "Dedicated to Lord Shiva in the form of Gorakhnath, this temple attracts many devotees. | भगवान शिव के गोरखनाथ रूप को समर्पित यह मंदिर भक्तों का आकर्षण है।"
       },
       {
-        "name": "Bhawani Asthan Temple",
-        "image": "assets/images/bhawani_asthan.jpg",
-        "description": "A famous temple dedicated to Goddess Durga, attracting devotees year-round. देवी दुर्गा को समर्पित प्रसिद्ध मंदिर, जो सालभर भक्तों को आकर्षित करता है।"
+        "name": "Gogabil Lake, Manihari (गोगाबिल झील, मनिहारी)",
+        "image": "https://cdn.s3waas.gov.in/s3b5b41fac0361d157d9673ecb926af5ae/uploads/bfi_thumb/2018031315-olwbt6v46pfllpzmao9xj222u4vc8bnj72fcb9zxls.jpg",
+        "description": "A natural ox-bow lake and bird sanctuary in Manihari, famous for migratory birds. | मनिहारी की एक प्राकृतिक ऑक्स-बो झील और पक्षी अभयारण्य, जो प्रवासी पक्षियों के लिए प्रसिद्ध है।"
       },
       {
-        "name": "Lal Kothi",
-        "image": "assets/images/lal_kothi.jpg",
-        "description": "A colonial-era heritage building showcasing vintage architecture. औपनिवेशिक काल की वास्तुकला का उदाहरण पेश करने वाली विरासत इमारत।"
+        "name": "Kastharan Nath Mandir (कष्टरनाथ मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s3b5b41fac0361d157d9673ecb926af5ae/uploads/bfi_thumb/2018031390-olwbt8qskdi68xwvzp36o1l00wm2npuzvbqb9tx59c.jpg",
+        "description": "An ancient temple of Lord Shiva, considered one of the oldest shrines in Katihar. | भगवान शिव का प्राचीन मंदिर, जिसे कटिहार के सबसे पुराने तीर्थस्थलों में माना जाता है।"
       },
       {
-        "name": "Gamharia Hills",
-        "image": "assets/images/gamharia_hills.jpg",
-        "description": "Small hills offering panoramic views and peaceful surroundings. सुंदर नज़ारों और शांत वातावरण के लिए प्रसिद्ध छोटी पहाड़ियाँ।"
+        "name": "Gandhi Ghar, Kursela (गांधी घर, कुरसेला)",
+        "image": "https://cdn.s3waas.gov.in/s3b5b41fac0361d157d9673ecb926af5ae/uploads/bfi_thumb/2018031329-olwbt7sydjgvxby956ok3jtjfiqpg0r9j72tsjyjfk.jpg",
+        "description": "A memorial house in Kursela associated with Mahatma Gandhi’s visit and freedom struggle. | कुरसेला में स्थित यह स्मारक महात्मा गांधी की यात्रा और स्वतंत्रता संग्राम से जुड़ा है।"
       },
       {
-        "name": "Suryagarha",
-        "image": "assets/images/suryagarha.jpg",
-        "description": "An ancient site with local legends and historical importance. प्राचीन स्थल, जो स्थानीय कथाओं और ऐतिहासिक महत्व से जुड़ा है।"
+        "name": "Gauri Shankar Mandir, SBI Gali (गौरीशंकर मंदिर, एसबीआई गली)",
+        "image": "https://cdn.s3waas.gov.in/s3b5b41fac0361d157d9673ecb926af5ae/uploads/bfi_thumb/2018031327-olwbt6v46pfllpzmao9xj222u4vc8bnj72fcb9zxls.jpg",
+        "description": "A famous Shiva temple in Katihar city, located in SBI Gali. | कटिहार शहर के एसबीआई गली में स्थित यह प्रसिद्ध शिव मंदिर है।"
       },
       {
-        "name": "Railway Heritage Park",
-        "image": "assets/images/railway_heritage_park.jpg",
-        "description": "A park featuring old locomotives and railway history exhibits. पुराने इंजनों और रेलवे के इतिहास को दर्शाने वाला पार्क।"
-      },
+        "name": "Sarwajnik Durga Mandir (सार्वजनिक दुर्गा मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7ea6Vz4VZFA5kaJ4l8n_9mUmmPUdsW3SVIw&s",
+        "description": "A public Durga temple where grand Durga Puja celebrations are held every year. | एक सार्वजनिक दुर्गा मंदिर जहाँ हर साल भव्य दुर्गा पूजा आयोजित की जाती है।"
+      }
+    ],
+    "Khagaria (खगड़िया)": [
+  {
+    "name": "Katyayani Asthan (कात्यायनी स्थान)",
+    "image": "https://www.jagranimages.com/images/newimg/29072022/29_07_2022-maa_katyayani_place_khagaria_22934836.jpg",
+    "description": "Located about 12 km from Khagaria district HQ, this temple is dedicated to Maa Katyayani. It also has shrines of Lord Rama, Lakshman, and Maa Janki. Devotees visit especially on Mondays and Fridays. According to legends, Sage Katyayan performed penance near the Kaushik (Koshi) river, and Maa Durga appeared as his daughter, hence known as Katyayani. Around 300 years ago, Bhakta Sripat Maharaj built this temple after a divine vision. | खगड़िया मुख्यालय से लगभग 12 किमी दूर स्थित यह मंदिर माँ कात्यायनी को समर्पित है। यहाँ भगवान राम, लक्ष्मण और माँ जानकी के भी मंदिर हैं। मान्यता है कि ऋषि कात्यायन ने यहाँ कोशी नदी के तट पर तप किया था और माँ दुर्गा उनकी पुत्री के रूप में प्रकट हुईं। लगभग 300 वर्ष पहले भक्त श्रीपत महाराज ने स्वप्न में माँ के दर्शन के बाद इस मंदिर का निर्माण कराया।"
+  }
+],
+    "Lakhisarai (लखीसराय)": [
+  {
+    "name": "Ashok Dham Temple (अशोक धाम मंदिर)",
+    "image": "https://cdnbbsr.s3waas.gov.in/s39bb6dee73b8b0ca97466ccb24fff3139/uploads/2022/10/2022101744.jpg",
+    "description": "One of the most famous Shiva temples in Bihar, dedicated to Lord Mahadev. It attracts devotees especially during Shravan month when Kanwarias visit with Ganga jal. | बिहार के प्रमुख शिव मंदिरों में से एक, भगवान महादेव को समर्पित। श्रावण मास में विशेष रूप से कांवरियों का यहाँ आना होता है।"
+  },
+  {
+  "name": "Buddha Math Rajauna (बुद्ध मठ, राजौना)",
+  "image": "https://www.nativeplanet.com/photos/212x302x100/2018/12/photo-92-115352-1.jpg",
+  "description": "An ancient Buddhist monastery that reflects the influence of Lord Buddha’s teachings in the region. | एक प्राचीन बौद्ध मठ, जो इस क्षेत्र में भगवान बुद्ध की शिक्षाओं के प्रभाव को दर्शाता है।"
+},
+{
+"name": "Shiringi Rishi Ashram (श्रृंगी ऋषि आश्रम)",
+"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlh1i2uETYSc8-E0QunIIxXDU-NGn7MISJvg&s",
+"description": "A spiritual site dedicated to Sage Shringi, known for meditation and peace. | ऋषि श्रृंगी को समर्पित यह आश्रम ध्यान और शांति का प्रसिद्ध स्थल है।"
+},
+{
+"name": "Maharani Asthan Barahiya (महारानी स्थान, बरहिया)",
+"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeSHONOW7hBTKe_fGusUb7UA4YjL3jYXElkA&s",
+"description": "A temple dedicated to Goddess Durga, visited by devotees throughout the year. | देवी दुर्गा को समर्पित यह स्थान श्रद्धालुओं के बीच प्रसिद्ध है।"
+},
+{
+"name": "Surya Mandir Pokharma (सूर्य मंदिर पोखरमा)",
+"image": "https://www.jagranimages.com/images/newimg/09112021/09_11_2021-surya_mandir__22190768.jpg",
+"description": "A historic Sun Temple where Chhath Puja is celebrated with great devotion. | यह ऐतिहासिक सूर्य मंदिर छठ पूजा के लिए अत्यंत प्रसिद्ध है।"
+},
+{
+"name": "Lal Pahari Lakhisarai (लाल पहाड़ी, लखीसराय)",
+"image": "https://www.jagranimages.com/images/newimg/08072022/08_07_2022-lali_pahari_lakhisarai2_22872728_m.webp",
+"description": "A natural spot surrounded by hills and greenery, ideal for trekking and nature lovers. | पहाड़ियों और हरियाली से घिरा प्राकृतिक स्थल, ट्रेकिंग और प्रकृति प्रेमियों के लिए उत्तम।"
+},
       {
-        "name": "Jhauganj Market",
-        "image": "assets/images/jhauganj_market.jpg",
-        "description": "A bustling traditional market famous for local goods and spices. स्थानीय सामान और मसालों के लिए मशहूर पारंपरिक बाजार।"
-      },
-      {
-        "name": "Semapur Bridge",
-        "image": "assets/images/semapur_bridge.jpg",
-        "description": "A long bridge offering scenic river views and connecting key towns. नदी के सुंदर नज़ारों वाला लंबा पुल, जो प्रमुख कस्बों को जोड़ता है।"
-      },
-      {
-        "name": "Baigna Temple",
-        "image": "assets/images/baigna_temple.jpg",
-        "description": "A serene temple surrounded by greenery, popular among pilgrims. हरियाली से घिरा शांत मंदिर, जो श्रद्धालुओं में लोकप्रिय है।"
-      },
-      {
-        "name": "Manihari Fort Ruins",
-        "image": "assets/images/manihari_fort.jpg",
-        "description": "Remains of an ancient fort with historical stories and scenic beauty. ऐतिहासिक कथाओं और सुंदरता से भरे एक पुराने किले के अवशेष।"
-      },
-      {
-        "name": "Falka Village",
-        "image": "assets/images/falka_village.jpg",
-        "description": "A traditional village known for handicrafts and cultural heritage. हस्तशिल्प और सांस्कृतिक धरोहर के लिए मशहूर पारंपरिक गाँव।"
-      },
-      {
-        "name": "Chhota Bhagalpur",
-        "image": "assets/images/chhota_bhagalpur.jpg",
-        "description": "A small town with silk weaving traditions and historic charm. रेशम बुनाई की परंपरा और ऐतिहासिक आकर्षण वाला छोटा कस्बा।"
-      },
-      {
-        "name": "Kadwa Park",
-        "image": "assets/images/kadwa_park.jpg",
-        "description": "A local recreational park with greenery and open spaces. हरियाली और खुले स्थानों वाला स्थानीय मनोरंजन पार्क।"
-      },
-      {
-        "name": "Katihar Clock Tower",
-        "image": "assets/images/clock_tower.jpg",
-        "description": "A landmark colonial-era clock tower in the city center. शहर के केंद्र में स्थित औपनिवेशिक काल का प्रसिद्ध घड़ी टावर।"
-      },
-      {
-        "name": "Baigna Hills",
-        "image": "assets/images/baigna_hills.jpg",
-        "description": "Hilly terrain offering adventure and trekking opportunities. रोमांच और ट्रेकिंग के लिए उपयुक्त पहाड़ी इलाका।"
-      },
-      {
-        "name": "Chandika Sthan",
-        "image": "assets/images/chandika_sthan.jpg",
-        "description": "A temple dedicated to Goddess Chandika with mythological relevance. देवी चंडिका को समर्पित पौराणिक महत्व वाला मंदिर।"
-      },
-      {
-        "name": "Goradih Eco Park",
-        "image": "assets/images/goradih_eco_park.jpg",
-        "description": "An eco-friendly park with diverse flora and fauna. विभिन्न प्रकार के पेड़-पौधों और जीव-जंतुओं वाला पर्यावरण-अनुकूल पार्क।"
-      },
-      {
-        "name": "Haldibari Border",
-        "image": "assets/images/haldibar_border.jpg",
-        "description": "A border area offering unique cultural exchanges with neighboring states. पड़ोसी राज्यों के साथ सांस्कृतिक आदान-प्रदान के लिए प्रसिद्ध सीमा क्षेत्र।"
-      },
-      {
-        "name": "Pranpur Village",
-        "image": "assets/images/pranpur_village.jpg",
-        "description": "A heritage weaving village known for handloom sarees. हथकरघा साड़ियों के लिए मशहूर विरासत बुनाई गाँव।"
-      },
-      {
-        "name": "Manihari Fairground",
-        "image": "assets/images/manihari_fairground.jpg",
-        "description": "A fairground hosting seasonal fairs and cultural programs. मौसमी मेलों और सांस्कृतिक कार्यक्रमों की मेजबानी करने वाला स्थल।"
-      },
-      {
-        "name": "Katihar Stadium",
-        "image": "assets/images/katihar_stadium.jpg",
-        "description": "A multi-purpose sports stadium for local and regional events. स्थानीय और क्षेत्रीय कार्यक्रमों के लिए बहुउद्देश्यीय खेल स्टेडियम।"
+        "name": "Jalappa Asthan (जलप्पा स्थान)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRktqwN8qrHwV2ZeIXzrQodpZjHV0o1MzgUZw&s",
+        "description": "A sacred temple in Lakhisarai with strong religious importance among locals. | लखीसराय का प्रसिद्ध धार्मिक स्थल, जहाँ बड़ी संख्या में श्रद्धालु दर्शन करने आते हैं।"
       }
     ],
     "Madhepura (मधेपुरा)": [
       {
-        "name": "Singheshwar Sthan Temple",
-        "image": "assets/images/singheshwar.jpg",
-        "description": "Famous Shiva temple attracting thousands of devotees during Shivratri. यह प्रसिद्ध शिव मंदिर है जहाँ महाशिवरात्रि पर हज़ारों भक्त आते हैं।"
+        "name": "Singheshwar Nath Temple (सिंघेश्वर नाथ मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3Qq7vGUJi-a76G00VTr0yluRPQXtX0I3dXjtA8p_n1N6Pci2P94cmWP5XilCctNk3Kl8&usqp=CAU",
+        "description": "भगवान शिव को समर्पित यह प्राचीन मंदिर मधेपुरा का सबसे प्रसिद्ध धार्मिक स्थल है। यहां सावन महीने में विशेष मेला लगता है। Singheshwar Nath Temple is a revered Shiva temple and a major religious site of Madhepura."
       },
       {
-        "name": "Koshi River Bank",
-        "image": "assets/images/koshi_river.jpg",
-        "description": "Scenic river bank offering peaceful views of the Koshi river. कोशी नदी का सुंदर किनारा जो शांति और प्राकृतिक सौंदर्य प्रदान करता है।"
+        "name": "Kosi River (कोसी नदी)",
+        "image": "https://cdnbbsr.s3waas.gov.in/s39a49a25d845a483fae4be7e341368e36/uploads/2021/08/2021080579.jpg",
+        "description": "कोसी नदी जिसे 'बिहार का शोक' कहा जाता है, मधेपुरा से होकर बहती है। इसके किनारे प्राकृतिक सुंदरता और ऐतिहासिक महत्व जुड़ा हुआ है। The Kosi River, also known as the 'Sorrow of Bihar', flows through Madhepura with scenic beauty and cultural importance."
+      },
+
+],
+    "Madhubani (मधुबनी)": [
+
+      {
+        "name": "Naulakha Palace (नौलखा पैलेस)",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/1b/7e/52/naulakha-palace.jpg?w=600&h=500&s=1",
+        "description": "Naulakha Palace is a historic site in Madhubani, known for its heritage significance and old architecture. Visitors also explore nearby cultural places like Philharmonic and Mangrauni. | नौलखा पैलेस मधुबनी का एक ऐतिहासिक स्थल है, जो अपनी धरोहर और पुरानी वास्तुकला के लिए प्रसिद्ध है। यहाँ से लोग पास के सांस्कृतिक स्थलों जैसे फिलहारमोनिक और मंगरौनी भी जाते हैं।"
       },
       {
-        "name": "Udakishunganj Market",
-        "image": "assets/images/udakishunganj.jpg",
-        "description": "Bustling market known for local produce and handicrafts. यह बाज़ार स्थानीय उत्पादों और हस्तशिल्प के लिए मशहूर है।"
+        "name": "Kapileshwar Temple (कपिलेश्वर मंदिर)",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/e4/c4/b3/shivsagar.jpg?w=1000&h=800&s=1",
+        "description": "One of the most popular Shiva temples in Madhubani, Kapileshwar Temple is clean and sacred, attracting many devotees. It is highly revered and dedicated to Lord Shiva. | मधुबनी का प्रसिद्ध शिव मंदिर, कपिलेश्वर मंदिर अत्यंत स्वच्छ और पवित्र है। यह भगवान शिव को समर्पित है और बड़ी संख्या में श्रद्धालु यहाँ पूजा करने आते हैं।"
       },
       {
-        "name": "Koshi High Dam View",
-        "image": "assets/images/koshi_dam.jpg",
-        "description": "A large dam on the Koshi river, an important landmark. कोशी नदी पर बना विशाल बांध, एक महत्वपूर्ण स्थल।"
+        "name": "Somnath Mahadev Temple (सोमनाथ महादेव मंदिर)",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/5e/f5/a7/kapileshwar-nath-mahadev.jpg?w=1000&h=800&s=1",
+        "description": "Somnath Mahadev Temple is one of the most sacred Shiva temples in Madhubani, known for spiritual importance and regular religious gatherings. | सोमनाथ महादेव मंदिर मधुबनी का एक प्रमुख शिव मंदिर है, जो धार्मिक महत्व और नियमित पूजा-अर्चना के लिए जाना जाता है।"
       },
       {
-        "name": "Bhelwa Asthan",
-        "image": "assets/images/bhelwa_asthan.jpg",
-        "description": "Religious site dedicated to Lord Shiva, visited by devotees year-round. भगवान शिव को समर्पित धार्मिक स्थान।"
+        "name": "Rameshwarnath Temple (रामेश्वरनाथ मंदिर)",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/66/bf/4c/lord-shiva-temple-in.jpg?w=1000&h=-1&s=1",
+        "description": "An ancient Shiva temple located in Rahua Sangram village, founded in 1850. This historic temple is one of the oldest in the region and a major site of worship. | यह प्राचीन शिव मंदिर रहुआ संग्राम गाँव में स्थित है और 1850 में स्थापित हुआ था। यह क्षेत्र का एक प्रसिद्ध और प्राचीन धार्मिक स्थल है।"
       },
       {
-        "name": "Madhepura District Museum",
-        "image": "assets/images/madhepura_museum.jpg",
-        "description": "Museum showcasing local art, culture, and history. स्थानीय कला, संस्कृति और इतिहास प्रदर्शित करने वाला संग्रहालय।"
+        "name": "Parasmanidham Rahua Sangram (पारसमणिधाम रहुआ संग्राम)",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/25/ff/34/best-ancient-famous-temple.jpg?w=1000&h=800&s=1",
+        "description": "Famous as Parasmaninath Temple, maintained by Parasmani Foundation. A revered Shiva temple attracting thousands of devotees every year. | पारसमणिनाथ मंदिर, रहुआ संग्राम मधुबनी का प्रसिद्ध शिव मंदिर है जिसे पारस्मणि फाउंडेशन द्वारा संचालित किया जाता है। यहाँ हर साल हजारों श्रद्धालु आते हैं।"
       },
       {
-        "name": "Shanti Park",
-        "image": "assets/images/shanti_park.jpg",
-        "description": "Public park with greenery and playground facilities. हरियाली और खेलने की सुविधाओं वाला सार्वजनिक पार्क।"
-      },
-      {
-        "name": "Kosi College Campus",
-        "image": "assets/images/kosi_college.jpg",
-        "description": "Historic educational institution in Madhepura. मधेपुरा का ऐतिहासिक शैक्षणिक संस्थान।"
-      },
-      {
-        "name": "Gidhdha Pahar",
-        "image": "assets/images/gidhdha_pahar.jpg",
-        "description": "Small hillock offering panoramic views. एक छोटी पहाड़ी जो सुंदर नज़ारे प्रस्तुत करती है।"
-      },
-      {
-        "name": "Bhupendra Chowk",
-        "image": "assets/images/bhupendra_chowk.jpg",
-        "description": "Central market and landmark in the city. शहर का केंद्रीय बाज़ार और प्रमुख स्थल।"
-      },
-      {
-        "name": "Baba Vishwanath Mandir",
-        "image": "assets/images/baba_vishwanath.jpg",
-        "description": "Sacred temple dedicated to Lord Vishwanath. भगवान विश्वनाथ को समर्पित पवित्र मंदिर।"
-      },
-      {
-        "name": "Koshi Barrage Area",
-        "image": "assets/images/koshi_barrage.jpg",
-        "description": "Area near the barrage famous for picnics. पिकनिक के लिए प्रसिद्ध बैराज के पास का इलाक़ा।"
-      },
-      {
-        "name": "Tulsiahi Mahadev Mandir",
-        "image": "assets/images/tulsiahi_mahadev.jpg",
-        "description": "Ancient temple of Lord Shiva located in Tulsiahi. तुलसियाही में स्थित भगवान शिव का प्राचीन मंदिर।"
-      },
-      {
-        "name": "Durga Mandir",
-        "image": "assets/images/durga_mandir.jpg",
-        "description": "Famous Durga temple visited during Navratri. नवरात्रि के समय मशहूर दुर्गा मंदिर।"
-      },
-      {
-        "name": "Rajni Lake",
-        "image": "assets/images/rajni_lake.jpg",
-        "description": "Beautiful lake surrounded by greenery. हरियाली से घिरी सुंदर झील।"
-      },
-      {
-        "name": "Chandni Chowk Madhepura",
-        "image": "assets/images/chandni_chowk.jpg",
-        "description": "Popular shopping street in Madhepura. मधेपुरा की लोकप्रिय ख़रीदारी वाली सड़क।"
-      },
-      {
-        "name": "Parmanandpur Temple",
-        "image": "assets/images/parmanandpur_temple.jpg",
-        "description": "Historic temple with cultural significance. सांस्कृतिक महत्व वाला ऐतिहासिक मंदिर।"
-      },
-      {
-        "name": "Rajauna Village",
-        "image": "assets/images/rajauna_village.jpg",
-        "description": "Village famous for its cultural heritage. अपनी सांस्कृतिक धरोहर के लिए प्रसिद्ध गाँव।"
-      },
-      {
-        "name": "Krishna Mandir",
-        "image": "assets/images/krishna_mandir.jpg",
-        "description": "Temple dedicated to Lord Krishna. भगवान कृष्ण को समर्पित मंदिर।"
-      },
-      {
-        "name": "Eco Park Madhepura",
-        "image": "assets/images/eco_park.jpg",
-        "description": "Park for relaxation and nature walks. विश्राम और प्राकृतिक सैर के लिए पार्क।"
-      },
-      {
-        "name": "Baba Kali Sthan",
-        "image": "assets/images/baba_kali.jpg",
-        "description": "Sacred site for Goddess Kali worship. माँ काली की पूजा के लिए पवित्र स्थल।"
-      },
-      {
-        "name": "Kosi Canal Area",
-        "image": "assets/images/kosi_canal.jpg",
-        "description": "Scenic canal region for photography. फोटोग्राफी के लिए सुंदर नहर का इलाक़ा।"
-      },
-      {
-        "name": "Pipra Bazaar",
-        "image": "assets/images/pipra_bazaar.jpg",
-        "description": "Local market with vibrant trade. जीवंत व्यापार वाला स्थानीय बाज़ार।"
-      },
-      {
-        "name": "Anantpur Ghat",
-        "image": "assets/images/anantpur_ghat.jpg",
-        "description": "Peaceful riverside ghat for relaxation. विश्राम के लिए शांत नदी किनारा।"
-      },
-      {
-        "name": "Yogini Mandir",
-        "image": "assets/images/yogini_mandir.jpg",
-        "description": "Spiritual temple with serene environment. शांत वातावरण वाला आध्यात्मिक मंदिर।"
+        "name": "Mithila Haat (मिथिला हाट)",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/8b/84/49/come-and-feel-the-taste.jpg?w=1000&h=-1&s=1",
+        "description": "Mithila Haat is a cultural hub showcasing traditional Mithila art, Madhubani paintings, crafts, and regional products. A must-visit to experience the heritage of Mithilanchal. | मिथिला हाट पारंपरिक मिथिला कला, मधुबनी पेंटिंग्स, हस्तशिल्प और क्षेत्रीय उत्पादों का केंद्र है। मिथिलांचल की धरोहर को करीब से जानने के लिए यह अवश्य घूमने योग्य स्थान है।"
       }
     ],
-    "Supaul (सुपौल)": [
+    "Purnia (पूर्णिया)": [
       {
-        "name": "Koshi Barrage",
-        "image": "assets/images/koshi_barrage.jpg",
-        "description": "A massive dam across the Koshi River near Bhimnagar, important for flood control and irrigation. कोशी नदी पर विशाल बांध, जो बाढ़ नियंत्रण और सिंचाई के लिए महत्वपूर्ण है।"
+        "name": "Jalalgarh Fort (जलालगढ़ किला)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Jalalgarh_fort_purnea.jpg/500px-Jalalgarh_fort_purnea.jpg",
+        "description": "पूर्णिया का सबसे प्रसिद्ध ऐतिहासिक स्थल, जलालगढ़ किला 1722 में फ़ौजदार सैफ़ खान द्वारा बनवाया गया था। यह विशाल दुर्ग वास्तुकला और ऐतिहासिक धरोहर का प्रतीक है।"
       },
       {
-        "name": "Bhimnagar",
-        "image": "assets/images/bhimnagar.jpg",
-        "description": "A picturesque village near the Indo-Nepal border with scenic views and proximity to Koshi Barrage. भारत-नेपाल सीमा के पास स्थित सुंदर गांव, कोशी बैराज के निकट।"
+        "name": "Kali Mandir, Purnia (काली मंदिर, पूर्णिया)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH8hGP2YDZXYz_88KwIfD7aQXP_4A5c9J31IfQ1jfuOTXK9LuJ&s",
+        "description": "पूर्णिया शहर के मध्य स्थित यह प्राचीन काली मंदिर धार्मिक आस्था का प्रमुख केंद्र है। नवरात्र और अन्य पर्वों पर यहाँ बड़ी संख्या में श्रद्धालु आते हैं।"
       },
-      {
-        "name": "Triveni Sangam",
-        "image": "assets/images/triveni_sangam_supaul.jpg",
-        "description": "Confluence of Kosi, Ganga, and Mahananda rivers, a sacred site for pilgrims. कोशी, गंगा और महानंदा नदियों का संगम, श्रद्धालुओं के लिए पवित्र स्थान।"
-      },
-      {
-        "name": "Koshi Tappu Wildlife Sanctuary (Nepal Border)",
-        "image": "assets/images/koshi_tappu.jpg",
-        "description": "A famous bird sanctuary across the border, accessible from Supaul. नेपाल सीमा पर प्रसिद्ध पक्षी अभयारण्य, सुपौल से पहुँचा जा सकता है।"
-      },
-      {
-        "name": "Chhat Puja Ghat",
-        "image": "assets/images/chhat_puja_ghat_supaul.jpg",
-        "description": "River ghats used for the grand celebration of Chhath Puja festival. छठ पूजा के भव्य आयोजन के लिए प्रसिद्ध नदी घाट।"
-      },
-      {
-        "name": "Koshi River View Point",
-        "image": "assets/images/koshi_river_view.jpg",
-        "description": "Scenic spot to view the mighty Koshi River flow. कोशी नदी के भव्य प्रवाह को देखने का सुंदर स्थल।"
-      },
-      {
-        "name": "Baba Bhuteshwar Nath Temple",
-        "image": "assets/images/bhuteshwar_nath.jpg",
-        "description": "Ancient Shiva temple known for religious gatherings. प्राचीन शिव मंदिर, धार्मिक आयोजनों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Basantpur Haat",
-        "image": "assets/images/basantpur_haat.jpg",
-        "description": "Traditional village market offering local handicrafts and food. स्थानीय हस्तशिल्प और भोजन के लिए पारंपरिक हाट बाजार।"
-      },
-      {
-        "name": "Bhimnagar Park",
-        "image": "assets/images/bhimnagar_park.jpg",
-        "description": "A well-maintained park ideal for families and kids. परिवार और बच्चों के लिए उपयुक्त सुसज्जित पार्क।"
-      },
-      {
-        "name": "Kosi Flood Memorial",
-        "image": "assets/images/kosi_flood_memorial.jpg",
-        "description": "Memorial built in memory of the 2008 Kosi flood victims. 2008 कोशी बाढ़ पीड़ितों की स्मृति में निर्मित स्मारक।"
-      },
-      {
-        "name": "Hanuman Mandir, Supaul",
-        "image": "assets/images/hanuman_mandir_supaul.jpg",
-        "description": "Famous Hanuman temple attracting devotees year-round. साल भर भक्तों को आकर्षित करने वाला हनुमान मंदिर।"
-      },
-      {
-        "name": "Koshi Canal",
-        "image": "assets/images/koshi_canal.jpg",
-        "description": "Major irrigation canal serving agricultural lands. कृषि भूमि की सिंचाई के लिए महत्वपूर्ण नहर।"
-      },
-      {
-        "name": "Murliganj Market (Nearby)",
-        "image": "assets/images/murliganj_market.jpg",
-        "description": "Bustling market area with local produce and goods. स्थानीय उत्पाद और सामान के लिए व्यस्त बाजार क्षेत्र।"
-      },
-      {
-        "name": "Matsyagandha Mandir",
-        "image": "assets/images/matsyagandha_mandir.jpg",
-        "description": "Temple dedicated to Goddess Matsyagandha, popular during festivals. देवी मत्स्यगंधा को समर्पित मंदिर, त्योहारों में प्रसिद्ध।"
-      },
-      {
-        "name": "Rajbiraj Town (Nepal Border)",
-        "image": "assets/images/rajbiraj_nepal.jpg",
-        "description": "Nepali border town with unique culture and markets. अनोखी संस्कृति और बाजारों वाला नेपाली सीमा शहर।"
-      },
-      {
-        "name": "Shiv Mandir, Marauna",
-        "image": "assets/images/shiv_mandir_marauna.jpg",
-        "description": "Ancient Shiva temple in Marauna village. मरौना गांव में स्थित प्राचीन शिव मंदिर।"
-      },
-      {
-        "name": "Indo-Nepal Border Pillar",
-        "image": "assets/images/indo_nepal_border_supaul.jpg",
-        "description": "Historical pillar marking the border between India and Nepal. भारत और नेपाल की सीमा दर्शाने वाला ऐतिहासिक स्तंभ।"
-      },
-      {
-        "name": "Laxmi Narayan Mandir",
-        "image": "assets/images/laxmi_narayan_mandir_supaul.jpg",
-        "description": "Temple dedicated to Lord Vishnu and Goddess Laxmi. भगवान विष्णु और देवी लक्ष्मी को समर्पित मंदिर।"
-      },
-      {
-        "name": "Bhimnagar Lake",
-        "image": "assets/images/bhimnagar_lake.jpg",
-        "description": "Beautiful lake near Bhimnagar, ideal for relaxation. भीमनगर के पास स्थित सुंदर झील, आराम के लिए उपयुक्त।"
-      },
-      {
-        "name": "Chhat Puja Park",
-        "image": "assets/images/chhat_puja_park_supaul.jpg",
-        "description": "Park decorated during Chhath Puja celebrations. छठ पूजा के दौरान सजाया जाने वाला पार्क।"
-      },
-      {
-        "name": "Koshi Embankment Road",
-        "image": "assets/images/koshi_embankment.jpg",
-        "description": "Scenic road along the Koshi embankment. कोशी तटबंध के किनारे बनी सुंदर सड़क।"
-      },
-      {
-        "name": "Fatehpur Temple",
-        "image": "assets/images/fatehpur_temple_supaul.jpg",
-        "description": "Famous local temple known for cultural fairs. सांस्कृतिक मेलों के लिए प्रसिद्ध स्थानीय मंदिर।"
-      },
-      {
-        "name": "Haripur Forest Area",
-        "image": "assets/images/haripur_forest.jpg",
-        "description": "Small forest area with rich flora and fauna. विविध वनस्पति और जीव-जंतुओं वाला छोटा जंगल।"
-      },
-      {
-        "name": "Raghopur Market",
-        "image": "assets/images/raghopur_market.jpg",
-        "description": "Local market with vibrant atmosphere and fresh produce. जीवंत वातावरण और ताज़ा उत्पादों वाला स्थानीय बाजार।"
-      }
-    ],
 
-    "Siwan (सीवान)": [
       {
-        "name": "Maharajganj Fort",
-        "image": "assets/images/maharajganj_fort.jpg",
-        "description": "Historic fort known for its architectural design. यह किला अपने वास्तुशिल्प डिजाइन के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Panchmukhi Mahadev Temple",
-        "image": "assets/images/panchmukhi_mahadev.jpg",
-        "description": "A sacred Shiva temple with five-faced idol. यह शिव मंदिर अपनी पंचमुखी प्रतिमा के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Baba Hariram Temple",
-        "image": "assets/images/baba_hariram.jpg",
-        "description": "Famous pilgrimage site attracting devotees year-round. प्रसिद्ध तीर्थ स्थल जहाँ सालभर श्रद्धालु आते हैं।"
-      },
-      {
-        "name": "Gopalganj-Siwan Border Picnic Spot",
-        "image": "assets/images/border_picnic.jpg",
-        "description": "Peaceful picnic spot near the border area. सीमा क्षेत्र के पास शांत पिकनिक स्थल।"
-      },
-      {
-        "name": "Ashiana Park",
-        "image": "assets/images/ashiana_park.jpg",
-        "description": "Public park ideal for families and children. परिवारों और बच्चों के लिए आदर्श सार्वजनिक पार्क।"
-      },
-      {
-        "name": "Bharathua Hanuman Mandir",
-        "image": "assets/images/bharathua_hanuman.jpg",
-        "description": "Ancient Hanuman temple with historical significance. ऐतिहासिक महत्व वाला प्राचीन हनुमान मंदिर।"
-      },
-      {
-        "name": "Rajendra Stadium",
-        "image": "assets/images/rajendra_stadium.jpg",
-        "description": "Sports hub for local events and tournaments. स्थानीय खेल आयोजनों का केंद्र।"
-      },
-      {
-        "name": "Mehandar Nath Temple",
-        "image": "assets/images/mehandar_nath.jpg",
-        "description": "Dedicated to Lord Shiva, attracts many during Shivratri. भगवान शिव को समर्पित, शिवरात्रि पर भीड़।"
-      },
-      {
-        "name": "Darauli Fort",
-        "image": "assets/images/darauli_fort.jpg",
-        "description": "Historical fort with stories of bravery. वीरता की कहानियों वाला ऐतिहासिक किला।"
-      },
-      {
-        "name": "Siwan Jama Masjid",
-        "image": "assets/images/siwan_jama_masjid.jpg",
-        "description": "Beautiful mosque with traditional architecture. पारंपरिक वास्तुकला वाली खूबसूरत मस्जिद।"
-      },
-      {
-        "name": "Raghunathpur Ghat",
-        "image": "assets/images/raghunathpur_ghat.jpg",
-        "description": "Scenic riverbank perfect for sunset views. सुंदर नदी किनारा, सूर्यास्त के लिए आदर्श।"
-      },
-      {
-        "name": "Basantpur Market",
-        "image": "assets/images/basantpur_market.jpg",
-        "description": "Bustling market famous for local products. स्थानीय उत्पादों के लिए प्रसिद्ध व्यस्त बाजार।"
-      },
-      {
-        "name": "Amwariya Mandir",
-        "image": "assets/images/amwariya_mandir.jpg",
-        "description": "A peaceful temple surrounded by nature. प्रकृति से घिरा शांत मंदिर।"
-      },
-      {
-        "name": "Andar Bazaar",
-        "image": "assets/images/andar_bazaar.jpg",
-        "description": "Traditional market known for handicrafts. हस्तशिल्प के लिए प्रसिद्ध पारंपरिक बाजार।"
-      },
-      {
-        "name": "Barauli Picnic Spot",
-        "image": "assets/images/barauli_picnic.jpg",
-        "description": "A serene place to relax with family. परिवार के साथ समय बिताने के लिए शांत जगह।"
-      },
-      {
-        "name": "Bhim Chhapra Temple",
-        "image": "assets/images/bhim_chhapra_temple.jpg",
-        "description": "Local temple with a rich history. समृद्ध इतिहास वाला स्थानीय मंदिर।"
-      },
-      {
-        "name": "Maharajganj Market",
-        "image": "assets/images/maharajganj_market.jpg",
-        "description": "Local hub for shopping and food. खरीदारी और भोजन का स्थानीय केंद्र।"
-      },
-      {
-        "name": "Siwan Fort Park",
-        "image": "assets/images/siwan_fort_park.jpg",
-        "description": "Park with historical ruins. ऐतिहासिक खंडहरों वाला पार्क।"
-      },
-      {
-        "name": "Hathua Market",
-        "image": "assets/images/hathua_market.jpg",
-        "description": "A busy market with local charm. स्थानीय आकर्षण वाला व्यस्त बाजार।"
-      },
-      {
-        "name": "Siwan Railway Museum",
-        "image": "assets/images/siwan_railway_museum.jpg",
-        "description": "Museum displaying railway heritage. रेलवे धरोहर दिखाने वाला संग्रहालय।"
-      },
-      {
-        "name": "Chhapia Dargah",
-        "image": "assets/images/chhapia_dargah.jpg",
-        "description": "Famous Sufi shrine attracting devotees. प्रसिद्ध सूफी दरगाह।"
-      },
-      {
-        "name": "Rajpur Hanuman Mandir",
-        "image": "assets/images/rajpur_hanuman.jpg",
-        "description": "Devoted to Hanuman Ji, visited by many. हनुमान जी को समर्पित, कई श्रद्धालु आते हैं।"
-      },
-      {
-        "name": "Siwan Lake View",
-        "image": "assets/images/siwan_lake.jpg",
-        "description": "Beautiful lake for boating and relaxing. नौका विहार और विश्राम के लिए सुंदर झील।"
-      },
-      {
-        "name": "Shahpur Kali Mandir",
-        "image": "assets/images/shahpur_kali.jpg",
-        "description": "Kali temple with vibrant festivals. जीवंत त्योहारों वाला काली मंदिर।"
-      }
-    ],
-
-    "Gopalganj": [
-      {
-        "name": "Thawe Temple",
-        "image": "assets/images/thawe_temple.jpg",
-        "description": "Famous temple dedicated to Goddess Durga. देवी दुर्गा को समर्पित प्रसिद्ध मंदिर।"
-      },
-      {
-        "name": "Thawe Bazaar",
-        "image": "assets/images/thawe_bazaar.jpg",
-        "description": "Traditional market known for sweets. मिठाइयों के लिए प्रसिद्ध पारंपरिक बाजार।"
-      },
-      {
-        "name": "Sugauli Fort",
-        "image": "assets/images/sugauli_fort.jpg",
-        "description": "Historical fort with colonial history. औपनिवेशिक इतिहास वाला ऐतिहासिक किला।"
-      },
-      {
-        "name": "Gopalganj Park",
-        "image": "assets/images/gopalganj_park.jpg",
-        "description": "Recreational park for family outings. परिवार के साथ घूमने के लिए पार्क।"
-      },
-      {
-        "name": "Bharat Mata Mandir",
-        "image": "assets/images/bharat_mata_mandir.jpg",
-        "description": "Temple dedicated to Mother India. भारत माता को समर्पित मंदिर।"
-      },
-      {
-        "name": "Hathua Rajbari",
-        "image": "assets/images/hathua_rajbari.jpg",
-        "description": "Royal palace showcasing heritage. धरोहर दिखाने वाला शाही महल।"
-      },
-      {
-        "name": "Mairwa Dham",
-        "image": "assets/images/mairwa_dham.jpg",
-        "description": "Spiritual site attracting many pilgrims. तीर्थ यात्रियों को आकर्षित करने वाला धार्मिक स्थल।"
-      },
-      {
-        "name": "Manjha Ghat",
-        "image": "assets/images/manjha_ghat.jpg",
-        "description": "Beautiful riverbank area. सुंदर नदी किनारा।"
-      },
-      {
-        "name": "Barauli Market",
-        "image": "assets/images/barauli_market.jpg",
-        "description": "Local market for fresh produce. ताज़ी उपज के लिए स्थानीय बाजार।"
-      },
-      {
-        "name": "Kuchaikote Hanuman Mandir",
-        "image": "assets/images/kuchaikote_hanuman.jpg",
-        "description": "Hanuman temple famous for Tuesday fairs. मंगलवार के मेले के लिए प्रसिद्ध हनुमान मंदिर।"
-      },
-      {
-        "name": "Gopalganj Lake",
-        "image": "assets/images/gopalganj_lake.jpg",
-        "description": "Serene lake with boating facility. नौका विहार वाली शांत झील।"
-      },
-      {
-        "name": "Pipra Kali Mandir",
-        "image": "assets/images/pipra_kali.jpg",
-        "description": "Kali temple with vibrant Navratri celebrations. नवरात्रि उत्सव के लिए प्रसिद्ध काली मंदिर।"
-      },
-      {
-        "name": "Barauli Dargah",
-        "image": "assets/images/barauli_dargah.jpg",
-        "description": "Sufi shrine attracting devotees. सूफी दरगाह जो श्रद्धालुओं को आकर्षित करती है।"
-      },
-      {
-        "name": "Madhopur Picnic Spot",
-        "image": "assets/images/madhopur_picnic.jpg",
-        "description": "Green park ideal for picnics. पिकनिक के लिए आदर्श हरा-भरा पार्क।"
-      },
-      {
-        "name": "Manjha Park",
-        "image": "assets/images/manjha_park.jpg",
-        "description": "Public park with children play area. बच्चों के खेल क्षेत्र वाला सार्वजनिक पार्क।"
-      },
-      {
-        "name": "Thawe Fort",
-        "image": "assets/images/thawe_fort.jpg",
-        "description": "Ruins of an old fort. पुराने किले के अवशेष।"
-      },
-      {
-        "name": "Hathua Lake",
-        "image": "assets/images/hathua_lake.jpg",
-        "description": "Picturesque lake popular among locals. स्थानीय लोगों में लोकप्रिय सुंदर झील।"
-      },
-      {
-        "name": "Bishunpura Temple",
-        "image": "assets/images/bishunpura_temple.jpg",
-        "description": "Ancient temple with annual fairs. वार्षिक मेलों वाला प्राचीन मंदिर।"
-      },
-      {
-        "name": "Narkatiaganj Road View",
-        "image": "assets/images/narkatiaganj_road.jpg",
-        "description": "Scenic road surrounded by greenery. हरियाली से घिरी सुंदर सड़क।"
-      },
-      {
-        "name": "Rajapatti Market",
-        "image": "assets/images/rajapatti_market.jpg",
-        "description": "Local hub for trade. व्यापार का स्थानीय केंद्र।"
-      },
-      {
-        "name": "Barauli Hanuman Mandir",
-        "image": "assets/images/barauli_hanuman.jpg",
-        "description": "Hanuman temple with large gatherings. बड़ी भीड़ वाला हनुमान मंदिर।"
-      },
-      {
-        "name": "Kuchaikote Picnic Spot",
-        "image": "assets/images/kuchaikote_picnic.jpg",
-        "description": "Popular picnic location for families. परिवारों के लिए लोकप्रिय पिकनिक स्थल।"
-      },
-      {
-        "name": "Thawe Kali Mandir",
-        "image": "assets/images/thawe_kali.jpg",
-        "description": "Kali temple famous for spiritual vibes. आध्यात्मिक वातावरण वाला काली मंदिर।"
-      },
-      {
-        "name": "Gopalganj Clock Tower",
-        "image": "assets/images/gopalganj_clock.jpg",
-        "description": "Historic clock tower in city center. शहर के केंद्र में ऐतिहासिक घड़ी टॉवर।"
-      }
-    ],
-
-    "West Champaran (पश्चिम चंपारण)": [
-      {
-        "name": "Valmiki National Park",
-        "image": "assets/images/valmiki_national_park.jpg",
-        "description": "Famous tiger reserve and wildlife sanctuary with rich biodiversity. वाल्मीकि राष्ट्रीय उद्यान, बाघ अभयारण्य और जैव विविधता के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Someshwar Fort",
-        "image": "assets/images/someshwar_fort.jpg",
-        "description": "Ancient fort offering scenic views of the Himalayan foothills. सोमेश्वर किला हिमालय की तलहटी के सुंदर दृश्यों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Lauriya Nandangarh Ashokan Pillar",
-        "image": "assets/images/lauriya_pillar.jpg",
-        "description": "Ashokan pillar made of polished sandstone with inscriptions. लौरिया नंदनगढ़ का अशोक स्तंभ, पॉलिश किए हुए बलुआ पत्थर से बना।"
-      },
-      {
-        "name": "Bhitiharwa Gandhi Ashram",
-        "image": "assets/images/bhitiharwa_gandhi_ashram.jpg",
-        "description": "Historical place where Mahatma Gandhi started Champaran Satyagraha. भितिहरवा गांधी आश्रम, जहाँ महात्मा गांधी ने चंपारण सत्याग्रह की शुरुआत की।"
-      },
-      {
-        "name": "Triveni Sangam",
-        "image": "assets/images/triveni_sangam.jpg",
-        "description": "Confluence of Gandak, Sonha, and Pashani rivers. त्रिवेणी संगम, गंडक, सोनहा और पशानी नदियों का संगम स्थल।"
-      },
-      {
-        "name": "Harinagar Sugar Mill",
-        "image": "assets/images/harinagar_sugar_mill.jpg",
-        "description": "One of the oldest sugar mills in Bihar. हरिनगर शुगर मिल, बिहार की सबसे पुरानी चीनी मिलों में से एक।"
-      },
-      {
-        "name": "Bagaha",
-        "image": "assets/images/bagaha.jpg",
-        "description": "A town near Valmiki Nagar with local markets and cultural heritage. बगहा, वाल्मीकिनगर के पास स्थित, स्थानीय बाजार और सांस्कृतिक धरोहर वाला कस्बा।"
-      },
-      {
-        "name": "Manguraha Reserve Forest",
-        "image": "assets/images/manguraha_forest.jpg",
-        "description": "Dense forest area rich in flora and fauna. मंगुराहा रिजर्व वन, वनस्पति और जीव-जंतु से भरपूर घना जंगल।"
-      },
-      {
-        "name": "Ramnagar Fort",
-        "image": "assets/images/ramnagar_fort.jpg",
-        "description": "Old fort showcasing Mughal and Rajput architecture. रामनगर किला, मुगल और राजपूत वास्तुकला का उदाहरण।"
-      },
-      {
-        "name": "Shikarpur Forest",
-        "image": "assets/images/shikarpur_forest.jpg",
-        "description": "Wildlife-rich forest area ideal for trekking and nature walks. शिकरपुर वन, वन्यजीवों से भरपूर ट्रैकिंग और प्रकृति भ्रमण के लिए उपयुक्त।"
-      },
-      {
-        "name": "Piprasi",
-        "image": "assets/images/piprasi.jpg",
-        "description": "Village known for fishing and river views. पिपरासी गाँव, मछली पकड़ने और नदी दृश्यों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Sathi Sugar Factory",
-        "image": "assets/images/sathi_sugar_factory.jpg",
-        "description": "Industrial heritage site of the region. साठी शुगर फैक्ट्री, क्षेत्र की औद्योगिक धरोहर।"
-      },
-      {
-        "name": "Narkatiaganj",
-        "image": "assets/images/narkatiaganj.jpg",
-        "description": "Town with historical significance in Champaran Satyagraha. नरकटियागंज, चंपारण सत्याग्रह में ऐतिहासिक महत्व वाला शहर।"
-      },
-      {
-        "name": "Thori",
-        "image": "assets/images/thori.jpg",
-        "description": "Border village near Nepal with scenic landscapes. थोरी, नेपाल सीमा के पास का सुंदर परिदृश्य वाला गाँव।"
-      },
-      {
-        "name": "Sundarbans of Champaran",
-        "image": "assets/images/champaran_sundarbans.jpg",
-        "description": "Dense forest area locally called Sundarbans. चंपारण के सुंदरबन, घने जंगलों वाला इलाका।"
-      },
-      {
-        "name": "Banjaraha",
-        "image": "assets/images/banjaraha.jpg",
-        "description": "Village with local handloom crafts. बंजराहा गाँव, स्थानीय हथकरघा कला के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Dharampur",
-        "image": "assets/images/dharampur.jpg",
-        "description": "Famous for ancient temples and fairs. धर्मपुर, प्राचीन मंदिरों और मेलों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Singhia Dham",
-        "image": "assets/images/singhia_dham.jpg",
-        "description": "Sacred temple dedicated to Lord Shiva. सिंघिया धाम, भगवान शिव को समर्पित पवित्र मंदिर।"
-      },
-      {
-        "name": "Raxaul Road",
-        "image": "assets/images/raxaul_road.jpg",
-        "description": "Connecting route to Nepal with busy markets. रक्सौल रोड, नेपाल को जोड़ने वाला मार्ग और व्यस्त बाजार।"
-      },
-      {
-        "name": "Chanpatia",
-        "image": "assets/images/chanpatia.jpg",
-        "description": "Known for readymade garment industry. चनपटिया, रेडीमेड गारमेंट उद्योग के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Bettiah Palace",
-        "image": "assets/images/bettiah_palace.jpg",
-        "description": "Historical palace of Bettiah Raj. बेतिया पैलेस, बेतिया राज का ऐतिहासिक महल।"
-      },
-      {
-        "name": "Pipra",
-        "image": "assets/images/pipra.jpg",
-        "description": "Agricultural hub with scenic fields. पिपरा, सुंदर खेतों वाला कृषि क्षेत्र।"
-      },
-      {
-        "name": "Gaunaha",
-        "image": "assets/images/gaunaha.jpg",
-        "description": "Village with cultural heritage and fairs. गौनाहा, सांस्कृतिक धरोहर और मेलों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Jogapatti",
-        "image": "assets/images/jogapatti.jpg",
-        "description": "Famous for local markets and handicrafts. जोगापट्टी, स्थानीय बाजार और हस्तशिल्प के लिए प्रसिद्ध।"
-      },
-    ],
-
-    "East Champaran (पूर्वी चंपारण)":[
-      {
-        "name": "Motihari Lake",
-        "image": "assets/images/motihari_lake.jpg",
-        "description": "Beautiful lake in Motihari city. मोतिहारी झील, शहर का सुंदर जलाशय।"
-      },
-      {
-        "name": "Gandhi Memorial",
-        "image": "assets/images/gandhi_memorial.jpg",
-        "description": "Memorial dedicated to Mahatma Gandhi. गांधी स्मारक, महात्मा गांधी को समर्पित।"
-      },
-      {
-        "name": "Kesariya Stupa",
-        "image": "assets/images/kesariya_stupa.jpg",
-        "description": "World's tallest Buddhist stupa. केसरिया स्तूप, दुनिया का सबसे ऊँचा बौद्ध स्तूप।"
-      },
-      {
-        "name": "Chiraiya",
-        "image": "assets/images/chiraiya.jpg",
-        "description": "Town famous for cultural activities. चिरैया, सांस्कृतिक गतिविधियों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Areraj Temple",
-        "image": "assets/images/areraj_temple.jpg",
-        "description": "Ancient temple dedicated to Lord Shiva. अरेराज मंदिर, भगवान शिव को समर्पित प्राचीन मंदिर।"
-      },
-      {
-        "name": "Piprakothi",
-        "image": "assets/images/piprakothi.jpg",
-        "description": "Historical village with old forts. पिपराकोठी, प्राचीन किलों वाला ऐतिहासिक गाँव।"
-      },
-      {
-        "name": "Mehsi",
-        "image": "assets/images/mehsi.jpg",
-        "description": "Known for tobacco industry. मेहसी, तंबाकू उद्योग के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Raxaul",
-        "image": "assets/images/raxaul.jpg",
-        "description": "Major trade center at Nepal border. रक्सौल, नेपाल सीमा पर प्रमुख व्यापार केंद्र।"
-      },
-      {
-        "name": "Ghorasahan",
-        "image": "assets/images/ghorasahan.jpg",
-        "description": "Village with rich agriculture. घोरसाहन, कृषि उत्पादन के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Chakia",
-        "image": "assets/images/chakia.jpg",
-        "description": "Town with sugar mills and cultural heritage. चकिया, चीनी मिलों और सांस्कृतिक धरोहर के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Turkaulia",
-        "image": "assets/images/turkaulia.jpg",
-        "description": "Known for local fairs and temples. तुरकौलिया, मेलों और मंदिरों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Sugauli",
-        "image": "assets/images/sugauli.jpg",
-        "description": "Historical place where the Treaty of Sugauli was signed. सुगौली, सुगौली संधि का ऐतिहासिक स्थल।"
-      },
-      {
-        "name": "Harsidhi Temple",
-        "image": "assets/images/harsidhi_temple.jpg",
-        "description": "Temple dedicated to Goddess Durga. हरसिद्धि मंदिर, देवी दुर्गा को समर्पित।"
-      },
-      {
-        "name": "Raxaul Bazar",
-        "image": "assets/images/raxaul_bazar.jpg",
-        "description": "Bustling market near Nepal border. रक्सौल बाज़ार, नेपाल सीमा के पास का व्यस्त बाजार।"
-      },
-      {
-        "name": "Banjaria",
-        "image": "assets/images/banjaria.jpg",
-        "description": "Village with natural beauty. बनजारिया, प्राकृतिक सुंदरता वाला गाँव।"
-      },
-      {
-        "name": "Sangrampur",
-        "image": "assets/images/sangrampur.jpg",
-        "description": "Village with cultural heritage. संग्रामपुर, सांस्कृतिक धरोहर वाला गाँव।"
-      },
-      {
-        "name": "Phenhara",
-        "image": "assets/images/phenhara.jpg",
-        "description": "Town with historical temples. फेनहरा, ऐतिहासिक मंदिरों वाला कस्बा।"
-      },
-      {
-        "name": "Motihari Museum",
-        "image": "assets/images/motihari_museum.jpg",
-        "description": "Museum showcasing Champaran's history. मोतिहारी संग्रहालय, चंपारण के इतिहास को दर्शाता है।"
-      },
-      {
-        "name": "Kesariya Market",
-        "image": "assets/images/kesariya_market.jpg",
-        "description": "Local market famous for handicrafts. केसरिया बाजार, हस्तशिल्प के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Shikarpur",
-        "image": "assets/images/shikarpur_east.jpg",
-        "description": "Village with agricultural importance. शिकरपुर, कृषि महत्व वाला गाँव।"
-      },
-      {
-        "name": "Rajepur",
-        "image": "assets/images/rajepur.jpg",
-        "description": "Known for sugarcane farming. राजेपुर, गन्ने की खेती के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Kalyanpur",
-        "image": "assets/images/kalyanpur.jpg",
-        "description": "Village with scenic beauty. कल्याणपुर, प्राकृतिक सुंदरता वाला गाँव।"
-      },
-      {
-        "name": "Semra",
-        "image": "assets/images/semra.jpg",
-        "description": "Village with ancient cultural roots. सेमरा, प्राचीन सांस्कृतिक जड़ों वाला गाँव।"
-      },
-      {
-        "name": "Raxaul Railway Station",
-        "image": "assets/images/raxaul_station.jpg",
-        "description": "Major railway hub connecting Bihar to Nepal. रक्सौल रेलवे स्टेशन, बिहार को नेपाल से जोड़ने वाला प्रमुख रेलवे केंद्र।"
-      },
-    ],
-
-    "Buxar (बक्सर)":[
-      {
-        "name": "Buxar Fort (बक्सर किला)",
-        "image": "assets/images/buxar_fort.jpg",
-        "description": "An ancient fort located on the banks of the Ganga River. गंगा नदी के किनारे स्थित एक प्राचीन किला।"
-      },
-      {
-        "name": "Brahmeshwar Nath Temple (ब्रह्मेश्वर नाथ मंदिर)",
-        "image": "assets/images/brahmeshwar_nath.jpg",
-        "description": "A famous Shiva temple attracting devotees year-round. एक प्रसिद्ध शिव मंदिर जो सालभर भक्तों को आकर्षित करता है।"
-      },
-      {
-        "name": "Katkauli Ka Maidan (कटकौली का मैदान)",
-        "image": "assets/images/katkauli_maidan.jpg",
-        "description": "Historical battlefield of Buxar. बक्सर का ऐतिहासिक युद्ध स्थल।"
-      },
-      {
-        "name": "Ahirauli Dham (अहिरौली धाम)",
-        "image": "assets/images/ahirauli_dham.jpg",
-        "description": "A spiritual site dedicated to Lord Shiva. भगवान शिव को समर्पित एक पवित्र स्थल।"
-      },
-      {
-        "name": "Chausa (चौसा)",
-        "image": "assets/images/chausa.jpg",
-        "description": "Famous for the Battle of Chausa in 1539. 1539 के चौसा युद्ध के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Dumraon Palace (दुमरांव पैलेस)",
-        "image": "assets/images/dumraon_palace.jpg",
-        "description": "Heritage palace of Dumraon estate. दुमरांव एस्टेट का विरासत महल।"
-      },
-      {
-        "name": "Sita Ram Upadhyay Museum (सीताराम उपाध्याय संग्रहालय)",
-        "image": "assets/images/sita_ram_upadhyay_museum.jpg",
-        "description": "Museum showcasing Buxar's history. बक्सर के इतिहास को प्रदर्शित करने वाला संग्रहालय।"
-      },
-      {
-        "name": "Kameshwar Nath Temple (कामेश्वर नाथ मंदिर)",
-        "image": "assets/images/kameshwar_nath.jpg",
-        "description": "Ancient temple with unique architecture. अनोखी वास्तुकला वाला प्राचीन मंदिर।"
-      },
-      {
-        "name": "Ram Rekha Ghat (राम रेखा घाट)",
-        "image": "assets/images/ram_rekha_ghat.jpg",
-        "description": "Sacred ghat with mythological significance. पौराणिक महत्व वाला पवित्र घाट।"
-      },
-      {
-        "name": "Chakkiya Hills (चकिया पहाड़ियां)",
-        "image": "assets/images/chakkiya_hills.jpg",
-        "description": "Beautiful hills ideal for nature lovers. प्रकृति प्रेमियों के लिए आदर्श सुंदर पहाड़ियां।"
-      },
-      {
-        "name": "Bihariji Temple (बिहारिजी मंदिर)",
-        "image": "assets/images/bihariji_temple.jpg",
-        "description": "Temple dedicated to Lord Krishna. भगवान कृष्ण को समर्पित मंदिर।"
-      },
-      {
-        "name": "Pawani Temple (पवनी मंदिर)",
-        "image": "assets/images/pawani_temple.jpg",
-        "description": "Known for grand Shivratri celebrations. भव्य महाशिवरात्रि समारोह के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Mandar Hill View Point (मंदर हिल व्यू प्वाइंट)",
-        "image": "assets/images/mandar_hill_view.jpg",
-        "description": "Offers scenic views of the surroundings. आसपास के सुंदर नज़ारों का आनंद लेने का स्थान।"
-      },
-      {
-        "name": "Barbarua Ghat (बरबरुआ घाट)",
-        "image": "assets/images/barbarua_ghat.jpg",
-        "description": "Popular riverbank picnic spot. लोकप्रिय नदी किनारे पिकनिक स्थल।"
-      },
-      {
-        "name": "Shahpur Garh (शाहपुरगढ़)",
-        "image": "assets/images/shahpur_garh.jpg",
-        "description": "Historical remains of Shahpur fort. शाहपुर किले के ऐतिहासिक अवशेष।"
-      },
-      {
-        "name": "Devanandpur Temple (देवानंदपुर मंदिर)",
-        "image": "assets/images/devanandpur_temple.jpg",
-        "description": "Peaceful temple area in rural Buxar. ग्रामीण बक्सर में शांत मंदिर क्षेत्र।"
-      },
-      {
-        "name": "Vishweshwar Nath Temple (विश्वेश्वर नाथ मंदिर)",
-        "image": "assets/images/vishweshwar_nath.jpg",
-        "description": "A major pilgrimage for Shiva devotees. शिव भक्तों के लिए एक प्रमुख तीर्थ।"
-      },
-      {
-        "name": "Kailash Path (कैलाश पथ)",
-        "image": "assets/images/kailash_path.jpg",
-        "description": "Religious route with scenic surroundings. सुंदर वातावरण वाला धार्मिक मार्ग।"
-      },
-      {
-        "name": "Sati Mai Sthan (सती माई स्थान)",
-        "image": "assets/images/sati_mai_sthan.jpg",
-        "description": "Sacred site of local devotion. स्थानीय भक्ति का पवित्र स्थल।"
-      },
-      {
-        "name": "Tara Ma Mandir (तारा मां मंदिर)",
-        "image": "assets/images/tara_ma_mandir.jpg",
-        "description": "Famous for Navratri celebrations. नवरात्रि समारोह के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Rajpur Ghat (राजपुर घाट)",
-        "image": "assets/images/rajpur_ghat.jpg",
-        "description": "Peaceful riverbank for evening walks. शाम की सैर के लिए शांत नदी किनारा।"
-      },
-      {
-        "name": "Bhainsasur Mandir (भैंसासुर मंदिर)",
-        "image": "assets/images/bhainsasur_mandir.jpg",
-        "description": "Unique temple dedicated to Bhainsasur. भैंसासुर को समर्पित अनोखा मंदिर।"
-      },
-      {
-        "name": "Maa Kali Temple (मां काली मंदिर)",
-        "image": "assets/images/maa_kali_temple.jpg",
-        "description": "One of the oldest temples of the district. जिले के सबसे पुराने मंदिरों में से एक।"
-      },
-      {
-        "name": "Nawada Masjid (नवादा मस्जिद)",
-        "image": "assets/images/nawada_masjid.jpg",
-        "description": "Historical mosque of Buxar. बक्सर की ऐतिहासिक मस्जिद।"
-      },
-    ],
-
-    "Bhojpur (भोजपुर)": [
-
-    {
-      "name": "Ara City (आरा शहर)",
-      "image": "assets/images/ara_city.jpg",
-      "description": "Ara is the district headquarters, known for its historical buildings and temples. आरा जिला मुख्यालय है, जो अपने ऐतिहासिक भवनों और मंदिरों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Veer Kunwar Singh Fort (वीर कुंवर सिंह किला)",
-      "image": "assets/images/veer_kunwar_singh_fort.jpg",
-      "description": "Historical fort of freedom fighter Veer Kunwar Singh. स्वतंत्रता सेनानी वीर कुंवर सिंह का ऐतिहासिक किला।"
-    },
-    {
-      "name": "Aranya Devi Temple (आरण्य देवी मंदिर)",
-      "image": "assets/images/aranya_devi_temple.jpg",
-      "description": "A sacred temple dedicated to Goddess Aranya Devi. देवी आरण्य देवी को समर्पित एक पवित्र मंदिर।"
-    },
-    {
-      "name": "Jagdishpur Fort (जगदीशपुर किला)",
-      "image": "assets/images/jagdishpur_fort.jpg",
-      "description": "Historic site linked to the 1857 rebellion. 1857 के विद्रोह से जुड़ा ऐतिहासिक स्थल।"
-    },
-    {
-      "name": "Chaturbhuj Sthan (चतुर्भुज स्थान)",
-      "image": "assets/images/chaturbhuj_sthan.jpg",
-      "description": "Ancient temple dedicated to Lord Vishnu. भगवान विष्णु को समर्पित प्राचीन मंदिर।"
-    },
-    {
-      "name": "Sun Temple at Dev (देव का सूर्य मंदिर)",
-      "image": "assets/images/sun_temple_dev.jpg",
-      "description": "A beautiful temple dedicated to the Sun God. सूर्य देव को समर्पित एक सुंदर मंदिर।"
-    },
-    {
-      "name": "Bihiya Town (बिहिया)",
-      "image": "assets/images/bihiya.jpg",
-      "description": "A small town known for its rural charm. अपने ग्रामीण आकर्षण के लिए प्रसिद्ध एक छोटा कस्बा।"
-    },
-    {
-      "name": "Koilwar Bridge (कोइलवर ब्रिज)",
-      "image": "assets/images/koilwar_bridge.jpg",
-      "description": "Historic rail-cum-road bridge over Sone River. सोन नदी पर बना ऐतिहासिक रेल व सड़क पुल।"
-    },
-    {
-      "name": "Sone River View (सोन नदी दृश्य)",
-      "image": "assets/images/sone_river.jpg",
-      "description": "Beautiful view of the Sone River. सोन नदी का सुंदर नजारा।"
-    },
-    {
-      "name": "Pir Baba Dargah (पीर बाबा दरगाह)",
-      "image": "assets/images/pir_baba_dargah.jpg",
-      "description": "Famous dargah visited by people of all faiths. सभी धर्मों के लोगों द्वारा दर्शन किया जाने वाला प्रसिद्ध दरगाह।"
-    },
-    {
-      "name": "Shahpur Market (शाहपुर बाजार)",
-      "image": "assets/images/shahpur_market.jpg",
-      "description": "A bustling local market. एक व्यस्त स्थानीय बाजार।"
-    },
-    {
-      "name": "Pawana Temple (पवाना मंदिर)",
-      "image": "assets/images/pawana_temple.jpg",
-      "description": "Popular temple for devotees. भक्तों के लिए प्रसिद्ध मंदिर।"
-    },
-    {
-      "name": "Karishma Park (करिश्मा पार्क)",
-      "image": "assets/images/karishma_park.jpg",
-      "description": "Recreational park for families. परिवारों के लिए मनोरंजन पार्क।"
-    },
-    {
-      "name": "Sahpur Ghat (साहपुर घाट)",
-      "image": "assets/images/sahpur_ghat.jpg",
-      "description": "Serene riverbank spot. शांत नदी किनारे का स्थान।"
-    },
-    {
-      "name": "Dumraon Raj Palace (दुमरांव राज महल)",
-      "image": "assets/images/dumraon_palace.jpg",
-      "description": "Historic palace of Dumraon rulers. दुमरांव शासकों का ऐतिहासिक महल।"
-    },
-    {
-      "name": "Hanuman Mandir, Ara (हनुमान मंदिर, आरा)",
-      "image": "assets/images/hanuman_temple_ara.jpg",
-      "description": "Famous Hanuman temple in Ara city. आरा शहर का प्रसिद्ध हनुमान मंदिर।"
-    },
-    {
-      "name": "Kochas Market (कोचस बाजार)",
-      "image": "assets/images/kochas_market.jpg",
-      "description": "Local market known for handicrafts. हस्तशिल्प के लिए प्रसिद्ध स्थानीय बाजार।"
-    },
-    {
-      "name": "Nawada Pond (नवादा तालाब)",
-      "image": "assets/images/nawada_pond.jpg",
-      "description": "Peaceful pond area. शांत तालाब क्षेत्र।"
-    },
-    {
-      "name": "Barhampur Fort (बरहमपुर किला)",
-      "image": "assets/images/barhampur_fort.jpg",
-      "description": "Ancient fort ruins. प्राचीन किले के अवशेष।"
-    },
-    {
-      "name": "Shitala Mata Mandir (शीतला माता मंदिर)",
-      "image": "assets/images/shitala_mata_mandir.jpg",
-      "description": "Temple dedicated to Goddess Shitala Mata. देवी शीतला माता को समर्पित मंदिर।"
-    },
-    {
-      "name": "Piro Town (पिरो)",
-      "image": "assets/images/piro_town.jpg",
-      "description": "Small town with historic relevance. ऐतिहासिक महत्व वाला छोटा कस्बा।"
-    },
-    {
-      "name": "Gadhani Hills (गढ़नी पहाड़ियां)",
-      "image": "assets/images/gadhani_hills.jpg",
-      "description": "Scenic hill area. सुंदर पहाड़ी क्षेत्र।"
-    },
-    {
-      "name": "Ekma Ghat (एकमा घाट)",
-      "image": "assets/images/ekma_ghat.jpg",
-      "description": "Popular riverbank site. लोकप्रिय नदी किनारा स्थल।"
-    },
-    {
-      "name": "Bihiya Shiv Mandir (बिहिया शिव मंदिर)",
-      "image": "assets/images/bihiya_shiv_mandir.jpg",
-      "description": "Ancient Shiva temple in Bihiya. बिहिया का प्राचीन शिव मंदिर।"
-    },
-  ],
-    "Aurangabad (औरंगाबाद)": [
-    {
-      "name": "Deo Sun Temple (देव सूर्य मंदिर)",
-      "image": "assets/images/deo_sun_temple.jpg",
-      "description": "Famous Hindu temple dedicated to the Sun God, known for its architectural beauty. सूर्य देव को समर्पित प्रसिद्ध हिंदू मंदिर, अपनी शानदार वास्तुकला के लिए मशहूर।"
-    },
-    {
-      "name": "Umga Hills (उमगा पहाड़ियां)",
-      "image": "assets/images/umga_hills.jpg",
-      "description": "Scenic hills with ancient temples and spiritual vibes. प्राचीन मंदिरों और आध्यात्मिक माहौल वाली सुंदर पहाड़ियां।"
-    },
-    {
-      "name": "Amjhar Sharif (अमझर शरीफ)",
-      "image": "assets/images/amjhar_sharif.jpg",
-      "description": "Popular Sufi shrine attracting thousands of devotees. हजारों श्रद्धालुओं को आकर्षित करने वाली प्रसिद्ध सूफी दरगाह।"
-    },
-    {
-      "name": "Deo Kund (देव कुंड)",
-      "image": "assets/images/deo_kund.jpg",
-      "description": "Natural water reservoir surrounded by hills. पहाड़ियों से घिरा प्राकृतिक जलाशय।"
-    },
-    {
-      "name": "Umga Sun Temple (उमगा सूर्य मंदिर)",
-      "image": "assets/images/umga_sun_temple.jpg",
-      "description": "Historic Sun Temple located in Umga. उमगा में स्थित ऐतिहासिक सूर्य मंदिर।"
-    },
-    {
-      "name": "Pawai Waterfall (पवाई जलप्रपात)",
-      "image": "assets/images/pawai_waterfall.jpg",
-      "description": "Serene waterfall surrounded by lush greenery. हरी-भरी हरियाली से घिरा शांत जलप्रपात।"
-    },
-    {
-      "name": "Aurangabad Caves (औरंगाबाद गुफाएं)",
-      "image": "assets/images/aurangabad_caves.jpg",
-      "description": "Ancient caves with historical importance. ऐतिहासिक महत्व वाली प्राचीन गुफाएं।"
-    },
-    {
-      "name": "Deo Fort (देव किला)",
-      "image": "assets/images/deo_fort.jpg",
-      "description": "Historic fort near Deo town. देव नगर के पास स्थित ऐतिहासिक किला।"
-    },
-    {
-      "name": "Kunda Hill (कुंडा पहाड़ी)",
-      "image": "assets/images/kunda_hill.jpg",
-      "description": "Famous for trekking and natural views. ट्रेकिंग और प्राकृतिक दृश्यों के लिए प्रसिद्ध।"
-    },
-    {
-      "name": "Goh (गो)",
-      "image": "assets/images/goh.jpg",
-      "description": "Town with historical temples and rural charm. ऐतिहासिक मंदिरों और ग्रामीण आकर्षण वाला कस्बा।"
-    },
-    {
-      "name": "Haspura (हसपुरा)",
-      "image": "assets/images/haspura.jpg",
-      "description": "Known for local markets and cultural heritage. स्थानीय बाजारों और सांस्कृतिक विरासत के लिए प्रसिद्ध।"
-    },
-    {
-      "name": "Barun (बरुण)",
-      "image": "assets/images/barun.jpg",
-      "description": "Peaceful rural town. शांत और ग्रामीण कस्बा।"
-    },
-    {
-      "name": "Rafiganj (रफीगंज)",
-      "image": "assets/images/rafiganj.jpg",
-      "description": "Historic town with cultural significance. ऐतिहासिक और सांस्कृतिक महत्व वाला नगर।"
-    },
-    {
-      "name": "Devkund Waterfall (देवकुंड जलप्रपात)",
-      "image": "assets/images/devkund_waterfall.jpg",
-      "description": "Popular waterfall for tourists. पर्यटकों के बीच लोकप्रिय जलप्रपात।"
-    },
-    {
-      "name": "Aurangabad Museum (औरंगाबाद संग्रहालय)",
-      "image": "assets/images/aurangabad_museum.jpg",
-      "description": "Showcases local history and culture. स्थानीय इतिहास और संस्कृति को दर्शाता है।"
-    },
-    {
-      "name": "Tetri Dam (तेत्री बांध)",
-      "image": "assets/images/tetri_dam.jpg",
-      "description": "Dam surrounded by greenery. हरियाली से घिरा बांध।"
-    },
-    {
-      "name": "Obra (ओबरा)",
-      "image": "assets/images/obra.jpg",
-      "description": "Village with peaceful atmosphere. शांत वातावरण वाला गांव।"
-    },
-    {
-      "name": "Kishunpur (किशुनपुर)",
-      "image": "assets/images/kishunpur.jpg",
-      "description": "Old temples and beautiful fields. पुराने मंदिर और सुंदर खेत।"
-    },
-    {
-      "name": "Bhadua (भदुआ)",
-      "image": "assets/images/bhadua.jpg",
-      "description": "Village with cultural charm. सांस्कृतिक आकर्षण वाला गांव।"
-    },
-    {
-      "name": "Jamhore (जम्होर)",
-      "image": "assets/images/jamhore.jpg",
-      "description": "Famous for Jamhore temple and festivals. अपने मंदिर और त्योहारों के लिए प्रसिद्ध।"
-    },
-    {
-      "name": "Madanshahi Hill (मदनशाही पहाड़ी)",
-      "image": "assets/images/madanshahi_hill.jpg",
-      "description": "Trekking spot with mesmerizing views. अद्भुत नज़ारों वाला ट्रेकिंग स्थल।"
-    },
-    {
-      "name": "Paharpur (पहाड़पुर)",
-      "image": "assets/images/paharpur.jpg",
-      "description": "Village with natural beauty. प्राकृतिक सुंदरता वाला गांव।"
-    },
-    {
-      "name": "Aurangabad City Park (औरंगाबाद सिटी पार्क)",
-      "image": "assets/images/aurangabad_city_park.jpg",
-      "description": "Family-friendly park. परिवार के लिए उपयुक्त पार्क।"
-    },
-    {
-      "name": "Sujawan (सुजावन)",
-      "image": "assets/images/sujawan.jpg",
-      "description": "Rural location with scenic landscapes. सुंदर ग्रामीण दृश्य वाला स्थान।"
-    },
-    {
-      "name": "Bela Village (बेला गांव)",
-      "image": "assets/images/bela_village.jpg",
-      "description": "Traditional village showing rural Bihar life. ग्रामीण बिहार जीवन को दर्शाता पारंपरिक गांव।"
-    },
-  ],
-    "Banka (बांका)": [
-      {
-        "name": "Mandar Hill (मंदर पहाड़)",
-        "image": "assets/images/mandar_hill.jpg",
-        "description": "Mandar Hill is a sacred hill linked to Hindu mythology. मंदर पहाड़ हिंदू पौराणिक कथाओं से जुड़ी एक पवित्र पहाड़ी है।"
-      },
-      {
-        "name": "Karnachaura (कर्णचौरा)",
-        "image": "assets/images/karnachaura.jpg",
-        "description": "Karnachaura is known for its scenic beauty and historical importance. कर्णचौरा अपनी प्राकृतिक सुंदरता और ऐतिहासिक महत्व के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Chandan Dam (चंदन बांध)",
-        "image": "assets/images/chandan_dam.jpg",
-        "description": "Chandan Dam is a popular picnic spot surrounded by hills. चंदन बांध पहाड़ियों से घिरा एक लोकप्रिय पिकनिक स्थल है।"
-      },
-      {
-        "name": "Shiv Mandir Bounsi (शिव मंदिर, बौंसी)",
-        "image": "assets/images/shiv_mandir_bounsi.jpg",
-        "description": "Ancient Shiva temple with beautiful carvings. प्राचीन शिव मंदिर जिसमें सुंदर नक्काशी है।"
-      },
-      {
-        "name": "Patthargatha (पत्थरगाठा)",
-        "image": "assets/images/patthargatha.jpg",
-        "description": "Famous for unique rock formations. अनोखी चट्टानों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Barua Dam (बरुआ बांध)",
-        "image": "assets/images/barua_dam.jpg",
-        "description": "A scenic dam perfect for nature lovers. प्रकृति प्रेमियों के लिए उपयुक्त सुंदर बांध।"
-      },
-      {
-        "name": "Shri Shyam Mandir (श्री श्याम मंदिर)",
-        "image": "assets/images/shyam_mandir.jpg",
-        "description": "Temple dedicated to Lord Krishna. भगवान कृष्ण को समर्पित मंदिर।"
-      },
-      {
-        "name": "Bounsi Mela Ground (बौंसी मेला मैदान)",
-        "image": "assets/images/bounsi_mela.jpg",
-        "description": "Hosts the famous Bounsi Mela. प्रसिद्ध बौंसी मेले का आयोजन स्थल।"
-      },
-      {
-        "name": "Lakshmi Narayan Mandir (लक्ष्मी नारायण मंदिर)",
-        "image": "assets/images/lakshmi_narayan_mandir.jpg",
-        "description": "Temple known for its peaceful environment. अपने शांत वातावरण के लिए प्रसिद्ध मंदिर।"
-      },
-      {
-        "name": "Satsang Ashram (सत्संग आश्रम)",
-        "image": "assets/images/satsang_ashram.jpg",
-        "description": "Spiritual center for devotees. श्रद्धालुओं के लिए आध्यात्मिक केंद्र।"
-      },
-      {
-        "name": "Goradih Hills (गोराडीह पहाड़ियाँ)",
-        "image": "assets/images/goradih_hills.jpg",
-        "description": "Hills offering trekking opportunities. ट्रेकिंग के लिए उपयुक्त पहाड़ियाँ।"
-      },
-      {
-        "name": "Dhoraiya Temple (धोरैया मंदिर)",
-        "image": "assets/images/dhoraiya_temple.jpg",
-        "description": "Religious place with historical value. ऐतिहासिक महत्व वाला धार्मिक स्थल।"
-      },
-      {
-        "name": "Sitanabad (सीतानाबाद)",
-        "image": "assets/images/sitanabad.jpg",
-        "description": "Associated with Goddess Sita. देवी सीता से जुड़ा स्थान।"
-      },
-      {
-        "name": "Kundeshwari Temple (कुंडेश्वरी मंदिर)",
-        "image": "assets/images/kundeshwari_temple.jpg",
-        "description": "Temple famous for Mahashivratri celebrations. महाशिवरात्रि के लिए प्रसिद्ध मंदिर।"
-      },
-      {
-        "name": "Chanan Dam (चनन बांध)",
-        "image": "assets/images/chanan_dam.jpg",
-        "description": "Beautiful dam with boating facilities. नौकायन सुविधा वाला सुंदर बांध।"
-      },
-      {
-        "name": "Bishunpur Mandir (बिषुनपुर मंदिर)",
-        "image": "assets/images/bishunpur_mandir.jpg",
-        "description": "Ancient temple dedicated to Lord Vishnu. भगवान विष्णु को समर्पित प्राचीन मंदिर।"
-      },
-      {
-        "name": "Rani Talab (रानी तालाब)",
-        "image": "assets/images/rani_talab.jpg",
-        "description": "Historic pond surrounded by greenery. हरियाली से घिरा ऐतिहासिक तालाब।"
-      },
-      {
-        "name": "Champa Lake (चंपा झील)",
-        "image": "assets/images/champa_lake.jpg",
-        "description": "Lake with migratory birds in winter. सर्दियों में प्रवासी पक्षियों वाली झील।"
-      },
-      {
-        "name": "Harihar Nath Temple (हरिहर नाथ मंदिर)",
-        "image": "assets/images/harihar_nath_temple.jpg",
-        "description": "Popular Shiva temple in the district. जिले का लोकप्रिय शिव मंदिर।"
-      },
-      {
-        "name": "Banka Museum (बांका संग्रहालय)",
-        "image": "assets/images/banka_museum.jpg",
-        "description": "Museum showcasing local history. स्थानीय इतिहास प्रदर्शित करने वाला संग्रहालय।"
-      },
-      {
-        "name": "Deoghar Road View Point (देवघर रोड व्यू प्वाइंट)",
-        "image": "assets/images/deoghar_road.jpg",
-        "description": "Scenic point offering panoramic views. विस्तृत दृश्यों वाला सुंदर स्थान।"
-      },
-      {
-        "name": "Hanuman Mandir Banka (हनुमान मंदिर, बांका)",
-        "image": "assets/images/hanuman_mandir_banka.jpg",
-        "description": "Temple of Lord Hanuman. भगवान हनुमान का मंदिर।"
-      },
-      {
-        "name": "Raja Pahar (राजा पहाड़)",
-        "image": "assets/images/raja_pahar.jpg",
-        "description": "Hilltop offering a majestic view. शानदार दृश्य देने वाली पहाड़ी।"
-      },
-      {
-        "name": "Bounsi Hills (बौंसी पहाड़ियाँ)",
-        "image": "assets/images/bounsi_hills.jpg",
-        "description": "Ideal for hiking and nature walks. ट्रेकिंग और नेचर वॉक के लिए आदर्श।"
-      }
-    ],
-    "Begusarai (बेगूसराय)": [
-    {
-      "name": "Kanwar Lake Bird Sanctuary (कांवर झील पक्षी अभयारण्य)",
-      "image": "assets/images/kanwar_lake.jpg",
-      "description": "Kanwar Lake is Asia's largest freshwater oxbow lake and a paradise for migratory birds. कांवर झील एशिया की सबसे बड़ी मीठे पानी की ऑक्सबो झील है और प्रवासी पक्षियों का स्वर्ग है।"
-    },
-    {
-      "name": "Ajatshatru Fort (अजातशत्रु किला)",
-      "image": "assets/images/ajatshatru_fort.jpg",
-      "description": "An ancient fort built during the Magadh empire period, showcasing historic architecture. यह किला मगध साम्राज्य के समय का है और ऐतिहासिक स्थापत्य का उदाहरण है।"
-    },
-    {
-      "name": "Kali Mandir, Barauni (काली मंदिर, बरौनी)",
-      "image": "assets/images/kali_mandir_barauni.jpg",
-      "description": "A famous temple dedicated to Goddess Kali, attracting devotees year-round. माता काली को समर्पित यह मंदिर पूरे साल श्रद्धालुओं को आकर्षित करता है।"
-    },
-    {
-      "name": "Simaria Ghat (सिमरिया घाट)",
-      "image": "assets/images/simaria_ghat.jpg",
-      "description": "A sacred ghat on the banks of Ganga, popular for Chhath Puja celebrations. गंगा तट पर स्थित यह पवित्र घाट छठ पूजा के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Kali Asthan Temple, Begusarai (काली स्थान मंदिर, बेगूसराय)",
-      "image": "assets/images/kali_asthan_temple.jpg",
-      "description": "A centuries-old temple dedicated to Goddess Kali, with rich cultural importance. यह सैकड़ों वर्ष पुराना मंदिर माता काली को समर्पित है।"
-    },
-    {
-      "name": "ITC Park (आईटीसी पार्क)",
-      "image": "assets/images/itc_park.jpg",
-      "description": "A well-maintained green park for leisure and family outings. यह एक सुंदर पार्क है जहाँ परिवार और बच्चों के लिए घूमने का अच्छा स्थान है।"
-    },
-    {
-      "name": "Chandrawati Temple (चंद्रावती मंदिर)",
-      "image": "assets/images/chandrawati_temple.jpg",
-      "description": "A beautiful temple with serene surroundings, perfect for peaceful visits. यह शांत वातावरण वाला सुंदर मंदिर है।"
-    },
-    {
-      "name": "Lohia Nagar Park (लोहिया नगर पार्क)",
-      "image": "assets/images/lohia_nagar_park.jpg",
-      "description": "A recreational park in Begusarai, ideal for morning walks and relaxation. यह पार्क सुबह की सैर और आराम के लिए उत्तम है।"
-    },
-    {
-      "name": "Kabar Lake (कबर झील)",
-      "image": "assets/images/kabar_lake.jpg",
-      "description": "Another part of Kanwar Lake ecosystem, rich in biodiversity. कांवर झील का एक हिस्सा जो जैव विविधता से भरपूर है।"
-    },
-    {
-      "name": "Shiv Mandir, Teghra (शिव मंदिर, तेघड़ा)",
-      "image": "assets/images/shiv_mandir_teghra.jpg",
-      "description": "A popular temple dedicated to Lord Shiva in Teghra town. तेघड़ा का प्रसिद्ध शिव मंदिर।"
-    },
-    {
-      "name": "Railway Museum, Barauni (रेलवे म्यूजियम, बरौनी)",
-      "image": "assets/images/railway_museum_barauni.jpg",
-      "description": "A small museum displaying railway heritage of the region. यहाँ रेलवे के इतिहास की झलक देखने को मिलती है।"
-    },
-    {
-      "name": "Barauni Refinery Township (बरौनी रिफाइनरी टाउनशिप)",
-      "image": "assets/images/barauni_refinery.jpg",
-      "description": "A modern industrial township developed around the refinery. रिफाइनरी के आसपास विकसित आधुनिक औद्योगिक नगर।"
-    },
-    {
-      "name": "Panch Mandir (पंच मंदिर)",
-      "image": "assets/images/panch_mandir.jpg",
-      "description": "A set of five ancient temples located together, each with unique design. पाँच प्राचीन मंदिरों का समूह, प्रत्येक की अपनी खास बनावट।"
-    },
-    {
-      "name": "Shokhara Ghat (शोखरा घाट)",
-      "image": "assets/images/shokhara_ghat.jpg",
-      "description": "A scenic spot on Ganga’s banks, famous for cultural events. गंगा किनारे का सुंदर स्थान जो सांस्कृतिक आयोजनों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Durga Mandir, Begusarai (दुर्गा मंदिर, बेगूसराय)",
-      "image": "assets/images/durga_mandir_begusarai.jpg",
-      "description": "A divine place for worship during Navratri celebrations. नवरात्रि में पूजा का प्रमुख स्थल।"
-    },
-    {
-      "name": "Hanuman Mandir, Begusarai (हनुमान मंदिर, बेगूसराय)",
-      "image": "assets/images/hanuman_mandir_begusarai.jpg",
-      "description": "A sacred temple for Lord Hanuman devotees. हनुमान जी के भक्तों के लिए पवित्र स्थान।"
-    },
-    {
-      "name": "Barauni Thermal Power Station (बरौनी थर्मल पावर स्टेशन)",
-      "image": "assets/images/barauni_power_station.jpg",
-      "description": "An important industrial landmark of Begusarai district. बेगूसराय का प्रमुख औद्योगिक स्थल।"
-    },
-    {
-      "name": "Lakhminia Railway Station (लखमिनिया रेलवे स्टेशन)",
-      "image": "assets/images/lakhminia_station.jpg",
-      "description": "A historically significant railway station in the district. ऐतिहासिक महत्व वाला रेलवे स्टेशन।"
-    },
-    {
-      "name": "Kundalpur Temple (कुंडलपुर मंदिर)",
-      "image": "assets/images/kundalpur_temple.jpg",
-      "description": "A peaceful Jain pilgrimage site. शांतिपूर्ण जैन तीर्थ स्थल।"
-    },
-    {
-      "name": "Simaria Mela Ground (सिमरिया मेला मैदान)",
-      "image": "assets/images/simaria_mela.jpg",
-      "description": "Venue of famous Simaria fair during Kartik month. कार्तिक महीने में प्रसिद्ध सिमरिया मेला यहीं लगता है।"
-    },
-    {
-      "name": "Gandhi Setu View Point (गांधी सेतु व्यू पॉइंट)",
-      "image": "assets/images/gandhi_setu_view.jpg",
-      "description": "A beautiful view point of the Ganga river and Gandhi Setu bridge. गंगा और गांधी सेतु का सुंदर दृश्य।"
-    },
-    {
-      "name": "Kali Badi, Begusarai (कालीबाड़ी, बेगूसराय)",
-      "image": "assets/images/kali_badi.jpg",
-      "description": "A Bengali-style Kali temple in Begusarai. बंगाली शैली का काली मंदिर।"
-    },
-    {
-      "name": "Ajgaivinath Temple (अजगैविनाथ मंदिर)",
-      "image": "assets/images/ajgaivinath_temple.jpg",
-      "description": "A temple dedicated to Lord Shiva, with mythological importance. भगवान शिव को समर्पित पौराणिक मंदिर।"
-    },
-    {
-      "name": "Ganga Eco Park (गंगा इको पार्क)",
-      "image": "assets/images/ganga_eco_park.jpg",
-      "description": "An eco-friendly park promoting environmental awareness. पर्यावरण जागरूकता को बढ़ावा देने वाला इको-फ्रेंडली पार्क।"
-    }
-  ],
-    "Sheikhpura (शेखपुरा)": [
-      {
-        "name": "Araghia Hills (अरघिया हिल्स)",
-        "image": "assets/images/araghia_hills.jpg",
-        "description": "A scenic hill area ideal for trekking and nature walks. यह एक खूबसूरत पहाड़ी इलाका है, जो ट्रेकिंग और नेचर वॉक के लिए आदर्श है।"
-      },
-      {
-        "name": "Girihinda Hills (गिरिहिंदा हिल्स)",
-        "image": "assets/images/girihinda_hills.jpg",
-        "description": "Famous for its natural beauty and mythological significance. अपनी प्राकृतिक सुंदरता और पौराणिक महत्व के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Sheikhpura Fort (शेखपुरा किला)",
-        "image": "assets/images/sheikhpura_fort.jpg",
-        "description": "A historical fort showcasing ancient architecture. एक ऐतिहासिक किला जो प्राचीन स्थापत्य कला का नमूना है।"
-      },
-      {
-        "name": "Pawapuri Jal Mandir (पावापुरी जल मंदिर)",
-        "image": "assets/images/pawapuri_jal_mandir.jpg",
-        "description": "A sacred Jain temple surrounded by a lake. एक पवित्र जैन मंदिर जो झील से घिरा है।"
-      },
-      {
-        "name": "Sikandra Mahadev Temple (सिकंदरा महादेव मंदिर)",
-        "image": "assets/images/sikandra_mahadev.jpg",
-        "description": "Dedicated to Lord Shiva and visited by thousands of devotees. भगवान शिव को समर्पित मंदिर, जहां हजारों भक्त आते हैं।"
-      },
-      {
-        "name": "Barbigha Market (बरबिघा बाजार)",
-        "image": "assets/images/barbigha_market.jpg",
-        "description": "Famous for local handicrafts and traditional goods. स्थानीय हस्तशिल्प और पारंपरिक वस्तुओं के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Chewara Hills (चेवाड़ा हिल्स)",
-        "image": "assets/images/chewara_hills.jpg",
-        "description": "A serene hilly location for relaxation. एक शांत पहाड़ी इलाका, विश्राम के लिए उत्तम।"
-      },
-      {
-        "name": "Sheikhpura Mosque (शेखपुरा मस्जिद)",
-        "image": "assets/images/sheikhpura_mosque.jpg",
-        "description": "An ancient mosque representing Mughal architecture. एक प्राचीन मस्जिद जो मुगल वास्तुकला का प्रतीक है।"
-      },
-      {
-        "name": "Asthawan Hot Spring (अस्थावन गर्म झरना)",
-        "image": "assets/images/asthawan_hot_spring.jpg",
-        "description": "Natural hot water spring with medicinal value. प्राकृतिक गर्म पानी का झरना, औषधीय गुणों से भरपूर।"
-      },
-      {
-        "name": "Karhariya Dham (करहरिया धाम)",
-        "image": "assets/images/karhariya_dham.jpg",
-        "description": "A sacred temple complex surrounded by greenery. हरे-भरे वातावरण से घिरा एक पवित्र मंदिर परिसर।"
-      },
-      {
-        "name": "Bhadariya Hills (भदरिया हिल्स)",
-        "image": "assets/images/bhadariya_hills.jpg",
-        "description": "Popular among trekkers for scenic views. सुंदर नज़ारों के लिए ट्रेकर्स के बीच लोकप्रिय।"
-      },
-      {
-        "name": "Bhim Bandh Waterfall (भीम बंध झरना)",
-        "image": "assets/images/bhim_bandh_waterfall.jpg",
-        "description": "A natural waterfall perfect for picnic trips. पिकनिक यात्राओं के लिए उपयुक्त प्राकृतिक झरना।"
-      },
-      {
-        "name": "Lohanda Dham (लोखंडा धाम)",
-        "image": "assets/images/lohanda_dham.jpg",
-        "description": "A revered temple attracting devotees year-round. साल भर श्रद्धालुओं को आकर्षित करने वाला पूजनीय मंदिर।"
-      },
-      {
-        "name": "Sarva Mangla Devi Temple (सर्वमंगला देवी मंदिर)",
-        "image": "assets/images/sarva_mangla_temple.jpg",
-        "description": "Dedicated to Goddess Durga, a major pilgrimage spot. देवी दुर्गा को समर्पित एक प्रमुख तीर्थ स्थल।"
-      },
-      {
-        "name": "Kundal Kund (कुंडल कुंड)",
-        "image": "assets/images/kundal_kund.jpg",
-        "description": "A holy water body with religious importance. धार्मिक महत्व वाला पवित्र जलाशय।"
-      },
-      {
-        "name": "Tetarhat Dam (टेटरहाट डैम)",
-        "image": "assets/images/tetarhat_dam.jpg",
-        "description": "A peaceful dam site perfect for evening walks. शाम की सैर के लिए उपयुक्त शांत डैम स्थल।"
-      },
-      {
-        "name": "Sheikhpura Lake (शेखपुरा झील)",
-        "image": "assets/images/sheikhpura_lake.jpg",
-        "description": "Beautiful lake ideal for boating and relaxation. नौकायन और विश्राम के लिए आदर्श सुंदर झील।"
-      },
-      {
-        "name": "Sheikhpura Jain Mandir (शेखपुरा जैन मंदिर)",
-        "image": "assets/images/sheikhpura_jain_mandir.jpg",
-        "description": "A beautiful Jain temple with peaceful surroundings. शांत वातावरण में स्थित सुंदर जैन मंदिर।"
-      },
-      {
-        "name": "Sheikhpura Stadium (शेखपुरा स्टेडियम)",
-        "image": "assets/images/sheikhpura_stadium.jpg",
-        "description": "Sports ground hosting various local events. विभिन्न स्थानीय आयोजनों का खेल मैदान।"
-      },
-      {
-        "name": "Sheikhpura Park (शेखपुरा पार्क)",
-        "image": "assets/images/sheikhpura_park.jpg",
-        "description": "Green park perfect for morning walks. सुबह की सैर के लिए उपयुक्त हरा-भरा पार्क।"
-      },
-      {
-        "name": "Rajendra Chowk (राजेंद्र चौक)",
-        "image": "assets/images/rajendra_chowk.jpg",
-        "description": "Main city square with vibrant local life. जीवंत स्थानीय जीवन से भरपूर मुख्य चौक।"
-      },
-      {
-        "name": "Mahadev Sthan (महादेव स्थान)",
-        "image": "assets/images/mahadev_sthan.jpg",
-        "description": "Popular Shiva temple in the district. जिले का प्रसिद्ध शिव मंदिर।"
-      }
-    ],
-    "Lakhisarai (लखीसराय)": [
-      {
-        "name": "Ashok Dham Temple (अशोक धाम मंदिर)",
-        "image": "assets/images/ashok_dham.jpg",
-        "description": "Ashok Dham Temple is a famous Shiva temple attracting thousands of devotees. अशोक धाम मंदिर एक प्रसिद्ध शिव मंदिर है, जहां हजारों भक्त आते हैं।"
-      },
-      {
-        "name": "Surajgarha (सूरजगढ़ा)",
-        "image": "assets/images/surajgarha.jpg",
-        "description": "Surajgarha is known for its ancient temples and cultural heritage. सूरजगढ़ा अपने प्राचीन मंदिरों और सांस्कृतिक विरासत के लिए जाना जाता है।"
-      },
-      {
-        "name": "Kashi Nath Temple (काशी नाथ मंदिर)",
-        "image": "assets/images/kashi_nath.jpg",
-        "description": "Kashi Nath Temple is a holy place dedicated to Lord Shiva. काशी नाथ मंदिर भगवान शिव को समर्पित एक पवित्र स्थान है।"
-      },
-      {
-        "name": "Indrapuri Barrage (इंद्रपुरी बैराज)",
-        "image": "assets/images/indrapuri_barrage.jpg",
-        "description": "Indrapuri Barrage offers scenic views and is a great picnic spot. इंद्रपुरी बैराज सुंदर दृश्य और पिकनिक के लिए बेहतरीन स्थान है।"
-      },
-      {
-        "name": "Shankh River Bank (शंख नदी तट)",
-        "image": "assets/images/shankh_river.jpg",
-        "description": "The Shankh River bank is peaceful and ideal for nature walks. शंख नदी का तट शांत है और प्रकृति भ्रमण के लिए उपयुक्त है।"
-      },
-      {
-        "name": "Rajgir Hills View Point (राजगीर हिल्स व्यू प्वाइंट)",
-        "image": "assets/images/rajgir_hills_view.jpg",
-        "description": "Rajgir Hills View Point offers breathtaking panoramic views. राजगीर हिल्स व्यू प्वाइंट अद्भुत प्राकृतिक नज़ारे प्रस्तुत करता है।"
-      },
-      {
-        "name": "Mandar Hill Nearby (मंदर पर्वत के पास)",
-        "image": "assets/images/mandar_hill_nearby.jpg",
-        "description": "Mandar Hill nearby areas are rich in history and mythology. मंदर पर्वत के आसपास के क्षेत्र इतिहास और पौराणिक कथाओं से भरे हैं।"
-      },
-      {
-        "name": "Lakhisarai Fort Ruins (लखीसराय किला अवशेष)",
-        "image": "assets/images/lakhisarai_fort.jpg",
-        "description": "The ruins of Lakhisarai Fort tell stories of ancient rulers. लखीसराय किले के अवशेष प्राचीन शासकों की कहानियां बताते हैं।"
-      },
-      {
-        "name": "Mauni Baba Ashram (मौनी बाबा आश्रम)",
-        "image": "assets/images/mauni_baba.jpg",
-        "description": "Mauni Baba Ashram is a serene spiritual retreat. मौनी बाबा आश्रम एक शांत आध्यात्मिक स्थान है।"
-      },
-      {
-        "name": "Durga Mandir (दुर्गा मंदिर)",
-        "image": "assets/images/durga_mandir.jpg",
-        "description": "Durga Mandir is a sacred temple for devotees of Goddess Durga. दुर्गा मंदिर मां दुर्गा के भक्तों के लिए एक पवित्र स्थान है।"
-      },
-      {
-        "name": "Pahari Baba Temple (पहाड़ी बाबा मंदिर)",
-        "image": "assets/images/pahari_baba.jpg",
-        "description": "Pahari Baba Temple is situated atop a hill offering scenic beauty. पहाड़ी बाबा मंदिर पहाड़ी पर स्थित है और सुंदर दृश्य प्रदान करता है।"
-      },
-      {
-        "name": "Kali Mandir (काली मंदिर)",
-        "image": "assets/images/kali_mandir.jpg",
-        "description": "Kali Mandir is dedicated to Goddess Kali and attracts many visitors. काली मंदिर देवी काली को समर्पित है और कई लोगों को आकर्षित करता है।"
-      },
-      {
-        "name": "Baba Garibnath Temple (बाबा गरीबनाथ मंदिर)",
-        "image": "assets/images/baba_garibnath.jpg",
-        "description": "Baba Garibnath Temple is known for its divine atmosphere. बाबा गरीबनाथ मंदिर अपने दिव्य वातावरण के लिए जाना जाता है।"
-      },
-      {
-        "name": "Ganga Ghat Lakhisarai (गंगा घाट लखीसराय)",
-        "image": "assets/images/ganga_ghat.jpg",
-        "description": "Ganga Ghat is a peaceful riverside location. गंगा घाट एक शांत नदी किनारे का स्थान है।"
-      },
-      {
-        "name": "Bajrang Bali Mandir (बजरंग बली मंदिर)",
-        "image": "assets/images/bajrang_bali.jpg",
-        "description": "This temple is devoted to Lord Hanuman. यह मंदिर भगवान हनुमान को समर्पित है।"
-      },
-      {
-        "name": "Panchmukhi Hanuman Mandir (पंचमुखी हनुमान मंदिर)",
-        "image": "assets/images/panchmukhi_hanuman.jpg",
-        "description": "The temple has a unique idol of Panchmukhi Hanuman. मंदिर में पंचमुखी हनुमान की अनोखी प्रतिमा है।"
-      },
-      {
-        "name": "Shiv Sagar Pond (शिव सागर तालाब)",
-        "image": "assets/images/shiv_sagar.jpg",
-        "description": "A historical pond known for its serene environment. एक ऐतिहासिक तालाब जो अपनी शांति के लिए प्रसिद्ध है।"
-      },
-      {
-        "name": "Lal Kothi (लाल कोठी)",
-        "image": "assets/images/lal_kothi.jpg",
-        "description": "Lal Kothi is a colonial-era building of historical importance. लाल कोठी एक औपनिवेशिक युग की ऐतिहासिक इमारत है।"
-      },
-      {
-        "name": "Rajendra Park (राजेंद्र पार्क)",
-        "image": "assets/images/rajendra_park.jpg",
-        "description": "Rajendra Park is a public garden with greenery and open space. राजेंद्र पार्क एक हरा-भरा सार्वजनिक उद्यान है।"
-      },
-      {
-        "name": "Sita Kund (सीता कुंड)",
-        "image": "assets/images/sita_kund.jpg",
-        "description": "Sita Kund is a mythologically important pond. सीता कुंड एक पौराणिक महत्व का तालाब है।"
-      },
-      {
-        "name": "Barahi Temple (बराही मंदिर)",
-        "image": "assets/images/barahi_temple.jpg",
-        "description": "Barahi Temple is an ancient shrine with rich heritage. बराही मंदिर एक प्राचीन तीर्थस्थल है।"
-      },
-      {
-        "name": "Nawada Hills View (नवादा हिल्स व्यू)",
-        "image": "assets/images/nawada_hills_view.jpg",
-        "description": "This spot offers panoramic hill views. यह स्थान पहाड़ों का विहंगम दृश्य प्रस्तुत करता है।"
-      },
-      {
-        "name": "Chandipur Ghat (चांदिपुर घाट)",
-        "image": "assets/images/chandipur_ghat.jpg",
-        "description": "Chandipur Ghat is a peaceful riverside picnic place. चांदिपुर घाट एक शांत नदी किनारे का पिकनिक स्थल है।"
-      },
-      {
-        "name": "Sun Temple Surajpur (सूर्य मंदिर सूरजपुर)",
-        "image": "assets/images/sun_temple_surajpur.jpg",
-        "description": "A famous temple dedicated to the Sun God. सूर्य देव को समर्पित एक प्रसिद्ध मंदिर।"
+        "name": "Jalgawa Lake / Wetland (जलगांवा झील/चौर क्षेत्र)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Jhelum_River-Pakistan.jpg/500px-Jhelum_River-Pakistan.jpg",
+        "description": "पूर्णिया जिले का यह प्राकृतिक झीलनुमा क्षेत्र स्थानीय लोगों के लिए पिकनिक और सैर का प्रमुख स्थल है। सर्दियों में यहाँ प्रवासी पक्षी भी देखे जा सकते हैं।"
       }
     ],
     "Rohtas (रोहतास)": [
-    {
-      "name": "Rohtasgarh Fort (रोहतासगढ़ किला)",
-      "image": "assets/images/rohtasgarh_fort.jpg",
-      "description": "Rohtasgarh Fort is a historical hill fort built in the 7th century. It is surrounded by natural defenses and contains temples, palaces, and reservoirs. The fort reflects ancient Indian architecture and stories of valor. रोहतासगढ़ किला एक ऐतिहासिक दुर्ग है जो 7वीं शताब्दी में बनवाया गया था। यह किला पहाड़ी पर स्थित है और चारों ओर प्राकृतिक सुरक्षा से घिरा है। यहाँ के मंदिर, महल और जलाशय देखने लायक हैं।"
-    },
-    {
-      "name": "Tutiya Waterfall (टूटिया जलप्रपात)",
-      "image": "assets/images/tutiya_waterfall.jpg",
-      "description": "Tutiya Waterfall is one of the beautiful natural spots in Rohtas. The waterfall flows year-round and looks even more magnificent during the monsoon. The serene surroundings and greenery enhance its charm. टूटिया जलप्रपात रोहतास जिले के सुंदर प्राकृतिक स्थलों में से एक है। यहाँ का पानी वर्षभर बहता है और बारिश के मौसम में इसकी खूबसूरती बढ़ जाती है।"
-    },
-    {
-      "name": "Shergarh Fort (शेरगढ़ किला)",
-      "image": "assets/images/shergarh_fort.jpg",
-      "description": "Shergarh Fort is an important fort from the Mughal period, known for its architecture and historical significance. The panoramic views from the fort are breathtaking. शेरगढ़ किला मुगल काल का एक महत्वपूर्ण दुर्ग है। यह किला अपनी वास्तुकला और ऐतिहासिक महत्व के लिए जाना जाता है।"
-    },
-    {
-      "name": "Dharkhor Waterfall (धारखोर जलप्रपात)",
-      "image": "assets/images/dharkhor_waterfall.jpg",
-      "description": "Dharkhor Waterfall is a peaceful spot hidden in the dense forests of Rohtas. The cool water and natural beauty make it a perfect place for picnics and trekking. धारखोर जलप्रपात रोहतास के घने जंगलों में स्थित एक शांत स्थल है। यहाँ का ठंडा पानी और प्राकृतिक सौंदर्य मन को प्रसन्न करता है।"
-    },
-    {
-      "name": "Kaimur Hills (कैमूर पहाड़ियाँ)",
-      "image": "assets/images/kaimur_hills.jpg",
-      "description": "Kaimur Hills are famous for their natural beauty and wildlife. The forests here are home to rare flora and fauna, offering both adventure and tranquility. कैमूर पहाड़ियाँ प्राकृतिक सौंदर्य और वन्य जीवन के लिए प्रसिद्ध हैं।"
-    },
-    {
-      "name": "Manjhar Kund (मंझर कुंड)",
-      "image": "assets/images/manjhar_kund.jpg",
-      "description": "Manjhar Kund is a historic water reservoir built to meet the fort's water needs in ancient times. The water remains cool and clean throughout the year. मंझर कुंड एक ऐतिहासिक जलस्रोत है, जिसे प्राचीन समय में किले की पानी की जरूरतों के लिए बनाया गया था।"
-    },
-    {
-      "name": "Deo Markandeya Temple (देव मार्कंडेय मंदिर)",
-      "image": "assets/images/dev_markandeya_temple.jpg",
-      "description": "Deo Markandeya Temple is a famous religious site known for its ancient architecture and mythological significance. Thousands of devotees visit here annually. देव मार्कंडेय मंदिर एक प्रसिद्ध धार्मिक स्थल है, जो प्राचीन शिल्पकला और पौराणिक महत्व के लिए जाना जाता है।"
-    },
-    {
-      "name": "Indrapuri Barrage (इंद्रपुरी बैराज)",
-      "image": "assets/images/indrapuri_barrage.jpg",
-      "description": "Indrapuri Barrage is a massive dam built on the Son River, crucial for hydroelectric power generation and irrigation. The view of the river from here is spectacular. इंद्रपुरी बैराज सोन नदी पर बना एक विशाल बांध है। यह जलविद्युत उत्पादन और सिंचाई के लिए महत्वपूर्ण है।"
-    },
-    {
-      "name": "Telhar Kund (टेल्हार कुंड)",
-      "image": "assets/images/telhar_kund.jpg",
-      "description": "Telhar Kund is a natural waterfall that becomes most beautiful during the monsoon. The water collects in a lake, creating a stunning view. टेल्हार कुंड एक प्राकृतिक झरना है जो बारिश के मौसम में अपनी पूरी खूबसूरती पर होता है।"
-    },
-    {
-      "name": "Rohtas Wildlife Sanctuary (रोहतास वन्यजीव अभयारण्य)",
-      "image": "assets/images/rohtas_wildlife_sanctuary.jpg",
-      "description": "Rohtas Wildlife Sanctuary is home to various species of animals and birds. The natural surroundings and safari experiences attract many tourists. रोहतास वन्यजीव अभयारण्य विभिन्न प्रकार के जानवरों और पक्षियों का घर है।"
-    },
-    {
-      "name": "Suryanath Temple (सूर्यनाथ मंदिर)",
-      "image": "assets/images/suryanath_temple.jpg",
-      "description": "A historic temple dedicated to Sun God with beautiful carvings. सूर्यनाथ मंदिर सूर्य देव को समर्पित एक प्राचीन मंदिर है।"
-    },
-    {
-      "name": "Kailash Kund (कैलाश कुंड)",
-      "image": "assets/images/kailash_kund.jpg",
-      "description": "A sacred pond surrounded by hills, ideal for meditation. कैलाश कुंड पहाड़ियों से घिरे एक पवित्र तालाब है।"
-    },
-    {
-      "name": "Barakar River View (बराकर नदी दृश्य)",
-      "image": "assets/images/barakar_river.jpg",
-      "description": "A scenic riverbank perfect for picnics. बराकर नदी का सुंदर किनारा पिकनिक के लिए उत्तम है।"
-    },
-    {
-      "name": "Chandani Hills (चांदनी पहाड़ियाँ)",
-      "image": "assets/images/chandani_hills.jpg",
-      "description": "Hills offering panoramic sunset views. चांदनी पहाड़ियाँ सूर्यास्त का शानदार दृश्य प्रस्तुत करती हैं।"
-    },
-    {
-      "name": "Madanpur Fort (मदनपुर किला)",
-      "image": "assets/images/madanpur_fort.jpg",
-      "description": "Ruins of an ancient fort showcasing local history. मदनपुर किला स्थानीय इतिहास का प्रदर्शन करता है।"
-    },
-    {
-      "name": "Sita Kund (सीता कुंड)",
-      "image": "assets/images/sita_kund_rohtas.jpg",
-      "description": "A mythological pond associated with Sita. सीता कुंड एक पौराणिक तालाब है।"
-    },
-    {
-      "name": "Hanuman Garhi (हनुमान गढ़ी)",
-      "image": "assets/images/hanuman_garhi.jpg",
-      "description": "Famous Hanuman temple on a hilltop. हनुमान गढ़ी पहाड़ी पर स्थित प्रसिद्ध हनुमान मंदिर है।"
-    },
-    {
-      "name": "Kothi Bazar (कोठी बाजार)",
-      "image": "assets/images/kothi_bazar.jpg",
-      "description": "A bustling local market known for handicrafts. कोठी बाजार हस्तशिल्प के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Mandar Hills View (मंदर पहाड़ी दृश्य)",
-      "image": "assets/images/mandar_hills_view.jpg",
-      "description": "Scenic view from Mandar Hills. मंदर पहाड़ियों से सुंदर दृश्य दिखाई देता है।"
-    },
-    {
-      "name": "Dumri Lake (डुमरी झील)",
-      "image": "assets/images/dumri_lake.jpg",
-      "description": "A serene lake perfect for boating. डुमरी झील शांत और नौकायन के लिए उत्तम है।"
-    },
-    {
-      "name": "Baba Garib Nath Temple (बाबा गरीब नाथ मंदिर)",
-      "image": "assets/images/baba_garib_nath_rohtas.jpg",
-      "description": "Popular temple with divine ambiance. बाबा गरीब नाथ मंदिर दिव्य वातावरण के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Chhoti Basti View Point (छोटी बस्ती व्यू प्वाइंट)",
-      "image": "assets/images/chhoti_basti_view.jpg",
-      "description": "A viewpoint overlooking a small settlement. छोटी बस्ती व्यू प्वाइंट छोटे गाँव का दृश्य प्रस्तुत करता है।"
-    },
-    {
-      "name": "Patna Pahad (पटना पहाड़)",
-      "image": "assets/images/patna_pahad.jpg",
-      "description": "Hill area ideal for trekking and photography. पटना पहाड़ ट्रैकिंग और फोटोग्राफी के लिए आदर्श है।"
-    },
-    {
-      "name": "Sankat Mochan Mandir (संकट मोचन मंदिर)",
-      "image": "assets/images/sankat_mochan_rohtas.jpg",
-      "description": "Famous Hanuman temple visited by devotees. संकट मोचन मंदिर हनुमान भक्तों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Rajdari Waterfall (राजदारी जलप्रपात)",
-      "image": "assets/images/rajdari_waterfall.jpg",
-      "description": "Picturesque waterfall amidst hills. राजदारी जलप्रपात पहाड़ियों के बीच सुंदर झरना है।"
-    },
-  ],
-    "Kaimur (कैमूर)": [
-    {
-      "name": "Kaimur Wildlife Sanctuary (कैमूर वन्यजीव अभयारण्य)",
-      "image": "assets/images/kaimur_wildlife.jpg",
-      "description": "A sanctuary home to tigers, leopards, and various birds. Ideal for wildlife enthusiasts. कैमूर वन्यजीव अभयारण्य बाघ, तेंदुए और विभिन्न पक्षियों का घर है। प्रकृति प्रेमियों के लिए आदर्श।"
-    },
-    {
-      "name": "Karkat Waterfall (कर्कट जलप्रपात)",
-      "image": "assets/images/karkat_waterfall.jpg",
-      "description": "A beautiful waterfall in dense forests, perfect for nature walks. कर्कट जलप्रपात घने जंगलों में स्थित सुंदर झरना है।"
-    },
-    {
-      "name": "Telhar Waterfall (टेल्हार जलप्रपात)",
-      "image": "assets/images/telhar_waterfall_kaimur.jpg",
-      "description": "Famous waterfall in Kaimur hills, picturesque during monsoon. कैमूर पहाड़ियों में प्रसिद्ध झरना, मानसून में और सुंदर दिखता है।"
-    },
-    {
-      "name": "Rohtasgarh Fort View (रोहतासगढ़ किला दृश्य)",
-      "image": "assets/images/rohtasgarh_view.jpg",
-      "description": "Scenic view of historic Rohtasgarh Fort from Kaimur hills. कैमूर पहाड़ियों से ऐतिहासिक रोहतासगढ़ किला का दृश्य।"
-    },
-    {
-      "name": "Manda Hills (मांडा पहाड़ियाँ)",
-      "image": "assets/images/manda_hills.jpg",
-      "description": "Hilly region with panoramic views and trekking opportunities. पहाड़ी क्षेत्र जिसमें अद्भुत दृश्य और ट्रेकिंग के अवसर हैं।"
-    },
-    {
-      "name": "Dhua Kund (धुआ कुंड)",
-      "image": "assets/images/dhua_kund.jpg",
-      "description": "A small but scenic waterfall, surrounded by rocks and greenery. छोटा लेकिन सुंदर झरना, चट्टानों और हरियाली से घिरा हुआ।"
-    },
-    {
-      "name": "Kaimur Caves (कैमूर गुफाएँ)",
-      "image": "assets/images/kaimur_caves.jpg",
-      "description": "Ancient caves with historical and religious significance. प्राचीन गुफाएँ जिनका ऐतिहासिक और धार्मिक महत्व है।"
-    },
-    {
-      "name": "Chandraprabha Wildlife Area (चंद्रप्रभा वन क्षेत्र)",
-      "image": "assets/images/chandraprabha_wildlife.jpg",
-      "description": "A protected forest area with waterfalls and wildlife. संरक्षित वन क्षेत्र जिसमें झरने और वन्यजीव पाए जाते हैं।"
-    },
-    {
-      "name": "Bihar School of Yoga, Kaimur (बिहार योग स्कूल, कैमूर)",
-      "image": "assets/images/kaimur_yoga.jpg",
-      "description": "Famous yoga center attracting visitors for wellness programs. प्रसिद्ध योग केंद्र जो स्वास्थ्य कार्यक्रमों के लिए आकर्षित करता है।"
-    },
-    {
-      "name": "Swarna Rekha River View (स्वर्णा रेखा नदी दृश्य)",
-      "image": "assets/images/swarna_rekha.jpg",
-      "description": "Scenic riverside ideal for picnics and photography. सुंदर नदी किनारा, पिकनिक और फोटोग्राफी के लिए आदर्श।"
-    },
-    {
-      "name": "Telhar Kund Viewpoint (टेल्हार कुंड व्यू प्वाइंट)",
-      "image": "assets/images/telhar_viewpoint.jpg",
-      "description": "A viewpoint overlooking Telhar Waterfall and forests. टेल्हार जलप्रपात और जंगलों का दृश्य देखने का स्थल।"
-    },
-    {
-      "name": "Kaimur Fort Ruins (कैमूर किला अवशेष)",
-      "image": "assets/images/kaimur_fort.jpg",
-      "description": "Ancient fort ruins with historical significance. प्राचीन किले के अवशेष जिनका ऐतिहासिक महत्व है।"
-    },
-    {
-      "name": "Markandeya Temple (मार्कंडेय मंदिर)",
-      "image": "assets/images/markandeya_temple.jpg",
-      "description": "Historic temple visited by devotees for blessings. ऐतिहासिक मंदिर जहाँ भक्त आशीर्वाद लेने आते हैं।"
-    },
-    {
-      "name": "Gaurav Hill Trek (गौरव हिल ट्रेक)",
-      "image": "assets/images/gaurav_hill.jpg",
-      "description": "Popular trekking destination with scenic views. प्रसिद्ध ट्रेकिंग स्थल जिसमें सुंदर दृश्य दिखाई देते हैं।"
-    },
-    {
-      "name": "Bhandaria Waterfall (भंडरिया जलप्रपात)",
-      "image": "assets/images/bhandaria_waterfall.jpg",
-      "description": "A tranquil waterfall surrounded by lush greenery. हरियाली से घिरा शांत झरना।"
-    },
-    {
-      "name": "Rohtas Dam View (रोहतास डैम दृश्य)",
-      "image": "assets/images/rohtas_dam.jpg",
-      "description": "Scenic view of the dam and surrounding hills. बांध और आसपास की पहाड़ियों का दृश्य।"
-    },
-    {
-      "name": "Kaimur Trekking Routes (कैमूर ट्रेकिंग मार्ग)",
-      "image": "assets/images/kaimur_trek.jpg",
-      "description": "Various trekking trails for adventure enthusiasts. साहसिक गतिविधियों के लिए विभिन्न ट्रेकिंग मार्ग।"
-    },
-    {
-      "name": "Manjhar Kund View (मंझर कुंड दृश्य)",
-      "image": "assets/images/manjhar_kund.jpg",
-      "description": "A peaceful pond surrounded by hills and trees. पहाड़ियों और पेड़ों से घिरा शांत तालाब।"
-    },
-    {
-      "name": "Chandraprabha Falls (चंद्रप्रभा जलप्रपात)",
-      "image": "assets/images/chandraprabha_falls.jpg",
-      "description": "Beautiful waterfall in Chandraprabha Wildlife Sanctuary. चंद्रप्रभा वन्यजीव अभयारण्य में सुंदर झरना।"
-    },
-    {
-      "name": "Baba Garib Nath Temple (बाबा गरीब नाथ मंदिर)",
-      "image": "assets/images/baba_garib_nath_kaimur.jpg",
-      "description": "Popular hilltop temple attracting devotees. प्रसिद्ध पहाड़ी मंदिर जो भक्तों को आकर्षित करता है।"
-    },
-    {
-      "name": "Patna Pahad View (पटना पहाड़ दृश्य)",
-      "image": "assets/images/patna_pahad_kaimur.jpg",
-      "description": "Scenic hill view perfect for photography. फोटोग्राफी के लिए सुंदर पहाड़ी दृश्य।"
-    },
-    {
-      "name": "Sunset Point Kaimur (सूर्यास्त स्थल कैमूर)",
-      "image": "assets/images/kaimur_sunset.jpg",
-      "description": "Ideal place to enjoy sunset over hills and forests. पहाड़ियों और जंगलों पर सूर्यास्त का आनंद लेने का आदर्श स्थान।"
-    },
-    {
-      "name": "Mandar Hills Ancient Sites (मंदर पहाड़ी प्राचीन स्थल)",
-      "image": "assets/images/mandar_ancient.jpg",
-      "description": "Historical sites with temples and ancient ruins. मंदिरों और प्राचीन अवशेषों के साथ ऐतिहासिक स्थल।"
-    },
-    {
-      "name": "Chhoti Basti Village (छोटी बस्ती गाँव)",
-      "image": "assets/images/chhoti_basti_kaimur.jpg",
-      "description": "A small village known for traditional culture and scenic surroundings. पारंपरिक संस्कृति और सुंदर वातावरण के लिए प्रसिद्ध छोटा गाँव।"
-    }
-  ],
-    "Jamui (जमुई)": [
-    {
-      "name": "Simultala Hill (सिमुलतला हिल)",
-      "image": "assets/images/simultala_hill.jpg",
-      "description": "A scenic hill area perfect for trekking and nature lovers. सिमुलतला हिल ट्रैकिंग और प्रकृति प्रेमियों के लिए आदर्श है।"
-    },
-    {
-      "name": "Giddheswar Temple (गिद्धेश्वर मंदिर)",
-      "image": "assets/images/giddheswar_temple.jpg",
-      "description": "Ancient Shiva temple attracting devotees. प्राचीन शिव मंदिर जो भक्तों को आकर्षित करता है।"
-    },
-    {
-      "name": "Naulakha Palace (नौलखा पैलेस)",
-      "image": "assets/images/naulakha_palace.jpg",
-      "description": "Historic palace showcasing Jamui’s royal heritage. जमीउई की शाही विरासत को प्रदर्शित करने वाला ऐतिहासिक महल।"
-    },
-    {
-      "name": "Khaira Dam (खैरा डैम)",
-      "image": "assets/images/khaira_dam.jpg",
-      "description": "A beautiful dam ideal for picnics and sightseeing. खैरा डैम पिकनिक और दर्शनीय स्थलों के लिए सुंदर जगह है।"
-    },
-    {
-      "name": "Simultala Waterfalls (सिमुलतला जलप्रपात)",
-      "image": "assets/images/simultala_waterfalls.jpg",
-      "description": "A picturesque waterfall amidst greenery. हरी-भरी जगह के बीच सुंदर जलप्रपात।"
-    },
-    {
-      "name": "Bhimbandh Wildlife Sanctuary (भीमबन्ध वन्यजीव अभयारण्य)",
-      "image": "assets/images/bhimbandh_wildlife.jpg",
-      "description": "Wildlife sanctuary with rich flora and fauna. विविध वनस्पति और जीव-जंतुओं से भरपूर वन्यजीव अभयारण्य।"
-    },
-    {
-      "name": "Shiv Mandir Jamui (शिव मंदिर जमीउई)",
-      "image": "assets/images/shiv_mandir_jamui.jpg",
-      "description": "Popular local Shiva temple. स्थानीय प्रसिद्ध शिव मंदिर।"
-    },
-    {
-      "name": "Laxminarayan Mandir (लक्ष्मीनारायण मंदिर)",
-      "image": "assets/images/laxminarayan_mandir.jpg",
-      "description": "Temple dedicated to Lord Vishnu and Goddess Lakshmi. भगवान विष्णु और देवी लक्ष्मी को समर्पित मंदिर।"
-    },
-    {
-      "name": "Sasaram Hills View (सासाराम हिल्स व्यू)",
-      "image": "assets/images/sasaram_hills_view.jpg",
-      "description": "Scenic hill view near Jamui. जमीउई के पास सुंदर पहाड़ी दृश्य।"
-    },
-    {
-      "name": "Chandrapura Village (चंद्रपुरा गांव)",
-      "image": "assets/images/chandrapura_village.jpg",
-      "description": "A village known for its cultural heritage. सांस्कृतिक विरासत के लिए प्रसिद्ध गांव।"
-    },
-    {
-      "name": "Jamui Fort (जमीउई किला)",
-      "image": "assets/images/jamui_fort.jpg",
-      "description": "Historic fort with old architectural style. प्राचीन वास्तुकला वाले ऐतिहासिक किले।"
-    },
-    {
-      "name": "Nagi Dam (नगी डैम)",
-      "image": "assets/images/nagi_dam.jpg",
-      "description": "Peaceful dam surrounded by greenery. हरी-भरी जगह के बीच शांत डैम।"
-    },
-    {
-      "name": "Banas River View (बनास नदी दृश्य)",
-      "image": "assets/images/banas_river.jpg",
-      "description": "Beautiful riverside view ideal for relaxation. आराम करने के लिए सुंदर नदी का दृश्य।"
-    },
-    {
-      "name": "Kali Mandir Jamui (काली मंदिर जमीउई)",
-      "image": "assets/images/kali_mandir_jamui.jpg",
-      "description": "Ancient temple dedicated to Goddess Kali. देवी काली को समर्पित प्राचीन मंदिर।"
-    },
-    {
-      "name": "Shahpur Ghat (शाहपुर घाट)",
-      "image": "assets/images/shahpur_ghat.jpg",
-      "description": "Popular riverbank spot for evening visits. शाम के समय जाने के लिए लोकप्रिय नदी किनारा।"
-    },
-    {
-      "name": "Sundarpahari Hills (सुंदरपहरी हिल्स)",
-      "image": "assets/images/sundarpahari_hills.jpg",
-      "description": "Scenic hills ideal for trekking and photography. ट्रैकिंग और फोटोग्राफी के लिए आदर्श सुंदर पहाड़ियां।"
-    },
-    {
-      "name": "Jamui Market (जमीउई बाजार)",
-      "image": "assets/images/jamui_market.jpg",
-      "description": "Local market known for handicrafts and food. हस्तशिल्प और खाने के लिए प्रसिद्ध स्थानीय बाजार।"
-    },
-    {
-      "name": "Ramgarh Temple (रामगढ़ मंदिर)",
-      "image": "assets/images/ramgarh_temple.jpg",
-      "description": "Temple with historical and religious significance. ऐतिहासिक और धार्मिक महत्व वाला मंदिर।"
-    },
-    {
-      "name": "Makarhat Hill (मकरहट हिल)",
-      "image": "assets/images/makarhat_hill.jpg",
-      "description": "Small hill with panoramic views. विहंगम दृश्य वाले छोटे पहाड़।"
-    },
-    {
-      "name": "Sundarpahari Waterfall (सुंदरपहरी जलप्रपात)",
-      "image": "assets/images/sundarpahari_waterfall.jpg",
-      "description": "Waterfall amidst lush greenery. हरी-भरी जगह में जलप्रपात।"
-    },
-    {
-      "name": "Bhagwanpur Village (भगवानपुर गांव)",
-      "image": "assets/images/bhagwanpur_village.jpg",
-      "description": "Village famous for traditional festivals. पारंपरिक त्योहारों के लिए प्रसिद्ध गांव।"
-    },
-    {
-      "name": "Naugachia Temple (नौगछिया मंदिर)",
-      "image": "assets/images/naugachia_temple.jpg",
-      "description": "Ancient temple visited by locals and tourists. स्थानीय लोग और पर्यटक यहां दर्शन करते हैं।"
-    },
-    {
-      "name": "Haridwar Ghat (हरिद्वार घाट)",
-      "image": "assets/images/haridwar_ghat.jpg",
-      "description": "Peaceful ghat along the river. नदी किनारे शांत घाट।"
-    },
-    {
-      "name": "Jamui Eco Park (जमीउई इको पार्क)",
-      "image": "assets/images/jamui_eco_park.jpg",
-      "description": "Park with natural beauty and recreation facilities. प्राकृतिक सौंदर्य और मनोरंजन सुविधाओं वाला पार्क।"
-    },
-    {
-      "name": "Chandeshwar Mandir (चंदेश्वर मंदिर)",
-      "image": "assets/images/chandeshwar_mandir.jpg",
-      "description": "Temple with ancient architecture and religious importance. प्राचीन वास्तुकला और धार्मिक महत्व वाला मंदिर।"
-    },
-  ],
+      {
+        "name": "Rohtasgarh Fort (रोहतासगढ़ किला)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Rohtasgarh_Fort_Entrance.jpg/500px-Rohtasgarh_Fort_Entrance.jpg",
+        "description": "रोहतास जिले का सबसे प्रसिद्ध ऐतिहासिक स्थल। यह विशाल किला 7वीं शताब्दी में राजा हरिश्चंद्र द्वारा बनवाया गया था और बाद में शेरशाह सूरी ने इसे मज़बूत किया। किले में कई मंदिर, मस्जिद और बावलियाँ स्थित हैं।"
+      },
+      {
+        "name": "Tutel Bhawani Temple (टूटेल भवानी मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSAfT3fq_B0GUrKoxJJFM3MjTZ9cuChkdd5kmuD0lKnXcVH3E&s",
+        "description": "यह प्रसिद्ध शक्ति स्थल रोहतास जिले के देवरी में स्थित है। नवरात्र के समय यहाँ लाखों श्रद्धालु माता के दर्शन करने आते हैं।"
+      },
+      {
+        "name": "Gupteshwar Mahadev (गुप्तेश्वर महादेव)",
+        "image": "https://i2.wp.com/www.rohtasdistrict.com/wp-content/uploads/2017/08/Screenshot_2017-08-26-09-33-57.png?resize=696%2C392",
+        "description": "यह प्राचीन गुफा मंदिर भगवान शिव को समर्पित है। गुफा के अंदर स्थित शिवलिंग धार्मिक महत्व के साथ-साथ प्राकृतिक सुंदरता का भी आकर्षण है।"
+      },
+      {
+        "name": "Manjhar Kund & Dhua Kund (मंझर कुंड और धुआं कुंड)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNSd662y9W6FJ8hV7jD_bVaY8fWeKf_Wa1zrbTpViaBTvWdej6&s",
+        "description": "सासाराम के पास स्थित ये झरने प्राकृतिक सुंदरता के लिए मशहूर हैं। सावन और बरसात में यहाँ का दृश्य बेहद आकर्षक हो जाता है।"
+      }
+    ],
+    "Saharsa (सहरसा)": [
+      {
+        "name": "Ugratara Sthan (उग्रतारा स्थान)",
+        "image": "https://cdn.s3waas.gov.in/s38eefcfdf5990e441f0fb6f3fad709e21/uploads/2018/03/2018032627.jpg",
+        "description": "यह मंदिर माता तारा को समर्पित है और सहरसा का सबसे प्रसिद्ध धार्मिक स्थल है। नवरात्र के समय यहाँ लाखों श्रद्धालु दर्शन करने आते हैं।"
+      },
 
-    "Saran (सारण)":[
-    {
-      "name": "Chirand (चिरांद)",
-      "image": "assets/images/chirand.jpg",
-      "description": "Chirand is an archaeological site showing traces of ancient civilization. "
-          "चिरांद एक पुरातात्विक स्थल है जो प्राचीन सभ्यता के अवशेष दिखाता है।"
-    },
-    {
-      "name": "Aami Temple (आमी मंदिर)",
-      "image": "assets/images/aami_temple.jpg",
-      "description": "Aami Temple is dedicated to Goddess Durga. "
-          "आमी मंदिर माँ दुर्गा को समर्पित है।"
-    },
-    {
-      "name": "Sonepur Fair (सोनेपुर मेला)",
-      "image": "assets/images/sonepur_fair.jpg",
-      "description": "Asia’s largest cattle fair held every year at Sonepur. "
-          "एशिया का सबसे बड़ा पशु मेला हर साल सोनपुर में लगता है।"
-    },
-    {
-      "name": "Ganga River Bank (गंगा नदी किनारा)",
-      "image": "assets/images/ganga_saran.jpg",
-      "description": "A peaceful river bank with spiritual significance. "
-          "आध्यात्मिक महत्व वाला शांत नदी किनारा।"
-    },
-    {
-      "name": "Aami Village (आमी गाँव)",
-      "image": "assets/images/aami_village.jpg",
-      "description": "Aami Village is known for its spiritual aura and temples. "
-          "आमी गाँव अपने धार्मिक वातावरण और मंदिरों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Panapara Temple (पनापारा मंदिर)",
-      "image": "assets/images/panapara_temple.jpg",
-      "description": "Ancient temple dedicated to Lord Shiva. "
-          "भगवान शिव को समर्पित प्राचीन मंदिर।"
-    },
-    {
-      "name": "Sonepur Shiva Temple (सोनेपुर शिव मंदिर)",
-      "image": "assets/images/sonepur_shiva.jpg",
-      "description": "A famous Shiva temple near Sonepur fair ground. "
-          "सोनेपुर मेले के पास स्थित प्रसिद्ध शिव मंदिर।"
-    },
-    {
-      "name": "Gadaniya Math (गड़निया मठ)",
-      "image": "assets/images/gadaniya_math.jpg",
-      "description": "Important matha for saints and devotees. "
-          "संतों और भक्तों का प्रमुख मठ।"
-    },
-    {
-      "name": "Dhorh Ashram (धोढ़ आश्रम)",
-      "image": "assets/images/dhorh_ashram.jpg",
-      "description": "Spiritual ashram visited by saints and devotees. "
-          "संतों और भक्तों द्वारा देखा जाने वाला आध्यात्मिक आश्रम।"
-    },
-    {
-      "name": "Saran Fort Ruins (सारण किला खंडहर)",
-      "image": "assets/images/saran_fort.jpg",
-      "description": "Remains of historical fort in Saran. "
-          "सारण का ऐतिहासिक किला खंडहर।"
-    },
-    {
-      "name": "Hajipur Bridge View (हाजीपुर पुल दृश्य)",
-      "image": "assets/images/hajipur_bridge.jpg",
-      "description": "Beautiful view of river and bridge near Saran. "
-          "सारण के पास नदी और पुल का सुंदर दृश्य।"
-    },
-    {
-      "name": "Mehandar Dham (मेहंदर धाम)",
-      "image": "assets/images/mehandar_dham.jpg",
-      "description": "Religious site dedicated to Lord Shiva. "
-          "भगवान शिव को समर्पित धार्मिक स्थल।"
-    },
-    {
-      "name": "Panapur Hills (पनापुर पहाड़ियाँ)",
-      "image": "assets/images/panapur_hills.jpg",
-      "description": "Beautiful natural hills in Saran. "
-          "सारण की सुंदर प्राकृतिक पहाड़ियाँ।"
-    },
-    {
-      "name": "Bhatwaliya Mandir (भटवलिया मंदिर)",
-      "image": "assets/images/bhatwaliya_temple.jpg",
-      "description": "Famous temple visited during festivals. "
-          "त्योहारों के दौरान प्रसिद्ध मंदिर।"
-    },
-    {
-      "name": "Chapra City Park (छपरा सिटी पार्क)",
-      "image": "assets/images/chapra_park.jpg",
-      "description": "Main park for relaxation and recreation. "
-          "आराम और मनोरंजन के लिए मुख्य पार्क।"
-    },
-    {
-      "name": "Sonepur Kali Mandir (सोनेपुर काली मंदिर)",
-      "image": "assets/images/sonepur_kali.jpg",
-      "description": "Temple of Goddess Kali in Sonepur. "
-          "सोनेपुर का काली माँ मंदिर।"
-    },
-    {
-      "name": "Garkha Shiva Temple (गरखा शिव मंदिर)",
-      "image": "assets/images/garkha_shiva.jpg",
-      "description": "Famous Shiva temple in Garkha area. "
-          "गरखा का प्रसिद्ध शिव मंदिर।"
-    },
-    {
-      "name": "Sitalpur Ghat (सीतलपुर घाट)",
-      "image": "assets/images/sitalpur_ghat.jpg",
-      "description": "Peaceful ghat on river Ganga. "
-          "गंगा नदी पर शांत घाट।"
-    },
-    {
-      "name": "Chhapra Clock Tower (छपरा घड़ी टावर)",
-      "image": "assets/images/chapra_tower.jpg",
-      "description": "Heritage clock tower in Chhapra city. "
-          "छपरा शहर का धरोहर घड़ी टावर।"
-    },
-    {
-      "name": "Sonepur Hanuman Mandir (सोनेपुर हनुमान मंदिर)",
-      "image": "assets/images/sonepur_hanuman.jpg",
-      "description": "Dedicated to Lord Hanuman, attracts many devotees. "
-          "भगवान हनुमान को समर्पित मंदिर।"
-    },
-    {
-      "name": "Garkha Kali Temple (गरखा काली मंदिर)",
-      "image": "assets/images/garkha_kali.jpg",
-      "description": "Famous Kali temple in Saran. "
-          "सारण का प्रसिद्ध काली मंदिर।"
-    },
-    {
-      "name": "Rajendra Stadium (राजेंद्र स्टेडियम)",
-      "image": "assets/images/rajendra_stadium.jpg",
-      "description": "Sports ground and stadium of Chhapra. "
-          "छपरा का खेल मैदान और स्टेडियम।"
-    },
-    {
-      "name": "Panapur Temple Complex (पनापुर मंदिर परिसर)",
-      "image": "assets/images/panapur_complex.jpg",
-      "description": "A temple complex with multiple shrines. "
-          "कई मंदिरों वाला परिसर।"
-    },
-    {
-      "name": "Sonepur Ghat (सोनेपुर घाट)",
-      "image": "assets/images/sonepur_ghat.jpg",
-      "description": "Famous ghat on Ganga in Sonepur. "
-          "सोनेपुर का गंगा घाट।"
-    },
-  ],
+      {
+        "name": "Sun Temple, Kandaha (कनढा का सूर्य मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s38eefcfdf5990e441f0fb6f3fad709e21/uploads/2018/03/2018032679-731x1024.jpg",
+        "description": "यह प्राचीन सूर्य मंदिर सहरसा का ऐतिहासिक और सांस्कृतिक धरोहर है। छठ पर्व पर यहाँ बहुत भीड़ लगती है।"
+      },
+      {
+        "name": "Kosi River View (कोसी नदी का तट)",
+        "image": "https://cdnbbsr.s3waas.gov.in/s39a49a25d845a483fae4be7e341368e36/uploads/2021/08/2021080579.jpg",
+        "description": "कोसी नदी को 'बिहार का शोक' कहा जाता है, लेकिन इसके किनारे का नजारा बेहद सुंदर और आकर्षक होता है।"
+      }
+    ],
+    "Siwan (सीवान)": [
+      {
+        "name": "Maharajganj Kali Mandir (महाराजगंज काली मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s30d0fd7c6e093f7b804fa0150b875b868/uploads/bfi_thumb/2018032973-olw6wtfjrn866j65tgy0hm5g301z1by9gbie4ycbd6.jpeg",
+        "description": "यह मंदिर धार्मिक दृष्टि से अत्यंत प्रसिद्ध है। नवरात्रि और त्योहारों में यहाँ हजारों भक्त दर्शन करने आते हैं।"
+      },
+      {
+        "name": "Amar Singh Fort (अमर सिंह किला)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdd7ERdbiqGoktCNyUtuAzbX9rJkiWo-6Zyg&s",
+        "description": "सीवान का ऐतिहासिक स्थल जो राजा अमर सिंह से जुड़ा है। यह पुराना किला स्थानीय इतिहास और संस्कृति को दर्शाता है।"
+      },
+      {
+        "name": "Zeeradei (जीरादेई – Dr. Rajendra Prasad Birthplace)",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Dr_rajendra_prasad_house.jpg/760px-Mapcarta.jpg",
+        "description": "भारत के प्रथम राष्ट्रपति डॉ. राजेंद्र प्रसाद का जन्म यहीं हुआ था। यह स्थान ऐतिहासिक महत्व रखता है।"
+      },
+      {
+        "name": "Bhikhabandh Shivalaya (भिखाबंध शिवालय)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1k_5G-_CW2QHCPfd5AZyV4A_ZF5nbYhZSCQ&s",
+        "description": "यह मंदिर पौराणिक मान्यताओं से जुड़ा हुआ है और सावन माह में शिवभक्तों की भीड़ रहती है।"
+      }
+    ],
+    "Sheikhpura (शेखपुरा)": [
+      {
+        "name": "Arghauti Pokhar (अर्घौटी पोखर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzoiGN0k91FPVcbHlkpi5k_A2fAr7RqP_2tw&s",
+        "description": "A historic pond known for its cultural and local significance. | एक ऐतिहासिक पोखर जो सांस्कृतिक और स्थानीय महत्व के लिए प्रसिद्ध है।"
+      },
+      {
+        "name": "Girihinda Pahar (गिरिहिंदा पहाड़ - शिव मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s30bb4aec1710521c12ee76289d9440817/uploads/bfi_thumb/2018030527-1024x311-olw6y6axo7ulvi7j9itnrpzd0di015uqstjohjhu5c.jpg",
+        "description": "A hill with an ancient Shiva temple, popular among devotees and nature lovers. | एक पहाड़ी जिस पर भगवान शिव का प्राचीन मंदिर है, जो भक्तों और प्रकृति प्रेमियों के लिए आकर्षण का केंद्र है।"
+      },
+      {
+        "name": "Samas (समस - विष्णु मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s30bb4aec1710521c12ee76289d9440817/uploads/bfi_thumb/2018040564-olw6ycvt023m4rxz73o1r6bl62lkj1kv5q42uh82xs.jpg",
+        "description": "A religious site dedicated to Lord Vishnu, located in Sheikhpura. | भगवान विष्णु को समर्पित एक धार्मिक स्थल, जो शेखपुरा में स्थित है।"
+      },
+      {
+        "name": "Tripurai Temple, Akhara Village (त्रिपुराई मंदिर, अखाड़ा गाँव)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOkxFnvbMqEKS8QB8mwlSTTqdZcUdCGXtFx0Yi8ZjFRLmOiuOgE97RrEcVAbEcw7gM8LQ&usqp=CAU",
+        "description": "Famous temple in Akhara village (Chewara block), dedicated to Goddess Tripurai. Accessible via Chewara city or Ariyari, 14 km from Sheikhpura. | अखाड़ा गाँव (चेवाड़ा प्रखंड) का प्रसिद्ध मंदिर, जो देवी त्रिपुराई को समर्पित है। शेखपुरा से 14 किमी दूर चेवाड़ा या अरियरी मार्ग से पहुँचा जा सकता है।"
+      },
+      {
+        "name": "Sitaram Mandir, Khariyapar (सीताराम मंदिर, खरियापर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2_LcUmYfxkM8WDkP8aSbNpHlz6yOVVI9ghA&s",
+        "description": "A local temple dedicated to Lord Rama and Sita, known for religious importance. | भगवान राम और सीता को समर्पित स्थानीय मंदिर, जो धार्मिक महत्व के लिए प्रसिद्ध है।"
+      }
+    ],
+    "Supaul (सुपौल)": [
 
+      {
+        "name": "Vishnu Mandir, Vishnupur (विष्णुपुर विष्णु मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-hGLqUMY3V0sphl3lVEJoARRf2XndVTw73AwncRAzTjclzXqtwAU2E_MaQLedmL6d30s&usqp=CAU",
+        "description": "सुपौल का यह प्राचीन विष्णु मंदिर धार्मिक और सांस्कृतिक दृष्टि से बेहद महत्वपूर्ण है। Vishnu Mandir in Vishnupur is an ancient temple of great religious and cultural importance."
+      },
+      {
+        "name": "Durga Mandir, Supaul Town (दुर्गा मंदिर, सुपौल)",
+        "image": "https://www.jagranimages.com/images/newimg/27092022/27_09_2022-budhiya_maa_supaul_23102016.webp",
+        "description": "शहर के बीच स्थित दुर्गा मंदिर नवरात्रि और त्योहारों में खास आकर्षण का केंद्र है। Durga Mandir in Supaul town is a major attraction during Navratri and other festivals."
+      },
+      {
+        "name": "Koshi River Bank (कोसी तट क्षेत्र)",
+        "image": "https://cdnbbsr.s3waas.gov.in/s39a49a25d845a483fae4be7e341368e36/uploads/2021/08/2021080579.jpg",
+        "description": "कोसी नदी के किनारे का यह क्षेत्र प्राकृतिक सुंदरता और पक्षी विहार के लिए जाना जाता है। This part of the Koshi riverbank is famous for natural beauty and bird watching."
+      }
+    ],
+    "Munger (मुंगेर)": [
+      {
+        "name": "Goyanka Shivalaya (गोयनका शिवालय - मिर्ची तालाब)",
+        "image": "https://cdn.s3waas.gov.in/s3e0c641195b27425bb056ac56f8953d24/uploads/bfi_thumb/2018022865-olwdhue6r23mfp3ymfhkqaw58tnsf3rjl1jfb4a502.jpg",
+        "description": "One of the oldest and most beautiful temples in Munger, part of a chain of Shivalayas, popularly known as Goenka Shivalaya. | मुंगेर के प्राचीन और सुंदर मंदिरों में से एक, जिसे गोयनका शिवालय कहा जाता है। यह शिवालय श्रृंखला का महत्वपूर्ण हिस्सा है और धार्मिक महत्व रखता है।"
+      },
+      {
+        "name": "Mir Kasim Tunnel (मीर कासिम सुरंग)",
+        "image": "https://cdn.s3waas.gov.in/s3e0c641195b27425bb056ac56f8953d24/uploads/bfi_thumb/2018031039-olwdigybb2yi6c76yp8me577i2klju93o572trcouq.jpg",
+        "description": "Historical tunnels near the riverside, said to have been used by Princess Gul and Prince Bahar to hide. | नदी किनारे बनी ऐतिहासिक सुरंगें, जिनका प्रयोग राजकुमारी गुल और राजकुमार बहार के छिपने के लिए किया जाता था।"
+      },
+      {
+        "name": "Manpatthar (Sita Charan) (मनपत्थर - सीता चरण)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9ZyYU-Zi7JPJA_F9SEGTLTKevy9CMtCnMbg&s",
+        "description": "A rock in the bed of river Ganga, believed to bear the footprints of Goddess Sita, located close to Kastaharni Ghat. | गंगा नदी की धारा में स्थित एक चट्टान, जिस पर माता सीता के चरणों के निशान माने जाते हैं। यह कष्टहरणी घाट के पास स्थित है।"
+      },
+      {
+        "name": "Kastaharni Ghat (कष्टहरणी घाट)",
+        "image": "https://cdn.s3waas.gov.in/s3e0c641195b27425bb056ac56f8953d24/uploads/bfi_thumb/2018022847-olwdhue6r23mfp3ymfhkqaw58tnsf3rjl1jfb4a502.jpg",
+        "description": "A sacred bathing ghat on the Ganga, mentioned since the 6th century. Associated with sage Mudgal Muni. | गंगा नदी पर स्थित पवित्र स्नान घाट, जिसका उल्लेख छठी शताब्दी से मिलता है। यह ऋषि मुद्गल मुनि से जुड़ा हुआ है।"
+      },
+      {
+        "name": "Chandi Asthan (चंडी स्थान)",
+        "image": "https://cdn.s3waas.gov.in/s3e0c641195b27425bb056ac56f8953d24/uploads/bfi_thumb/2018022434-olwdi4qeu8hrzeoxy1ygzqa7s28trrwlagprl5ut3m.jpg",
+        "description": "A highly revered temple dedicated to Goddess Chandika, one of the Shakti Peethas, located in Munger. | देवी चंडिका को समर्पित अत्यंत पूजनीय मंदिर, जो शक्तिपीठों में से एक है और मुंगेर का प्रमुख धार्मिक स्थल है।"
+      },
+      {
+        "name": "Pir Shah Nafah Shrine (पीर शाह नफाह दरगाह)",
+        "image": "https://cdn.s3waas.gov.in/s3e0c641195b27425bb056ac56f8953d24/uploads/bfi_thumb/2018022884-olwdhvc0xw4wrb2lgxw7asnlu7j5msv9x66wse8qtu.jpg",
+        "description": "Located inside Munger Fort, this is one of the oldest structures, a revered Muslim shrine built on an elevated platform. | मुंगेर किले के भीतर स्थित यह सबसे प्राचीन इमारतों में से एक है। ऊँचे प्लेटफॉर्म पर बनी यह एक पवित्र मुस्लिम दरगाह है।"
+      },
+      {
+        "name": "Sita Kund (सीता कुंड)",
+        "image": "https://cdn.s3waas.gov.in/s3e0c641195b27425bb056ac56f8953d24/uploads/bfi_thumb/2018022847-1-olwdhue6r23mfp3ymfhkqaw58tnsf3rjl1jfb4a502.jpg",
+        "description": "A sacred hot water spring associated with Goddess Sita, considered one of the most visited religious sites in Munger. | माता सीता से जुड़ा एक पवित्र गर्म पानी का कुंड, जो मुंगेर का सबसे प्रसिद्ध और अधिक दर्शनीय धार्मिक स्थल है।"
+      }
+    ],
+    "Nawada (नवादा)": [
+      {
+        "name": "Indrasal Cave, Parvati (इंद्रसाल गुफा, पार्वती)",
+        "image": "https://cdn.s3waas.gov.in/s3a4f23670e1833f3fdb077ca70bbd5d66/uploads/bfi_thumb/2018032844-olwbexn8hujsfueaan6ens61r5n7ddt34rya4q6z8q.jpeg",
+        "description": "As per mythology, Lord Buddha once came to this place and took shelter in the cave, spending time in meditation. | मान्यता है कि भगवान बुद्ध इस गुफा में आए थे और यहाँ ध्यान लगाया था। यह स्थल धार्मिक और ऐतिहासिक दृष्टि से महत्वपूर्ण है।"
+      },
+      {
+        "name": "Surya Mandir, Handiya (सूर्य मंदिर, हंडिया, नरदिगंज)",
+        "image": "https://cdn.s3waas.gov.in/s3a4f23670e1833f3fdb077ca70bbd5d66/uploads/bfi_thumb/2018032828-olwbewpeb0ii48fng4rs3ael5rru5opcsnasng8dey.jpeg",
+        "description": "An ancient temple dedicated to Lord Surya, located in Handiya village of Naradiganj block. | नरदिगंज प्रखंड के हंडिया गाँव में स्थित भगवान सूर्य को समर्पित प्राचीन मंदिर।"
+      },
+      {
+        "name": "Jal Mandir (जल मंदिर, श्री गुनवन जी तीर्थ)",
+        "image": "https://cdn.s3waas.gov.in/s3a4f23670e1833f3fdb077ca70bbd5d66/uploads/bfi_thumb/2018031359-olwber2d60as6knud2c0obttlgjmvi2yrvdvrsgqga.jpg",
+        "description": "Located in Gonawan village, this Jain temple is dedicated to Muni Gandhar Gautam Swami. | गोणावां गाँव में स्थित यह जैन मंदिर मुनि गंधार गौतम स्वामी को समर्पित है।"
+      },
+      {
+        "name": "JP Ashram, Shekhodewra (जेपी आश्रम, शेखोदवरा आश्रम)",
+        "image": "https://cdn.s3waas.gov.in/s3a4f23670e1833f3fdb077ca70bbd5d66/uploads/bfi_thumb/2018031330-olwbep6osc87jcqko1irjcaweoswg3vi3m2wt8jisq.jpg",
+        "description": "Located in Sekhodevara village, around 55 km from district HQ. This scenic Ashram is associated with Jayaprakash Narayan’s freedom movement. | जिला मुख्यालय से लगभग 55 किमी दूर शेखोदवरा गाँव में स्थित यह आश्रम जयप्रकाश नारायण के स्वतंत्रता आंदोलन से जुड़ा है।"
+      },
+      {
+        "name": "Budhauli Math (बुढ़ौली मठ - 52 कोठी 53 द्वार)",
+        "image": "https://cdn.s3waas.gov.in/s3a4f23670e1833f3fdb077ca70bbd5d66/uploads/bfi_thumb/2018031364-olwber2d60as6knud2c0obttlgjmvi2yrvdvrsgqga.jpeg",
+        "description": "Situated in Budhauli village of Pakribarwan block, this monastery was once a major religious and cultural center. | पकरीबरावाँ प्रखंड के बुढ़ौली गाँव में स्थित यह मठ कभी धर्म और संस्कृति का प्रमुख केंद्र था।"
+      },
+      {
+        "name": "Kakolat Waterfall (ककोलत जलप्रपात)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnfYyh4-3p-8mZ_FM7cnSgVmmcC2GXNzF40w&s",
+        "description": "A picturesque waterfall, famous for its scenic surroundings and popular among tourists. | मनमोहक जलप्रपात, जो अपनी सुंदर प्राकृतिक छटा और पर्यटन के लिए प्रसिद्ध है।"
+      }
+    ],
+    "Saran (सारण)": [
+  {
+    "name": "Naini Mandir (नैनी मंदिर)",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77hM0OV1BS74hPtF_JUIJ9a5-yNd6lJYuGw&s",
+    "description": "A local religious temple of great significance for the people of Saran district. | सारण जिले का एक धार्मिक महत्व वाला मंदिर।"
+  },
+  {
+  "name": "Aami Temple (आमी मंदिर)",
+  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6gwDRO_Pt4htevAdrTjnU2YRDWD07jLaP4Q&s",
+  "description": "Located 37 km east of Chapra and 4 km west of Dighwara, this ancient Amba Asthan temple has a sacred well that never dries up. Devotees throng during Navratra in April and October. | छपरा से 37 किमी पूर्व और दिघवाड़ा से 4 किमी पश्चिम स्थित अम्बा स्थान मंदिर में एक कुआँ है जो कभी सूखता नहीं है। नवरात्र में लाखों श्रद्धालु जल अर्पण करते हैं।"
+},
+{
+"name": "Sonepur / Hariharnath Temple (सोनेपुर - हरिहरनाथ मंदिर)",
+"image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0b/32/61/fa/harihar-nath-temple.jpg?w=1200&h=-1&s=1",
+"description": "Famous worldwide for the Sonepur Mela held on Kartik Purnima, the Hariharnath temple is associated with the legend of Gaj-Grah. The fair is one of the largest in Asia. | कार्तिक पूर्णिमा पर लगने वाले विश्व प्रसिद्ध सोनपुर मेले का मुख्य केंद्र हरिहरनाथ मंदिर है, जो गज-ग्रह की कथा से जुड़ा है।"
+},
+{
+"name": "Dhorh Ashram (ढोरह आश्रम)",
+"image": "https://www.nativeplanet.com/photos/212x302x100/2018/12/photo-92-111123-1.jpg",
+"description": "Situated near Parsagarh on the bank of Gandaki river, this ashram has archaeological remains and a giant Shivling at the temple of Bhagwan Dhadheswar Nath. | गंडक नदी तट पर पारसगढ़ के पास स्थित इस स्थल पर पुरातात्विक अवशेष और भगवान धाधेश्वर नाथ का विशाल शिवलिंग है।"
+},
+{
+"name": "Gautam Asthan (गौतम स्थान)",
+"image": "https://www.nativeplanet.com/photos/325x244x90/2013/07/_13734286440.jpg",
+"description": "5 km west of Chapra, the ashram of Gautam Rishi is located here. As per Ramayana, this is where Ahalya was freed from curse by Lord Rama. | छपरा से 5 किमी पश्चिम स्थित गौतम ऋषि आश्रम, जहाँ भगवान राम ने अहिल्या का उद्धार किया था।"
+},
+{
+"name": "Silhauri (सिलहौरी)",
+"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnvWT5ZwkoMoUOFK2RYOV2G-Gzkl3xug2s9Q&s",
+"description": "28 km from Marhowra, Silhauri is linked with Shiv Puran and Ramcharitmanas episodes. A grand Shivratri Mela is organized here every year. | मरहौरा से 28 किमी दूर सिलहौरी, शिवपुराण व रामचरितमानस की कथाओं से जुड़ा स्थल है। यहाँ हर वर्ष महाशिवरात्रि मेला लगता है।"
+},
+{
+"name": "Chirand (चिरांद)",
+"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaronQsXNZTqzk6IAXCIbZtrao3VNgXweCtg&s",
+"description": "Located 11 km southeast of Chapra near Doriganj, Chirand is an archaeological site revealing Neolithic (New Stone Age) culture over 4000 years old. | छपरा से 11 किमी दक्षिण-पूर्व डोरीगंज के पास चिरांद, नवपाषाण युग की 4000 वर्ष पुरानी संस्कृति का प्रमुख पुरातात्विक स्थल है।"
+},
+      {
+        "name": "Dutch Cemetery, Karinga (डच कब्रिस्तान, करिंगा)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWtk00HgWqAU4N1bnnysr1RjOGvCs2D3u4Kw&s",
+        "description": "Situated 5 km north of Chapra on NH-101, this 300+ year-old Dutch cemetery houses the tomb of Governor Jacobus Van Hoorn. It reflects the Dutch trading presence in Bihar. | छपरा से 5 किमी उत्तर स्थित यह 300 वर्ष पुराना डच कब्रिस्तान डच गवर्नर जैकबस वान होर्न की समाधि के लिए प्रसिद्ध है।"
+      }
+    ],
+    "Sitamarhi (सीतामढ़ी)": [
+      {
+        "name": "Janaki Temple (जानकी  मंदिर)",
+        "image": "https://cdn.s3waas.gov.in/s3140f6969d5213fd0ece03148e62e461e/uploads/bfi_thumb/2018052212-1024x573-olw6xu317ddvokpa8vjidb2dad6893i8f52d8xzye8.jpg",
+        "description": "About 1.5 kms off the railway station, this is the birthplace of Sita. Janaki-Kund is adjacent to the south of the temple. | रेलवे स्टेशन से लगभग 1.5 किमी दूर स्थित यह मंदिर माता सीता का जन्मस्थल है। मंदिर के दक्षिण में जनकीकुंड स्थित है।"
+      },
+      {
+        "name": "Janaki Temple, Punaura (जानकी मंदिर, पुनौरा)",
+        "image": "https://static.langimg.com/photo/imgsize-76664,msid-112285188/navbharat-times.jpg",
+        "description": "This is about 5 kms west of Sitamarhi. This place also claims the honour of being the birthplace of Sita. | सीतामढ़ी से लगभग 5 किमी पश्चिम में स्थित, यह स्थल भी माता सीता के जन्मस्थल के रूप में प्रसिद्ध है।"
+      },
+      {
+        "name": "Haleshwar Sthan (हलेश्वर स्थान)",
+        "image": "https://cdn.s3waas.gov.in/s3140f6969d5213fd0ece03148e62e461e/uploads/bfi_thumb/2018052287-olw6xv13d0nn2xnjpx739cnvuewnl83ixhltc0skga.jpg",
+        "description": "3 kms north-west of Sitamarhi. King Videha had founded a temple of Lord Shiva on the occasion of Putra Yeshti Yajna, named Haleshwarnath temple. | सीतामढ़ी से 3 किमी उत्तर-पश्चिम में स्थित, राजा विदेह ने पुत्र यष्टि यज्ञ के अवसर पर भगवान शिव का मंदिर बनवाया था, जिसे हलेश्वर्नाथ मंदिर कहा गया।"
+      },
+      {
+        "name": "Panth-Pakar (पंथ-पकर)",
+        "image": "https://images.news18.com/ibnkhabar/uploads/2025/08/HYP_5375492_cropped_12082025_152654_hyp_4971928_cropped_120220_2.jpg?impolicy=website&width=640&height=480",
+        "description": "8 kms north-east of Sitamarhi. After her marriage, Sita was carried to Ayodhya via this route. An old Banyan tree still stands here under which she is said to have rested. | सीतामढ़ी से 8 किमी उत्तर-पूर्व में, विवाह के बाद माता सीता को अयोध्या इस मार्ग से ले जाया गया था। यहाँ एक पुराना बरगद का पेड़ है, जिसके नीचे वह कुछ समय विश्राम करती थीं।"
+      },
+      {
+        "name": "Bagahi Math (बगही मठ)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKZnR5weX39CfETN-oYrWrGSjkARAIu1UKIQ&s",
+        "description": "7 kms north-west of Sitamarhi, in Bagahi village. A big Hindu monastery with 108 rooms, famous for worship and performing Yajna. | सीतामढ़ी से 7 किमी उत्तर-पश्चिम में, बगही गाँव में स्थित यह बड़ा हिंदू मठ है जिसमें 108 कमरे हैं। पूजा और यज्ञ के लिए प्रसिद्ध।"
+      },
+      {
+        "name": "Pupri (पुपरी)",
+        "image": "https://www.jagranimages.com/images/newimg/18072022/18_07_2022-pupri_nageshwarnath_22901715.jpg",
+        "description": "Famous Baba Nageshwarnath (Lord Shiva) temple. It is said that Lord Shiva appeared here as Nageshwar Nath Mahadeo. | प्रसिद्ध बाबा नागेश्वरनाथ (भगवान शिव) मंदिर। कहा जाता है कि भगवान शिव यहाँ नागेश्वरनाथ महादेव के रूप में प्रकट हुए।"
+      },
+      {
+        "name": "Goraul Sharif (गोरौल शरीफ)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKnyTFTz8wZhlup6cYziDGPQUl3QyN8RWvkQ&s",
+        "description": "Situated 26 kms from Sitamarhi town. A very sacred place for Muslims, after Biharsharif and Phulwarisharif in Bihar. | सीतामढ़ी से 26 किमी दूर। यह बिहार में बिहारशरीफ और फुलवारीशरीफ के बाद मुस्लिमों के लिए एक पवित्र स्थल है।"
+        }
+      ],
 
     "Vaishali (वैशाली)": [
-    {
-      "name": "Vaishali Stupa (वैशाली स्तूप)",
-      "image": "assets/images/vaishali_stupa.jpg",
-      "description": "Ancient Buddhist stupa marking Lord Buddha’s teachings. "
-          "भगवान बुद्ध की शिक्षाओं का प्रतीक प्राचीन स्तूप।"
-    },
-    {
-      "name": "Ashokan Pillar (अशोक स्तंभ)",
-      "image": "assets/images/ashokan_pillar.jpg",
-      "description": "Erected by Emperor Ashoka as a mark of peace. "
-          "सम्राट अशोक द्वारा शांति के प्रतीक के रूप में स्थापित।"
-    },
-    {
-      "name": "Vishwa Shanti Stupa (विश्व शांति स्तूप)",
-      "image": "assets/images/vishwa_shanti.jpg",
-      "description": "Symbol of world peace in Vaishali. "
-          "वैशाली में विश्व शांति का प्रतीक।"
-    },
-    {
-      "name": "Abhishek Pushkarini (अभिषेक पुष्करणी)",
-      "image": "assets/images/abhishek_pond.jpg",
-      "description": "Coronation tank for ancient kings. "
-          "प्राचीन राजाओं का अभिषेक कुंड।"
-    },
-    {
-      "name": "Relic Stupa (अवशेष स्तूप)",
-      "image": "assets/images/relic_stupa.jpg",
-      "description": "Holds relics of Buddha. "
-          "बुद्ध के अवशेषों वाला स्तूप।"
-    },
-    {
-      "name": "Kutagarasala Vihara (कुटागारशाला विहार)",
-      "image": "assets/images/kutagarasala.jpg",
-      "description": "Monastery where Buddha often stayed. "
-          "विहार जहाँ बुद्ध अक्सर ठहरते थे।"
-    },
-    {
-      "name": "Raja Vishal ka Garh (राजा विशाल का गढ़)",
-      "image": "assets/images/raja_vishal.jpg",
-      "description": "Ruins of fort of King Vishal. "
-          "राजा विशाल का प्राचीन किला।"
-    },
-    {
-      "name": "Mahadeva Temple (महादेव मंदिर)",
-      "image": "assets/images/mahadeva_temple.jpg",
-      "description": "Dedicated to Lord Shiva. "
-          "भगवान शिव को समर्पित।"
-    },
-    {
-      "name": "Ramchaura Mandir (रामचौरा मंदिर)",
-      "image": "assets/images/ramchaura_mandir.jpg",
-      "description": "Dedicated to Lord Rama. "
-          "भगवान राम को समर्पित।"
-    },
-    {
-      "name": "Bawan Pokhar Temple (बावन पोखर मंदिर)",
-      "image": "assets/images/bawan_pokhar.jpg",
-      "description": "Ancient temple surrounded by water tank. "
-          "तालाब से घिरा प्राचीन मंदिर।"
-    },
-    {
-      "name": "Vaishali Museum (वैशाली संग्रहालय)",
-      "image": "assets/images/vaishali_museum.jpg",
-      "description": "Museum displaying artifacts of ancient Vaishali. "
-          "प्राचीन वैशाली की वस्तुओं का संग्रहालय।"
-    },
-    {
-      "name": "Shanti Stupa Gardens (शांति स्तूप उद्यान)",
-      "image": "assets/images/stupa_gardens.jpg",
-      "description": "Peaceful garden near stupa. "
-          "स्तूप के पास शांत उद्यान।"
-    },
-    {
-      "name": "Gandhak Ki Kuan (गंधक की कुआँ)",
-      "image": "assets/images/gandhak_kuan.jpg",
-      "description": "Sacred well with healing properties. "
-          "औषधीय महत्व वाला पवित्र कुआँ।"
-    },
-    {
-      "name": "Jain Mandir (जैन मंदिर)",
-      "image": "assets/images/jain_mandir.jpg",
-      "description": "Important Jain pilgrimage center. "
-          "प्रमुख जैन तीर्थ स्थल।"
-    },
-    {
-      "name": "Ananda Stupa (आनंद स्तूप)",
-      "image": "assets/images/ananda_stupa.jpg",
-      "description": "Associated with Buddha’s disciple Ananda. "
-          "बुद्ध के शिष्य आनंद से जुड़ा स्तूप।"
-    },
-    {
-      "name": "Relic Casket Site (अवशेष कलश स्थल)",
-      "image": "assets/images/relic_casket.jpg",
-      "description": "Archaeological site with relic caskets. "
-          "अवशेष कलशों का स्थल।"
-    },
-    {
-      "name": "Buddha Relic Temple (बुद्ध अवशेष मंदिर)",
-      "image": "assets/images/buddha_relic.jpg",
-      "description": "Temple preserving Buddha relics. "
-          "बुद्ध अवशेषों को सुरक्षित रखने वाला मंदिर।"
-    },
-    {
-      "name": "Vaishali Lake (वैशाली झील)",
-      "image": "assets/images/vaishali_lake.jpg",
-      "description": "Beautiful natural lake in Vaishali. "
-          "वैशाली की सुंदर झील।"
-    },
-    {
-      "name": "Amrapali Udyan (आम्रपाली उद्यान)",
-      "image": "assets/images/amrapali.jpg",
-      "description": "Garden related to Amrapali, the famous courtesan. "
-          "प्रसिद्ध आम्रपाली से जुड़ा उद्यान।"
-    },
-    {
-      "name": "Lichchhavi Stupa (लिच्छवि स्तूप)",
-      "image": "assets/images/lichchhavi_stupa.jpg",
-      "description": "Symbol of ancient Lichchhavi republic. "
-          "प्राचीन लिच्छवि गणराज्य का प्रतीक।"
-    },
-    {
-      "name": "Ghosrawan Ruins (घोस्रावन खंडहर)",
-      "image": "assets/images/ghosrawan.jpg",
-      "description": "Archaeological ruins of Buddhist structures. "
-          "बौद्ध संरचनाओं के अवशेष।"
-    },
-    {
-      "name": "Kundalpur (कुंडलपुर)",
-      "image": "assets/images/kundalpur.jpg",
-      "description": "Associated with Mahavira’s birthplace. "
-          "महावीर के जन्मस्थान से जुड़ा।"
-    },
-    {
-      "name": "Nandangarh Stupa (नंदनगढ़ स्तूप)",
-      "image": "assets/images/nandangarh.jpg",
-      "description": "Important Buddhist site in Vaishali. "
-          "वैशाली का महत्वपूर्ण बौद्ध स्थल।"
-    },
-    {
-      "name": "Relics Mound (अवशेष टीला)",
-      "image": "assets/images/relics_mound.jpg",
-      "description": "Mound believed to contain Buddha relics. "
-          "बुद्ध अवशेषों वाला टीला।"
-    },
-    {
-      "name": "Ashokan Edicts Site (अशोक शिलालेख स्थल)",
-      "image": "assets/images/ashoka_edict.jpg",
-      "description": "Site containing edicts of Ashoka. "
-          "अशोक के शिलालेख वाला स्थल।"
-    },
-  ],
-
-    "Jehanabad (जहानाबाद)": [
-    {
-      "name": "Barabar Caves (बराबर गुफाएँ)",
-      "image": "assets/images/barabar_caves.jpg",
-      "description":
-      "Barabar Caves are ancient rock-cut caves associated with the Mauryan Empire. "
-          "बराबर गुफाएँ मौर्य साम्राज्य से जुड़ी प्राचीन शिलाखंड गुफाएँ हैं।"
-    },
-    {
-      "name": "Kauva Dol Hill (कौवा डोल पहाड़ी)",
-      "image": "assets/images/kauva_dol.jpg",
-      "description":
-      "Kauva Dol is a historical hill known for ancient ruins and scenic beauty. "
-          "कौवा डोल पहाड़ी अपने प्राचीन खंडहरों और प्राकृतिक सौंदर्य के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Barabar Hills (बराबर पहाड़ियाँ)",
-      "image": "assets/images/barabar_hills.jpg",
-      "description":
-      "Barabar Hills offer trekking opportunities and ancient Buddhist significance. "
-          "बराबर पहाड़ियाँ ट्रैकिंग और बौद्ध महत्व के लिए प्रसिद्ध हैं।"
-    },
-    {
-      "name": "Siddheshwar Nath Temple (सिद्धेश्वर नाथ मंदिर)",
-      "image": "assets/images/siddheshwar_temple.jpg",
-      "description":
-      "A famous Shiva temple attracting pilgrims, especially in Shravan month. "
-          "सिद्धेश्वर नाथ मंदिर सावन महीने में श्रद्धालुओं के आकर्षण का केंद्र है।"
-    },
-    {
-      "name": "Giddha Hill (गिद्धा पहाड़ी)",
-      "image": "assets/images/giddha_hill.jpg",
-      "description":
-      "Giddha Hill is a scenic hill spot with local legends. "
-          "गिद्धा पहाड़ी अपने स्थानीय किंवदंतियों और सौंदर्य के लिए जानी जाती है।"
-    },
-    {
-      "name": "Anant Palace (अनंत पैलेस)",
-      "image": "assets/images/anant_palace.jpg",
-      "description":
-      "Historical palace showcasing local heritage and culture. "
-          "अनंत पैलेस स्थानीय धरोहर और संस्कृति को प्रदर्शित करता है।"
-    },
-    {
-      "name": "Barabar Jain Caves (बराबर जैन गुफाएँ)",
-      "image": "assets/images/jain_caves.jpg",
-      "description":
-      "These caves reflect ancient Jain history and meditation practices. "
-          "बराबर जैन गुफाएँ प्राचीन जैन इतिहास और साधना का केंद्र रही हैं।"
-    },
-    {
-      "name": "Dauli Ghat (दौली घाट)",
-      "image": "assets/images/dauli_ghat.jpg",
-      "description":
-      "Beautiful riverside ghat used for local fairs and festivals. "
-          "दौली घाट स्थानीय मेलों और त्योहारों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Buddha Stupa Jehanabad (बुद्ध स्तूप, जहानाबाद)",
-      "image": "assets/images/buddha_stupa.jpg",
-      "description":
-      "Stupa built to honor Lord Buddha's teachings. "
-          "यह स्तूप भगवान बुद्ध की शिक्षाओं की स्मृति में बना है।"
-    },
-    {
-      "name": "Kako Fort (काको किला)",
-      "image": "assets/images/kako_fort.jpg",
-      "description":
-      "Ancient fort in Kako region known for medieval heritage. "
-          "काको किला अपने मध्यकालीन इतिहास के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Lomas Rishi Cave (लोमस ऋषि गुफा)",
-      "image": "assets/images/lomas_rishi.jpg",
-      "description":
-      "One of the oldest rock-cut caves in India. "
-          "लोमस ऋषि गुफा भारत की सबसे प्राचीन शिलाखंड गुफाओं में से एक है।"
-    },
-    {
-      "name": "Sita Kund (सीता कुंड)",
-      "image": "assets/images/sita_kund.jpg",
-      "description":
-      "Sacred site linked to the Ramayana where Sita is believed to have bathed. "
-          "सीता कुंड रामायण से जुड़ा पवित्र स्थल है जहाँ सीता जी ने स्नान किया था।"
-    },
-    {
-      "name": "Barabar Ashokan Inscriptions (अशोक शिलालेख, बराबर)",
-      "image": "assets/images/ashoka_inscription.jpg",
-      "description":
-      "Ashokan inscriptions carved on rock reflecting Mauryan history. "
-          "अशोक शिलालेख मौर्य इतिहास की गवाही देते हैं।"
-    },
-    {
-      "name": "Phulwari Mandir (फुलवारी मंदिर)",
-      "image": "assets/images/phulwari_mandir.jpg",
-      "description":
-      "A famous temple with vibrant festivals and rituals. "
-          "फुलवारी मंदिर अपने जीवंत त्योहारों और अनुष्ठानों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Madhushrava Waterfall (मधुश्रवा जलप्रपात)",
-      "image": "assets/images/madhushrava.jpg",
-      "description":
-      "A natural waterfall surrounded by lush greenery. "
-          "मधुश्रवा जलप्रपात प्राकृतिक हरियाली से घिरा एक सुंदर झरना है।"
-    },
-    {
-      "name": "Hanuman Mandir Jehanabad (हनुमान मंदिर, जहानाबाद)",
-      "image": "assets/images/hanuman_mandir.jpg",
-      "description":
-      "Famous Hanuman temple visited by thousands of devotees. "
-          "हनुमान मंदिर जहानाबाद के प्रमुख धार्मिक स्थलों में से एक है।"
-    },
-    {
-      "name": "Tikari Fort (टिकारी किला)",
-      "image": "assets/images/tikari_fort.jpg",
-      "description":
-      "Historic fort built during medieval times. "
-          "टिकारी किला मध्यकालीन काल का ऐतिहासिक किला है।"
-    },
-    {
-      "name": "Kachhua Talab (कछुआ तालाब)",
-      "image": "assets/images/kachhua_talab.jpg",
-      "description":
-      "A serene pond shaped like a turtle. "
-          "कछुआ तालाब कछुए के आकार का शांत सरोवर है।"
-    },
-    {
-      "name": "Durga Mandir Kako (दुर्गा मंदिर, काको)",
-      "image": "assets/images/durga_kako.jpg",
-      "description":
-      "Important temple for Goddess Durga worship. "
-          "काको का दुर्गा मंदिर देवी उपासना के लिए महत्वपूर्ण स्थल है।"
-    },
-    {
-      "name": "Ghoshi Hills (घोषी पहाड़ियाँ)",
-      "image": "assets/images/ghoshi_hills.jpg",
-      "description":
-      "Scenic hills popular for trekking and picnics. "
-          "घोषी पहाड़ियाँ पिकनिक और ट्रैकिंग के लिए प्रसिद्ध हैं।"
-    },
-    {
-      "name": "Parvati Sthan (पार्वती स्थान)",
-      "image": "assets/images/parvati_sthan.jpg",
-      "description":
-      "A temple dedicated to Goddess Parvati. "
-          "पार्वती स्थान माँ पार्वती को समर्पित एक प्राचीन मंदिर है।"
-    },
-    {
-      "name": "Chandralok Mandir (चंद्रलोक मंदिर)",
-      "image": "assets/images/chandralok_mandir.jpg",
-      "description":
-      "Beautiful temple with intricate architecture. "
-          "चंद्रलोक मंदिर अपनी सुंदर वास्तुकला के लिए जाना जाता है।"
-    },
-    {
-      "name": "Baba Dham Mandir (बाबा धाम मंदिर)",
-      "image": "assets/images/baba_dham.jpg",
-      "description":
-      "Local temple attracting devotees in large numbers. "
-          "बाबा धाम मंदिर बड़ी संख्या में श्रद्धालुओं को आकर्षित करता है।"
-    },
-    {
-      "name": "Surya Mandir (सूर्य मंदिर)",
-      "image": "assets/images/surya_mandir.jpg",
-      "description":
-      "Dedicated to the Sun God, visited during Chhath Puja. "
-          "सूर्य मंदिर छठ पूजा के दौरान प्रमुख आकर्षण का केंद्र होता है।"
-    },
-  ],
-
-
-    "Nawada (नवादा)":  [
-    {
-      "name": "Kakolat Waterfall (काकोलेट जलप्रपात)",
-      "image": "assets/images/kakolat.jpg",
-      "description":
-      "Kakolat Waterfall is one of the most beautiful waterfalls of Bihar, popular for picnics and natural beauty. "
-          "काकोलेट जलप्रपात बिहार का सबसे खूबसूरत जलप्रपातों में से एक है, जो पिकनिक और प्राकृतिक सुंदरता के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Indrasal Cave (इंद्रसाल गुफा)",
-      "image": "assets/images/indrasal_cave.jpg",
-      "description":
-      "Indrasal Cave is associated with Lord Buddha, where he is believed to have stayed during meditation. "
-          "इंद्रसाल गुफा भगवान बुद्ध से जुड़ी है, जहाँ वे ध्यान के दौरान रहे थे।"
-    },
-    {
-      "name": "Surya Narayan Mandir (सूर्य नारायण मंदिर)",
-      "image": "assets/images/surya_mandir.jpg",
-      "description":
-      "This ancient Sun Temple attracts devotees, especially during Chhath Puja. "
-          "यह प्राचीन सूर्य मंदिर विशेषकर छठ पूजा के समय श्रद्धालुओं को आकर्षित करता है।"
-    },
-    {
-      "name": "Hanuman Mandir Nawada (हनुमान मंदिर, नवादा)",
-      "image": "assets/images/hanuman_nawada.jpg",
-      "description":
-      "A famous Hanuman temple of Nawada city visited by thousands of devotees. "
-          "नवादा शहर का प्रसिद्ध हनुमान मंदिर जहाँ हजारों श्रद्धालु दर्शन करने आते हैं।"
-    },
-    {
-      "name": "Kakolat Hill (काकोलेट पहाड़ी)",
-      "image": "assets/images/kakolat_hill.jpg",
-      "description":
-      "Kakolat Hill is a popular trekking spot offering scenic views of nature. "
-          "काकोलेट पहाड़ी एक प्रसिद्ध ट्रेकिंग स्थल है जहाँ से सुंदर प्राकृतिक दृश्य दिखते हैं।"
-    },
-    {
-      "name": "Sarvodaya Ashram (सर्वोदय आश्रम)",
-      "image": "assets/images/sarvodaya_ashram.jpg",
-      "description":
-      "Sarvodaya Ashram is associated with the Gandhian movement and social reforms. "
-          "सर्वोदय आश्रम गांधीवादी आंदोलन और सामाजिक सुधारों से जुड़ा हुआ है।"
-    },
-    {
-      "name": "Sheikhodeora Ashram (शेखोडोरा आश्रम)",
-      "image": "assets/images/sheikhodeora.jpg",
-      "description":
-      "This ashram is known for spiritual activities and peaceful surroundings. "
-          "यह आश्रम आध्यात्मिक गतिविधियों और शांत वातावरण के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Sitamarhi Cave (सीतामढ़ी गुफा)",
-      "image": "assets/images/sitamarhi_cave.jpg",
-      "description":
-      "Sitamarhi Cave is a historical site believed to be linked with Goddess Sita. "
-          "सीतामढ़ी गुफा एक ऐतिहासिक स्थल है, जिसे माता सीता से जुड़ा माना जाता है।"
-    },
-    {
-      "name": "Kakolat Picnic Spot (काकोलेट पिकनिक स्पॉट)",
-      "image": "assets/images/kakolat_picnic.jpg",
-      "description":
-      "A famous picnic spot for families and tourists near Kakolat Falls. "
-          "काकोलेट जलप्रपात के पास एक प्रसिद्ध पिकनिक स्थल।"
-    },
-    {
-      "name": "Nawada Museum (नवादा संग्रहालय)",
-      "image": "assets/images/nawada_museum.jpg",
-      "description":
-      "Nawada Museum showcases artifacts, coins, and history of the region. "
-          "नवादा संग्रहालय क्षेत्र के सिक्कों, कलाकृतियों और इतिहास को प्रदर्शित करता है।"
-    },
-    {
-      "name": "Kakolat Forest (काकोलेट वन)",
-      "image": "assets/images/kakolat_forest.jpg",
-      "description":
-      "The forest around Kakolat is rich in biodiversity and natural beauty. "
-          "काकोलेट का जंगल जैव विविधता और प्राकृतिक सुंदरता से भरपूर है।"
-    },
-    {
-      "name": "Durga Mandir (दुर्गा मंदिर)",
-      "image": "assets/images/durga_temple.jpg",
-      "description":
-      "A sacred temple of Goddess Durga in Nawada, visited by devotees during Navratri. "
-          "नवादा का प्रसिद्ध दुर्गा मंदिर, जहाँ नवरात्रि में भक्तों की भीड़ लगती है।"
-    },
-    {
-      "name": "Rajgir Hills Nearby (राजगीर की पहाड़ियाँ - समीप)",
-      "image": "assets/images/rajgir_hills.jpg",
-      "description":
-      "Rajgir Hills near Nawada offer scenic beauty and Buddhist heritage sites. "
-          "नवादा के समीप राजगीर की पहाड़ियाँ प्राकृतिक सौंदर्य और बौद्ध धरोहरों के लिए प्रसिद्ध हैं।"
-    },
-    {
-      "name": "Jain Mandir (जैन मंदिर)",
-      "image": "assets/images/jain_temple.jpg",
-      "description":
-      "An old Jain temple visited by the Jain community and tourists. "
-          "एक प्राचीन जैन मंदिर जहाँ जैन समुदाय और पर्यटक आते हैं।"
-    },
-    {
-      "name": "Mahadeva Sthan (महादेवा स्थान)",
-      "image": "assets/images/mahadeva_sthan.jpg",
-      "description":
-      "A famous Shiva temple of Nawada district with great religious importance. "
-          "नवादा जिले का प्रसिद्ध शिव मंदिर जिसका धार्मिक महत्व है।"
-    },
-    {
-      "name": "Pawapuri Jal Mandir Nearby (पावापुरी जल मंदिर - समीप)",
-      "image": "assets/images/pawapuri.jpg",
-      "description":
-      "Though in Nalanda, Pawapuri Jal Mandir is also a nearby pilgrimage site for Nawada visitors. "
-          "पावापुरी जल मंदिर, हालाँकि नालंदा में है, लेकिन नवादा आने वालों के लिए समीपस्थ तीर्थ है।"
-    },
-    {
-      "name": "Siddheshwar Nath Temple (सिद्धेश्वर नाथ मंदिर)",
-      "image": "assets/images/siddheshwar.jpg",
-      "description":
-      "This temple of Lord Shiva is known for its religious aura and local fairs. "
-          "भगवान शिव का यह मंदिर धार्मिक महत्व और मेलों के लिए जाना जाता है।"
-    },
-    {
-      "name": "Chhandwe Dam (छंदवे डैम)",
-      "image": "assets/images/chhandwe_dam.jpg",
-      "description":
-      "Chhandwe Dam is a peaceful spot for outings and enjoying natural beauty. "
-          "छंदवे डैम प्राकृतिक सौंदर्य और घूमने-फिरने के लिए एक शांत जगह है।"
-    },
-    {
-      "name": "Baidyanath Dham Route Nearby (बैद्यनाथ धाम मार्ग - समीप)",
-      "image": "assets/images/baidyanath_route.jpg",
-      "description":
-      "Nawada is also a route for pilgrims traveling to Baidyanath Dham, Jharkhand. "
-          "नवादा बैद्यनाथ धाम (झारखंड) जाने वाले यात्रियों का एक मार्ग भी है।"
-    },
-    {
-      "name": "Historical Ruins (ऐतिहासिक खंडहर)",
-      "image": "assets/images/ruins.jpg",
-      "description":
-      "Nawada district also has small ruins from ancient and medieval periods. "
-          "नवादा जिले में प्राचीन और मध्यकालीन काल के अवशेष भी पाए जाते हैं।"
-    },
-    {
-      "name": "Ganesh Mandir (गणेश मंदिर)",
-      "image": "assets/images/ganesh_temple.jpg",
-      "description":
-      "A famous Ganesh Temple of Nawada attracting local devotees. "
-          "नवादा का प्रसिद्ध गणेश मंदिर जहाँ स्थानीय श्रद्धालु आते हैं।"
-    },
-    {
-      "name": "Eco Park Nawada (इको पार्क नवादा)",
-      "image": "assets/images/eco_park.jpg",
-      "description":
-      "Eco Park in Nawada is a family-friendly place with greenery and relaxation spots. "
-          "नवादा का इको पार्क परिवारों के लिए घूमने और विश्राम का अच्छा स्थान है।"
-    },
-    {
-      "name": "Local Markets (स्थानीय बाजार)",
-      "image": "assets/images/nawada_market.jpg",
-      "description":
-      "Nawada's local markets are known for traditional items and handicrafts. "
-          "नवादा के स्थानीय बाजार पारंपरिक वस्तुओं और हस्तशिल्प के लिए प्रसिद्ध हैं।"
-    },
-    {
-      "name": "Cultural Festivals (सांस्कृतिक उत्सव)",
-      "image": "assets/images/festival.jpg",
-      "description":
-      "Nawada is also known for its cultural fairs and festivals. "
-          "नवादा अपने सांस्कृतिक मेलों और उत्सवों के लिए भी जाना जाता है।"
-    }
-  ],
-
-
-    "Munger (मुंगेर)": [
-    {
-      "name": "Munger Fort (मुंगेर किला)",
-      "image": "assets/images/munger_fort.jpg",
-      "description":
-      "Munger Fort is a historic fort built during the Mughal era, surrounded by the Ganga River. "
-          "मुंगेर किला मुगल काल का ऐतिहासिक किला है जो गंगा नदी से घिरा हुआ है।"
-    },
-    {
-      "name": "Bihar School of Yoga (बिहार स्कूल ऑफ योगा)",
-      "image": "assets/images/bihar_school_yoga.jpg",
-      "description":
-      "Founded by Swami Satyananda Saraswati, it is world-famous for yoga training and spiritual learning. "
-          "स्वामी सत्यानंद सरस्वती द्वारा स्थापित, यह योग और आध्यात्मिक शिक्षा के लिए विश्व प्रसिद्ध है।"
-    },
-    {
-      "name": "Kastaharni Ghat (कस्तहरनी घाट)",
-      "image": "assets/images/kastaharni_ghat.jpg",
-      "description":
-      "A sacred bathing ghat on the Ganga, believed to relieve sins and sorrows. "
-          "गंगा नदी का पवित्र घाट, जहाँ स्नान करने से दुख और पाप दूर होने की मान्यता है।"
-    },
-    {
-      "name": "Pir Shah Nafah Shrine (पीर शाह नफ़ाह दरगाह)",
-      "image": "assets/images/pir_shah_nafah.jpg",
-      "description":
-      "A famous Sufi shrine visited by devotees of all religions for blessings. "
-          "यह प्रसिद्ध सूफी दरगाह है जहाँ सभी धर्मों के लोग आशीर्वाद लेने आते हैं।"
-    },
-    {
-      "name": "Sita Kund (सीता कुंड)",
-      "image": "assets/images/sita_kund.jpg",
-      "description":
-      "A sacred hot spring associated with Goddess Sita, located near Munger. "
-          "देवी सीता से जुड़ा एक पवित्र गर्म जलकुंड, जो मुंगेर के पास स्थित है।"
-    },
-    {
-      "name": "Manpatthar (मनपत्थर)",
-      "image": "assets/images/manpatthar.jpg",
-      "description":
-      "A sacred stone believed to bear footprints of Goddess Sita. "
-          "एक पवित्र पत्थर जिस पर माता सीता के चरणचिह्न माने जाते हैं।"
-    },
-    {
-      "name": "Goenka Shivalaya (गोयनका शिवालय)",
-      "image": "assets/images/goenka_shivalaya.jpg",
-      "description":
-      "A historic Shiva temple built by the Goenka family, known for its architecture. "
-          "गोयनका परिवार द्वारा निर्मित ऐतिहासिक शिव मंदिर, जो अपनी सुंदरता के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Chandisthaan (चंडीस्थान)",
-      "image": "assets/images/chandisthaan.jpg",
-      "description":
-      "A famous Shakti Peeth temple of Goddess Chandi, located in Munger district. "
-          "माँ चंडी का प्रसिद्ध शक्तिपीठ मंदिर, जो मुंगेर जिले में स्थित है।"
-    },
-    {
-      "name": "Rameshwar Kund (रामेश्वर कुंड)",
-      "image": "assets/images/rameshwar_kund.jpg",
-      "description":
-      "A natural hot spring with religious importance dedicated to Lord Shiva. "
-          "प्राकृतिक गर्म जलकुंड, जो भगवान शिव से जुड़ा धार्मिक स्थल है।"
-    },
-    {
-      "name": "Ucheswarnath Temple (उचेश्वरनाथ मंदिर)",
-      "image": "assets/images/ucheshwarnath.jpg",
-      "description":
-      "An ancient temple of Lord Shiva, very popular among devotees. "
-          "भगवान शिव का प्राचीन मंदिर, जो भक्तों के बीच बहुत प्रसिद्ध है।"
-    },
-    {
-      "name": "Munger Museum (मुंगेर संग्रहालय)",
-      "image": "assets/images/munger_museum.jpg",
-      "description":
-      "A museum showcasing artifacts from ancient history and Mughal times. "
-          "एक संग्रहालय जिसमें प्राचीन और मुगल काल की वस्तुएँ प्रदर्शित हैं।"
-    },
-    {
-      "name": "Durga Mandir (दुर्गा मंदिर)",
-      "image": "assets/images/durga_mandir.jpg",
-      "description":
-      "A temple dedicated to Goddess Durga, visited by devotees especially during Navratri. "
-          "माँ दुर्गा का प्रसिद्ध मंदिर जहाँ नवरात्रि में विशेष भीड़ होती है।"
-    },
-    {
-      "name": "Munger Park (मुंगेर पार्क)",
-      "image": "assets/images/munger_park.jpg",
-      "description":
-      "A recreational park with greenery and walking spaces for families. "
-          "परिवारों के घूमने-फिरने के लिए हरियाली से भरा सुंदर पार्क।"
-    },
-    {
-      "name": "Sita Charan Temple (सीता चरण मंदिर)",
-      "image": "assets/images/sita_charan.jpg",
-      "description":
-      "This temple preserves imprints believed to be of Goddess Sita’s feet. "
-          "इस मंदिर में माता सीता के चरणचिह्न माने जाने वाले निशान संरक्षित हैं।"
-    },
-    {
-      "name": "Rishi Kund (ऋषि कुंड)",
-      "image": "assets/images/rishi_kund.jpg",
-      "description":
-      "A natural hot water spring associated with saints and sages. "
-          "संतों और ऋषियों से जुड़ा प्राकृतिक गर्म जलकुंड।"
-    },
-    {
-      "name": "Chandi Hills (चंडी पहाड़)",
-      "image": "assets/images/chandi_hills.jpg",
-      "description":
-      "A hilly spot with religious significance and scenic views. "
-          "धार्मिक महत्व और प्राकृतिक सुंदरता से भरपूर पहाड़ी स्थल।"
-    },
-    {
-      "name": "Munger Clock Tower (मुंगेर घड़ी टावर)",
-      "image": "assets/images/munger_clocktower.jpg",
-      "description":
-      "A British-era clock tower located in the heart of Munger town. "
-          "ब्रिटिश काल का घड़ी टावर, जो मुंगेर नगर के बीच स्थित है।"
-    },
-    {
-      "name": "Ramnagar Fort (रामनगर किला)",
-      "image": "assets/images/ramnagar_fort.jpg",
-      "description":
-      "Another small fortification site near Munger town with historical importance. "
-          "मुंगेर नगर के पास स्थित एक और ऐतिहासिक किला।"
-    },
-    {
-      "name": "Hazrat Shah Mustafa Dargah (हजरत शाह मुस्तफा दरगाह)",
-      "image": "assets/images/shah_mustafa_dargah.jpg",
-      "description":
-      "A holy dargah that attracts devotees from all faiths. "
-          "एक पवित्र दरगाह जो सभी धर्मों के लोगों को आकर्षित करती है।"
-    },
-    {
-      "name": "Munger Lake (मुंगेर झील)",
-      "image": "assets/images/munger_lake.jpg",
-      "description":
-      "A scenic lake offering boating and picnicking opportunities. "
-          "सुंदर झील जहाँ नौकायन और पिकनिक का आनंद लिया जा सकता है।"
-    },
-    {
-      "name": "Ugra Tara Sthan (उग्र तारा स्थान)",
-      "image": "assets/images/ugra_tara.jpg",
-      "description":
-      "A famous temple dedicated to Goddess Tara, a form of Shakti. "
-          "माँ तारा को समर्पित एक प्रसिद्ध शक्तिपीठ मंदिर।"
-    },
-    {
-      "name": "British Cemetery (ब्रिटिश कब्रिस्तान)",
-      "image": "assets/images/british_cemetery.jpg",
-      "description":
-      "A colonial-era cemetery reflecting the British presence in Munger. "
-          "ब्रिटिश शासनकाल का कब्रिस्तान जो ऐतिहासिक महत्व रखता है।"
-    },
-    {
-      "name": "Munger Gun Factory (मुंगेर गन फैक्ट्री)",
-      "image": "assets/images/munger_gun_factory.jpg",
-      "description":
-      "Established by the British, this is one of the oldest gun factories in India. "
-          "ब्रिटिश काल में स्थापित, यह भारत की सबसे पुरानी गन फैक्ट्रियों में से एक है।"
-    },
-    {
-      "name": "Rajiv Gandhi Park (राजीव गांधी पार्क)",
-      "image": "assets/images/rajiv_gandhi_park.jpg",
-      "description":
-      "A modern park with facilities for children and families. "
-          "एक आधुनिक पार्क जिसमें बच्चों और परिवारों के लिए सुविधाएँ उपलब्ध हैं।"
-    },
-    {
-      "name": "Bhikhanpur Kali Temple (भिखनपुर काली मंदिर)",
-      "image": "assets/images/bhikhanpur_kali.jpg",
-      "description":
-      "A historic temple dedicated to Goddess Kali, located in Bhikhanpur area. "
-          "भिखनपुर क्षेत्र का माँ काली को समर्पित प्राचीन मंदिर।"
-    },
-  ],
-
-
-    "Arwal (अरवल)": [
       {
-        "name": "Deo Sun Temple (देव सूर्य मंदिर)",
-        "description": "Ancient temple dedicated to the Sun God. प्राचीन सूर्य देव का मंदिर।"
+        "name": "Japanese Peace Pagoda (जापानी पीस पगोडा)",
+        "image": "https://www.shutterstock.com/image-photo/patna-bihar-india-world-peace-260nw-136707029.jpg",
+        "description": "Built by the Japanese Buddhist order Nipponzan Myohoji, this stupa symbolizes peace and marks the historical site related to Lord Buddha. | जापानी बौद्ध संस्था निप्पोंजन म्योहोजी द्वारा निर्मित यह स्तूप शांति का प्रतीक है और भगवान बुद्ध से संबंधित ऐतिहासिक स्थल को दर्शाता है।"
       },
       {
-        "name": "Kauleshwari Hill (कौलश्वरी पहाड़ी)",
-        "description": "Spiritual site with temples and caves. मंदिरों और गुफाओं वाला धार्मिक स्थल।"
+        "name": "Ashokan Pillar (अशोक स्तंभ)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkeEtYJV7ZRcx3CEQeMIc7seonw_CBrtGGfg&s",
+        "description": "One of the best-preserved pillars erected by Emperor Ashoka, made from a single piece of red sandstone with a lion capital on top. | सम्राट अशोक द्वारा स्थापित यह स्तंभ बहुत अच्छी तरह संरक्षित है, यह लाल बलुआ पत्थर से बना है और शीर्ष पर सिंहमस्तक है।"
       },
       {
-        "name": "Bhaluni Dham (भलुनी धाम)",
-        "description": "Popular Shakti Peeth dedicated to Goddess Durga. माँ दुर्गा को समर्पित प्रसिद्ध शक्तिपीठ।"
+        "name": "Buddha’s Relic Stupa (Stupa I) (बुद्ध के अवशेष स्तूप, स्तूप I)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXxin5ZnqmxvQxVszby3kv7oYwENsvBzH2nw&s",
+        "description": "An ancient stupa believed to house the relics of Lord Buddha. Archaeological evidence dates back to the 5th century BCE. | यह प्राचीन स्तूप माना जाता है कि भगवान बुद्ध के अवशेषों को समेटे हुए है। पुरातात्विक प्रमाण 5वीं शताब्दी ईसा पूर्व के हैं।"
       },
       {
-        "name": "Arwal Fort Ruins (अरवल किला अवशेष)",
-        "description": "Remains of an old fort in Arwal region. अरवल क्षेत्र का प्राचीन किला।"
+        "name": "Kundalpur (Birthplace of Lord Mahavira) (कुंडलपुर, भगवान महावीर का जन्मस्थल)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShzs6XutJBBa2qAB5pVlrsCFxeL42WpqAddg&s",
+        "description": "Considered the birthplace of Lord Mahavira, the 24th Tirthankara of Jainism. A sacred and peaceful destination for Jain pilgrims. | जैन धर्म के 24वें तीर्थंकर भगवान महावीर का जन्मस्थल माना जाता है। जैन तीर्थयात्रियों के लिए यह पवित्र और शांतिपूर्ण स्थल है।"
       },
       {
-        "name": "Jamhor (जमहोड़)",
-        "description": "Famous for Devi temple and fairs. देवी मंदिर और मेलों के लिए प्रसिद्ध।"
+        "name": "Bawan Pokhar Temple (बावन पोखर मंदिर)",
+        "image": "https://dynamic.tourtravelworld.com/hotspot-images/bawan-pokhar-temple-250x250-4091.jpg",
+        "description": "A beautiful Shiva temple located beside a large pond, known for its ancient architecture and spiritual ambiance. | यह सुंदर शिव मंदिर एक बड़े तालाब के किनारे स्थित है और अपने प्राचीन वास्तुकला और आध्यात्मिक वातावरण के लिए प्रसिद्ध है।"
       },
       {
-        "name": "Son River Ghats (सोन नदी घाट)",
-        "description": "Scenic ghats on the bank of Son river. सोन नदी के सुंदर घाट।"
+        "name": "Abhishek Pushkarini (Coronation Tank) (अभिषेक पुष्करिणी)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt0JdiMF7VXftUC9RARN1FWdnRvP9m12GhzA&s",
+        "description": "A sacred water tank where elected Lichchhavi rulers were ceremonially anointed. It holds both historical and spiritual significance. | यह पवित्र जलाशय है जहाँ निर्वाचित लिच्छवि शासकों का अभिषेक समारोहपूर्वक किया जाता था। ऐतिहासिक और धार्मिक महत्व दोनों है।"
       },
       {
-        "name": "Parvati Hill (पार्वती पहाड़ी)",
-        "description": "Hill with a temple dedicated to Goddess Parvati. माँ पार्वती को समर्पित मंदिर वाला पहाड़।"
-      },
-      {
-        "name": "Arwal Park (अरवल पार्क)",
-        "description": "Popular spot for local gatherings. स्थानीय पिकनिक और बैठकों का स्थान।"
-      },
-      {
-        "name": "Surya Kund (सूर्य कुंड)",
-        "description": "Sacred pond near Arwal with religious significance. अरवल के पास धार्मिक महत्व का कुंड।"
-      },
-      {
-        "name": "Hanuman Mandir (हनुमान मंदिर)",
-        "description": "Temple of Lord Hanuman visited by devotees. भगवान हनुमान का प्रसिद्ध मंदिर।"
-      },
-      {
-        "name": "Kali Mandir (काली मंदिर)",
-        "description": "Temple dedicated to Goddess Kali. माँ काली को समर्पित मंदिर।"
-      },
-      {
-        "name": "Arwal Market (अरवल बाजार)",
-        "description": "Busy traditional market with local crafts. स्थानीय कारीगरी और परंपरागत बाजार।"
-      },
-      {
-        "name": "Mahadev Sthan (महादेव स्थान)",
-        "description": "Sacred place of Lord Shiva worship. भगवान शिव की पूजा का पवित्र स्थान।"
-      },
-      {
-        "name": "Pahari Baba Sthan (पहाड़ी बाबा स्थान)",
-        "description": "Religious place visited by saints. संतों द्वारा पूजित धार्मिक स्थान।"
-      },
-      {
-        "name": "Bageshwari Sthan (बगेश्वरी स्थान)",
-        "description": "Temple of Goddess Bageshwari. माँ बगेश्वरी का मंदिर।"
-      },
-      {
-        "name": "Kundalpur (कुंडलपुर)",
-        "description": "Known for old temples and fairs. प्राचीन मंदिरों और मेलों के लिए प्रसिद्ध।"
-      },
-      {
-        "name": "Chandi Sthan (चंडी स्थान)",
-        "description": "Famous shrine dedicated to Goddess Chandi. माँ चंडी का प्रसिद्ध मंदिर।"
-      },
-      {
-        "name": "Son Canal (सोन नहर)",
-        "description": "Beautiful irrigation canal of Son river. सोन नदी की सिंचाई नहर।"
-      },
-      {
-        "name": "Bhojpur Nearby Temples (भोजपुर समीप मंदिर)",
-        "description": "Cluster of temples near Bhojpur-Arwal border. भोजपुर-अरवल सीमा पर मंदिरों का समूह।"
-      },
-      {
-        "name": "Cultural Haat (सांस्कृतिक हाट)",
-        "description": "Local fair showcasing folk art and crafts. लोक कला और हस्तशिल्प का मेला।"
-      },
-      {
-        "name": "Ganesh Mandir (गणेश मंदिर)",
-        "description": "Lord Ganesha temple in rural Arwal. ग्रामीण अरवल का गणेश मंदिर।"
-      },
-      {
-        "name": "Village Ponds (ग्राम तालाब)",
-        "description": "Traditional ponds used for festivals. त्योहारों में उपयोग किए जाने वाले तालाब।"
-      },
-      {
-        "name": "Shiv Ganga Sthan (शिव गंगा स्थान)",
-        "description": "Spiritual place of Lord Shiva. भगवान शिव का पवित्र स्थल।"
-      },
-      {
-        "name": "Folk Dance Grounds (लोक नृत्य स्थल)",
-        "description": "Grounds where Chhath and folk dances are performed. जहाँ छठ और लोक नृत्य होते हैं।"
-      },
-      {
-        "name": "Historic Villages (ऐतिहासिक गाँव)",
-        "description": "Villages preserving ancient traditions. प्राचीन परंपराओं को सँभालते हुए गाँव।"
-      },
+        "name": "Chaumukhi Mahadev Temple (चौमुखी महादेव मंदिर)",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3DKRz1GCD4r0e9fel36op_lWSXdYmwgTzwQ&s",
+        "description": "Dedicated to Lord Shiva, this temple is famous for its unique four-faced (chaumukhi) Shivling, symbolizing different aspects of Shiva. | भगवान शिव को समर्पित यह मंदिर अपने अनोखे चारमुखी शिवलिंग के लिए प्रसिद्ध है, जो शिव के विभिन्न पहलुओं का प्रतीक है।"
+      }
     ],
 
-
-    "Khagaria (खगड़िया)":[
-    {
-      "name": "Katyayani Asthan (कात्यायनी स्थान)",
-      "image": "assets/images/katyayani_asthan.jpg",
-      "description":
-      "Katyayani Asthan is a famous Shakti Peeth where devotees worship Goddess Katyayani. "
-          "कात्यायनी स्थान एक प्रसिद्ध शक्ति पीठ है जहाँ भक्त माता कात्यायनी की पूजा करते हैं।"
-    },
-    {
-      "name": "Budhkaran Tola (बुधकरण टोला)",
-      "image": "assets/images/budhkaran_tola.jpg",
-      "description":
-      "Budhkaran Tola is known for its historical and cultural significance in Khagaria. "
-          "बुधकरण टोला खगड़िया का ऐतिहासिक और सांस्कृतिक महत्व रखने वाला स्थान है।"
-    },
-    {
-      "name": "Shiv Mandir, Khagaria (शिव मंदिर, खगड़िया)",
-      "image": "assets/images/shiv_mandir_khagaria.jpg",
-      "description":
-      "This temple is dedicated to Lord Shiva and attracts many devotees during Mahashivratri. "
-          "यह मंदिर भगवान शिव को समर्पित है और महाशिवरात्रि पर यहाँ विशेष भीड़ होती है।"
-    },
-    {
-      "name": "Gautam Asthan (गौतम स्थान)",
-      "image": "assets/images/gautam_asthan.jpg",
-      "description":
-      "Gautam Asthan is associated with Gautam Rishi, making it a spiritual attraction. "
-          "गौतम स्थान गौतम ऋषि से जुड़ा हुआ है, जो इसे एक धार्मिक स्थल बनाता है।"
-    },
-    {
-      "name": "Koshi River Bank (कोशी नदी तट)",
-      "image": "assets/images/koshi_river.jpg",
-      "description":
-      "The bank of the Koshi River offers scenic views and is a peaceful picnic spot. "
-          "कोशी नदी का तट सुंदर दृश्य और शांति प्रदान करता है, जो पिकनिक के लिए उपयुक्त है।"
-    },
-    {
-      "name": "Kamla River View (कमला नदी दृश्य)",
-      "image": "assets/images/kamla_river.jpg",
-      "description":
-      "Kamla River adds to the natural beauty of Khagaria and is a relaxing spot. "
-          "कमला नदी खगड़िया की प्राकृतिक सुंदरता को और बढ़ाती है और शांति का स्थल है।"
-    },
-    {
-      "name": "Maa Kali Mandir (माँ काली मंदिर)",
-      "image": "assets/images/kali_mandir_khagaria.jpg",
-      "description":
-      "This temple is dedicated to Goddess Kali and is a major pilgrimage center. "
-          "यह मंदिर माँ काली को समर्पित है और प्रमुख धार्मिक स्थल है।"
-    },
-    {
-      "name": "Mansi Dham (मानसी धाम)",
-      "image": "assets/images/mansi_dham.jpg",
-      "description":
-      "Mansi Dham is a spiritual place famous for fairs and festivals. "
-          "मानसी धाम एक धार्मिक स्थान है जो मेलों और त्योहारों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Sonihar Asthan (सोनीहार स्थान)",
-      "image": "assets/images/sonihar_asthan.jpg",
-      "description":
-      "Sonihar Asthan is known for its cultural heritage and local fairs. "
-          "सोनीहार स्थान अपनी सांस्कृतिक धरोहर और स्थानीय मेलों के लिए जाना जाता है।"
-    },
-    {
-      "name": "Durga Mandir, Khagaria (दुर्गा मंदिर, खगड़िया)",
-      "image": "assets/images/durga_mandir_khagaria.jpg",
-      "description":
-      "This temple is dedicated to Goddess Durga and sees large gatherings during Navratri. "
-          "यह मंदिर माता दुर्गा को समर्पित है और नवरात्रि में बड़ी संख्या में भक्त आते हैं।"
-    },
-    {
-      "name": "Bhagwanpur Asthan (भगवानपुर स्थान)",
-      "image": "assets/images/bhagwanpur_asthan.jpg",
-      "description":
-      "Bhagwanpur Asthan is an ancient site of religious and historical significance. "
-          "भगवानपुर स्थान धार्मिक और ऐतिहासिक महत्व वाला प्राचीन स्थल है।"
-    },
-    {
-      "name": "Bhimbandh Hills (भीमबांध पहाड़ियाँ)",
-      "image": "assets/images/bhimbandh_hills.jpg",
-      "description":
-      "The Bhimbandh Hills provide a natural retreat with greenery and scenic views. "
-          "भीमबांध पहाड़ियाँ हरियाली और प्राकृतिक सुंदरता के लिए प्रसिद्ध हैं।"
-    },
-    {
-      "name": "Kosnhi Ghat (कोसनी घाट)",
-      "image": "assets/images/kosnhi_ghat.jpg",
-      "description":
-      "Kosnhi Ghat is a sacred bathing place on the river. "
-          "कोसनी घाट नदी पर एक पवित्र स्नान स्थल है।"
-    },
-    {
-      "name": "Manihari Ghat (मनीहारी घाट)",
-      "image": "assets/images/manihari_ghat.jpg",
-      "description":
-      "Manihari Ghat is a popular place for river-side rituals and scenic beauty. "
-          "मनीहारी घाट नदी के किनारे धार्मिक अनुष्ठानों और प्राकृतिक सुंदरता के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Rameshwar Mandir (रामेश्वर मंदिर)",
-      "image": "assets/images/rameshwar_mandir.jpg",
-      "description":
-      "Rameshwar Mandir is dedicated to Lord Shiva and is a spiritual hub. "
-          "रामेश्वर मंदिर भगवान शिव को समर्पित है और धार्मिक महत्व रखता है।"
-    },
-    {
-      "name": "Belauri Dham (बेलौरी धाम)",
-      "image": "assets/images/belauri_dham.jpg",
-      "description":
-      "Belauri Dham is visited by thousands of devotees during religious occasions. "
-          "बेलौरी धाम धार्मिक अवसरों पर हजारों भक्तों द्वारा दर्शन के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Ashok Dham (अशोक धाम)",
-      "image": "assets/images/ashok_dham.jpg",
-      "description":
-      "Ashok Dham is a famous temple with historical and spiritual value. "
-          "अशोक धाम एक प्रसिद्ध मंदिर है जिसमें ऐतिहासिक और धार्मिक महत्व है।"
-    },
-    {
-      "name": "Rajendra Setu View (राजेंद्र सेतु दृश्य)",
-      "image": "assets/images/rajendra_setu.jpg",
-      "description":
-      "Rajendra Setu over the Ganga river provides a picturesque view. "
-          "गंगा नदी पर बना राजेंद्र सेतु बेहद सुंदर दृश्य प्रदान करता है।"
-    },
-    {
-      "name": "Hanuman Mandir (हनुमान मंदिर)",
-      "image": "assets/images/hanuman_mandir_khagaria.jpg",
-      "description":
-      "Hanuman Mandir is a revered temple where devotees gather every Tuesday and Saturday. "
-          "हनुमान मंदिर एक प्रसिद्ध धार्मिक स्थल है जहाँ मंगलवार और शनिवार को भीड़ होती है।"
-    },
-    {
-      "name": "Chandralok Park (चंद्रलोक पार्क)",
-      "image": "assets/images/chandralok_park.jpg",
-      "description":
-      "Chandralok Park is a recreational area for families and children. "
-          "चंद्रलोक पार्क परिवार और बच्चों के लिए मनोरंजन का स्थान है।"
-    },
-    {
-      "name": "Satsang Bhavan (सत्संग भवन)",
-      "image": "assets/images/satsang_bhavan.jpg",
-      "description":
-      "Satsang Bhavan is a center for spiritual gatherings and discourses. "
-          "सत्संग भवन आध्यात्मिक सभाओं और प्रवचनों का केंद्र है।"
-    },
-    {
-      "name": "Ganga Ghat (गंगा घाट)",
-      "image": "assets/images/ganga_ghat_khagaria.jpg",
-      "description":
-      "Ganga Ghat is used for religious rituals and scenic walks. "
-          "गंगा घाट धार्मिक अनुष्ठानों और प्राकृतिक सुंदरता के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Vishnu Mandir (विष्णु मंदिर)",
-      "image": "assets/images/vishnu_mandir_khagaria.jpg",
-      "description":
-      "This temple is dedicated to Lord Vishnu and holds cultural importance. "
-          "यह मंदिर भगवान विष्णु को समर्पित है और सांस्कृतिक महत्व रखता है।"
-    },
-    {
-      "name": "Rajdhani Market (राजधानी बाजार)",
-      "image": "assets/images/rajdhani_market.jpg",
-      "description":
-      "Rajdhani Market is a busy commercial hub for shopping and local culture. "
-          "राजधानी बाजार खरीदारी और स्थानीय संस्कृति का प्रमुख केंद्र है।"
-    },
-  ],
-
-
-    "Saharsa (सहरसा)": [
-    {
-      "name": "Ugra Tara Sthan (उग्रतारा स्थान)",
-      "image": "assets/images/ugra_tara.jpg",
-      "description":
-      "Ugra Tara Sthan is a famous Shakti Peeth in Saharsa dedicated to Goddess Tara. "
-          "उग्रतारा स्थान सहर्षा का प्रसिद्ध शक्तिपीठ है, जो माँ तारा को समर्पित है।"
-    },
-    {
-      "name": "Matsyagandha Mandir (मत्स्यगंधा मंदिर)",
-      "image": "assets/images/matsyagandha.jpg",
-      "description":
-      "Matsyagandha Mandir is a popular temple situated near a pond, attracting many devotees. "
-          "मत्स्यगंधा मंदिर एक तालाब के किनारे स्थित प्रसिद्ध मंदिर है जहाँ बड़ी संख्या में श्रद्धालु आते हैं।"
-    },
-    {
-      "name": "Shiv Mandir Bangaon (शिव मंदिर, बनगाँव)",
-      "image": "assets/images/shiv_bangaon.jpg",
-      "description":
-      "This temple is dedicated to Lord Shiva and is a major pilgrimage site in Bangaon. "
-          "यह मंदिर भगवान शिव को समर्पित है और बनगाँव का प्रमुख धार्मिक स्थल है।"
-    },
-    {
-      "name": "Mahishi Village (महिषी गाँव)",
-      "image": "assets/images/mahishi.jpg",
-      "description":
-      "Mahishi Village is known for its cultural and historical importance in Saharsa. "
-          "महिषी गाँव अपनी सांस्कृतिक और ऐतिहासिक महत्व के लिए सहर्षा में प्रसिद्ध है।"
-    },
-    {
-      "name": "Kosi River Bank (कोसी नदी तट)",
-      "image": "assets/images/kosi_bank.jpg",
-      "description":
-      "The Kosi river bank offers a scenic view and is known as the 'Sorrow of Bihar'. "
-          "कोसी नदी का तट सुंदर दृश्य प्रदान करता है और इसे 'बिहार का शोक' कहा जाता है।"
-    },
-    {
-      "name": "Hanuman Mandir, Saharsa (हनुमान मंदिर, सहर्षा)",
-      "image": "assets/images/hanuman_saharsa.jpg",
-      "description":
-      "This is a prominent Hanuman temple in the city attracting a large number of devotees. "
-          "यह सहर्षा शहर का प्रमुख हनुमान मंदिर है जहाँ बड़ी संख्या में श्रद्धालु आते हैं।"
-    },
-    {
-      "name": "Darbar Mandir (दरबार मंदिर)",
-      "image": "assets/images/darbar_temple.jpg",
-      "description":
-      "Darbar Mandir is a famous religious place in Saharsa with historical significance. "
-          "दरबार मंदिर सहर्षा का प्रसिद्ध धार्मिक स्थल है जिसका ऐतिहासिक महत्व है।"
-    },
-    {
-      "name": "Champa Village (चम्पा गाँव)",
-      "image": "assets/images/champa.jpg",
-      "description":
-      "Champa village is known for traditional culture and local fairs. "
-          "चम्पा गाँव अपनी पारंपरिक संस्कृति और मेलों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Bangaon Shakti Sthal (बनगाँव शक्ति स्थल)",
-      "image": "assets/images/bangaon_shakti.jpg",
-      "description":
-      "It is a revered place dedicated to Goddess Durga where devotees gather during Navratri. "
-          "यह माँ दुर्गा को समर्पित शक्तिपीठ है जहाँ नवरात्रि में विशेष श्रद्धालु आते हैं।"
-    },
-    {
-      "name": "Saharsa College Campus Park (सहरसा कॉलेज कैम्पस पार्क)",
-      "image": "assets/images/saharsa_park.jpg",
-      "description":
-      "The college campus park is a peaceful place for students and visitors. "
-          "कॉलेज कैम्पस पार्क विद्यार्थियों और आगंतुकों के लिए शांति का स्थान है।"
-    },
-    {
-      "name": "Bangaon Durga Sthan (बनगाँव दुर्गा स्थान)",
-      "image": "assets/images/bangaon_durga.jpg",
-      "description":
-      "This temple is dedicated to Goddess Durga and holds cultural significance. "
-          "यह मंदिर माँ दुर्गा को समर्पित है और सांस्कृतिक दृष्टि से महत्वपूर्ण है।"
-    },
-    {
-      "name": "Kosi Barrage Area (कोसी बैराज क्षेत्र)",
-      "image": "assets/images/kosi_barrage.jpg",
-      "description":
-      "The Kosi barrage area provides beautiful scenery and is important for irrigation. "
-          "कोसी बैराज क्षेत्र सुंदर दृश्य प्रदान करता है और सिंचाई के लिए महत्वपूर्ण है।"
-    },
-    {
-      "name": "Madhusudan Mandir (मधुसूदन मंदिर)",
-      "image": "assets/images/madhusudan.jpg",
-      "description":
-      "Dedicated to Lord Vishnu, this temple attracts devotees throughout the year. "
-          "भगवान विष्णु को समर्पित यह मंदिर पूरे साल श्रद्धालुओं को आकर्षित करता है।"
-    },
-    {
-      "name": "Mahavir Sthan (महावीर स्थान)",
-      "image": "assets/images/mahavir.jpg",
-      "description":
-      "This temple is dedicated to Lord Hanuman and is considered a place of faith. "
-          "यह मंदिर भगवान हनुमान को समर्पित है और आस्था का केंद्र है।"
-    },
-    {
-      "name": "Simri Bakhtiyarpur (सिमरी बख्तियारपुर)",
-      "image": "assets/images/simri.jpg",
-      "description":
-      "Simri Bakhtiyarpur is a small town known for cultural heritage and fairs. "
-          "सिमरी बख्तियारपुर अपनी सांस्कृतिक धरोहर और मेलों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Bairgania Market (बैर्गनिया बाज़ार)",
-      "image": "assets/images/bairgania.jpg",
-      "description":
-      "This is a popular market area in Saharsa offering local goods and crafts. "
-          "यह सहर्षा का लोकप्रिय बाज़ार है जहाँ स्थानीय वस्तुएँ और हस्तशिल्प उपलब्ध हैं।"
-    },
-    {
-      "name": "Kosi Prapat (कोसी प्रपात)",
-      "image": "assets/images/kosi_prapat.jpg",
-      "description":
-      "A scenic waterfall area in the Kosi region near Saharsa. "
-          "सहरसा के पास कोसी क्षेत्र का एक सुंदर जलप्रपात स्थल।"
-    },
-    {
-      "name": "Panchanand Mandir (पंचानंद मंदिर)",
-      "image": "assets/images/panchanand.jpg",
-      "description":
-      "This temple is dedicated to Lord Shiva and is a major pilgrimage site. "
-          "यह मंदिर भगवान शिव को समर्पित प्रमुख धार्मिक स्थल है।"
-    },
-    {
-      "name": "Teliya Pati Village (टेलिया पटी गाँव)",
-      "image": "assets/images/teliya_pati.jpg",
-      "description":
-      "A famous village in Saharsa known for agriculture and fairs. "
-          "सहरसा का यह गाँव कृषि और मेलों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Saharsa Town Hall (सहरसा टाउन हॉल)",
-      "image": "assets/images/townhall.jpg",
-      "description":
-      "The Town Hall is a landmark for cultural and political events. "
-          "टाउन हॉल सहर्षा का सांस्कृतिक और राजनीतिक आयोजनों का केंद्र है।"
-    },
-    {
-      "name": "Parmanandpur (परमानंदपुर)",
-      "image": "assets/images/parmanandpur.jpg",
-      "description":
-      "Parmanandpur is a historical village in Saharsa district. "
-          "परमानंदपुर सहर्षा जिले का एक ऐतिहासिक गाँव है।"
-    },
-    {
-      "name": "Gadhiya Pokhar (गढ़िया पोखर)",
-      "image": "assets/images/gadhiya_pokhar.jpg",
-      "description":
-      "This pond area is known for local fairs and cultural gatherings. "
-          "गढ़िया पोखर अपने मेलों और सांस्कृतिक आयोजनों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Saharsa Stadium (सहरसा स्टेडियम)",
-      "image": "assets/images/stadium.jpg",
-      "description":
-      "The stadium hosts sports and cultural programs for the district. "
-          "सहरसा स्टेडियम जिले के खेल और सांस्कृतिक कार्यक्रमों का केंद्र है।"
-    },
-    {
-      "name": "Balua Bazar (बलुआ बाज़ार)",
-      "image": "assets/images/balua.jpg",
-      "description":
-      "Balua Bazar is a local shopping hub in Saharsa with cultural significance. "
-          "बलुआ बाज़ार सहर्षा का प्रमुख व्यापारिक और सांस्कृतिक स्थान है।"
-    },
-  ],
-
-    "Sitamarhi (सीतामढ़ी)": [
-    {
-      "name": "Janaki Temple (जानकी मंदिर)",
-      "image": "assets/images/janaki_temple.jpg",
-      "description":
-      "Janaki Temple is a famous temple dedicated to Goddess Sita, believed to be her birthplace. "
-          "जानकी मंदिर माता सीता को समर्पित प्रसिद्ध मंदिर है, जिसे उनका जन्मस्थान माना जाता है।"
-    },
-    {
-      "name": "Panth Pakar (पंथ पाकर)",
-      "image": "assets/images/panth_pakar.jpg",
-      "description":
-      "Panth Pakar is the place where Sita Devi is believed to have rested under a banyan tree before marriage. "
-          "पंथ पाकर वह स्थान है जहाँ विवाह से पहले सीता माता ने पीपल के पेड़ के नीचे विश्राम किया था।"
-    },
-    {
-      "name": "Haleshwar Sthan (हलेश्वर स्थान)",
-      "image": "assets/images/haleshwar_sthan.jpg",
-      "description":
-      "A holy Shiva temple associated with King Janak's yagna rituals. "
-          "हलेश्वर स्थान भगवान शिव का पवित्र मंदिर है, जो जनक जी के यज्ञ से जुड़ा हुआ है।"
-    },
-    {
-      "name": "Pupri (पूंप्रि)",
-      "image": "assets/images/pupri.jpg",
-      "description":
-      "Pupri is known for Baba Nageshwarnath Temple, a popular Shiva temple. "
-          "पूंप्रि बाबा नागेश्वरनाथ मंदिर के लिए प्रसिद्ध है, जो एक लोकप्रिय शिव मंदिर है।"
-    },
-    {
-      "name": "Baghahi Math (बगही मठ)",
-      "image": "assets/images/baghahi_math.jpg",
-      "description":
-      "Baghahi Math is an ancient monastery with historical and religious significance. "
-          "बगही मठ एक प्राचीन मठ है, जिसका ऐतिहासिक और धार्मिक महत्व है।"
-    },
-    {
-      "name": "Chanki Garh (चंकी गढ़)",
-      "image": "assets/images/chanki_garh.jpg",
-      "description":
-      "Chanki Garh is an archaeological site believed to be connected with the Ramayana era. "
-          "चंकी गढ़ एक पुरातात्विक स्थल है, जिसका संबंध रामायण काल से माना जाता है।"
-    },
-    {
-      "name": "Hanuman Mandir (हनुमान मंदिर)",
-      "image": "assets/images/hanuman_mandir.jpg",
-      "description":
-      "This temple is dedicated to Lord Hanuman and attracts many devotees. "
-          "हनुमान मंदिर भगवान हनुमान को समर्पित है और यहाँ भक्त बड़ी संख्या में आते हैं।"
-    },
-    {
-      "name": "Panth Pakar Pond (पंथ पाकर पोखर)",
-      "image": "assets/images/panth_pakar_pond.jpg",
-      "description":
-      "A sacred pond near Panth Pakar associated with Sita’s life. "
-          "पंथ पाकर के पास स्थित यह पोखर माता सीता के जीवन से जुड़ा है।"
-    },
-    {
-      "name": "Janki Asthan, Punaura (जानकी स्थान, पुनौरा)",
-      "image": "assets/images/punaura_janki.jpg",
-      "description":
-      "Considered as the exact birthplace of Goddess Sita at Punaura Dham. "
-          "पुनौरा धाम माता सीता का वास्तविक जन्मस्थान माना जाता है।"
-    },
-    {
-      "name": "Dumra (डुमरा)",
-      "image": "assets/images/dumra.jpg",
-      "description":
-      "Administrative headquarters of Sitamarhi with several parks and temples. "
-          "डुमरा सीतामढ़ी का प्रशासनिक मुख्यालय है, जहाँ कई पार्क और मंदिर स्थित हैं।"
-    },
-    {
-      "name": "Bairagnia (बैरा गनिया)",
-      "image": "assets/images/bairagnia.jpg",
-      "description":
-      "A town near the Nepal border, known for cross-border culture and trade. "
-          "बैरा गनिया नेपाल सीमा के पास स्थित है और सांस्कृतिक व व्यापारिक महत्व रखता है।"
-    },
-    {
-      "name": "Suranga Temple (सुरंगा मंदिर)",
-      "image": "assets/images/suranga_temple.jpg",
-      "description":
-      "An ancient temple with underground passage, linked to legends of Ramayana. "
-          "सुरंगा मंदिर एक प्राचीन मंदिर है जिसमें भूमिगत सुरंग है, जिसका संबंध रामायण की कथाओं से है।"
-    },
-    {
-      "name": "Shiv Mandir, Bathnaha (शिव मंदिर, बथनाहा)",
-      "image": "assets/images/shiv_bathnaha.jpg",
-      "description":
-      "A famous Shiva temple in Bathnaha village. "
-          "बथनाहा गाँव का यह प्रसिद्ध शिव मंदिर है।"
-    },
-    {
-      "name": "Bajpatti (बजपट्टी)",
-      "image": "assets/images/bajpatti.jpg",
-      "description":
-      "A historical block of Sitamarhi with cultural heritage. "
-          "बजपट्टी सीतामढ़ी का ऐतिहासिक प्रखंड है, जो सांस्कृतिक धरोहरों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Koili Tirth (कोइली तीर्थ)",
-      "image": "assets/images/koili_tirth.jpg",
-      "description":
-      "Koili Tirth is a spiritual site connected with Sita’s life. "
-          "कोइली तीर्थ एक धार्मिक स्थल है, जिसका संबंध सीता माता से है।"
-    },
-    {
-      "name": "Madheswar Nath Temple (मधेश्वरनाथ मंदिर)",
-      "image": "assets/images/madheswar_nath.jpg",
-      "description":
-      "This temple is dedicated to Lord Shiva, worshipped widely in the region. "
-          "मधेश्वरनाथ मंदिर भगवान शिव को समर्पित है और यहाँ श्रद्धालु बड़ी संख्या में आते हैं।"
-    },
-    {
-      "name": "Gaushala Mandir (गौशाला मंदिर)",
-      "image": "assets/images/gaushala_mandir.jpg",
-      "description":
-      "A temple and gaushala where cows are worshipped. "
-          "गौशाला मंदिर एक ऐसा स्थान है जहाँ गायों की पूजा होती है।"
-    },
-    {
-      "name": "Shri Radha Krishna Mandir (श्री राधा कृष्ण मंदिर)",
-      "image": "assets/images/radha_krishna.jpg",
-      "description":
-      "Beautiful temple of Radha Krishna, a center for religious gatherings. "
-          "श्री राधा कृष्ण मंदिर एक सुंदर मंदिर है, जो धार्मिक आयोजनों का केंद्र है।"
-    },
-    {
-      "name": "Mata Sita Kund (माता सीता कुंड)",
-      "image": "assets/images/sita_kund.jpg",
-      "description":
-      "A sacred kund (pond) associated with Goddess Sita’s legend. "
-          "माता सीता कुंड एक पवित्र स्थान है, जो सीता माता की कथाओं से जुड़ा हुआ है।"
-    },
-    {
-      "name": "Riga Sugar Mill (रीगा शुगर मिल)",
-      "image": "assets/images/riga_sugar.jpg",
-      "description":
-      "One of the oldest sugar mills in Bihar, located in Sitamarhi. "
-          "रीगा शुगर मिल बिहार की सबसे पुरानी चीनी मिलों में से एक है।"
-    },
-    {
-      "name": "Belsand (बेलसंड)",
-      "image": "assets/images/belsand.jpg",
-      "description":
-      "A small town with temples and religious significance. "
-          "बेलसंड एक छोटा नगर है, जिसका धार्मिक महत्व है।"
-    },
-    {
-      "name": "Bathnaha Pokhar (बथनाहा पोखर)",
-      "image": "assets/images/bathnaha_pokhar.jpg",
-      "description":
-      "A large pond in Bathnaha with local cultural importance. "
-          "बथनाहा पोखर एक बड़ा तालाब है, जिसका स्थानीय सांस्कृतिक महत्व है।"
-    },
-    {
-      "name": "Nanpur (नानपुर)",
-      "image": "assets/images/nanpur.jpg",
-      "description":
-      "A block of Sitamarhi known for temples and fairs. "
-          "नानपुर सीतामढ़ी का एक प्रखंड है, जो मंदिरों और मेलों के लिए प्रसिद्ध है।"
-    },
-    {
-      "name": "Parsauni (पर्सौनी)",
-      "image": "assets/images/parsauni.jpg",
-      "description":
-      "A rural area of Sitamarhi with cultural charm. "
-          "पर्सौनी सीतामढ़ी का ग्रामीण इलाका है, जो अपनी सांस्कृतिक पहचान रखता है।"
-    },
-  ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-};
-
-
+  };
 
   @override
   Widget build(BuildContext context) {
-    final places = districtPlaces[districtName] ?? [];
+    final allPlaces = districtPlaces[widget.districtName] ?? [];
+    final filteredPlaces = allPlaces
+        .where((place) =>
+        place["name"]!.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text("$districtName Tourist Places")),
-      body: ListView.builder(
-        itemCount: places.length,
-        itemBuilder: (context, index) {
-          final place = places[index];
-          return Card(
-            margin: EdgeInsets.all(8),
-            child: ListTile(
-              leading: Image.asset(place["image"]!, width: 60, height: 60, fit: BoxFit.cover),
-              title: Text(place["name"]!),
-              subtitle: Text(
-                place["description"]!,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+      appBar: AppBar(
+        title: Text(
+          "${widget.districtName} Tourist Places",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.deepPurple,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: "Search Place...",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
-              trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => PlaceDetailsPage(
-                      placeName: place["name"]!,
-
-
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredPlaces.length,
+              itemBuilder: (context, index) {
+                final place = filteredPlaces[index];
+                return Card(
+                  margin: EdgeInsets.all(8),
+                  child: ListTile(
+                    leading: Image.network(
+                      place["image"]!,
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.cover,
                     ),
+                    title: Text(place["name"]!),
+                    subtitle: Text(
+                      place["description"]!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => PlaceDetailsPage(
+                            name: place["name"]!,
+                            description: place["description"]!,
+                            image: place["image"]!,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 );
               },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }

@@ -9,17 +9,31 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  # Icons
   cupertino_icons: ^1.0.8
 
-  # Firebase core & services (compatible set)
+  # Firebase core & services
   firebase_core: ^4.0.0
   firebase_auth: ^6.0.0
   firebase_database: ^12.0.0
+  cloud_firestore: ^6.0.0
 
   # Social sign-ins (optional)
   google_sign_in: ^6.3.0
   flutter_facebook_auth: ^7.1.2
-  cloud_firestore: ^6.0.0
+
+  # ✅ Settings page
+  shared_preferences: ^2.3.2
+
+  # ✅ URL Launcher
+  url_launcher: ^6.3.2
+
+  # ✅ Biometric / PIN lock
+  local_auth: ^2.3.0
+
+  # ✅ Image Picker for profile photo
+  image_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -31,3 +45,37 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/BiharDistrictsImages/
+    - assets/AndhraPradeshDistrictsImages/
+    - assets/ArunachalPradeshDistrictsImages/
+    - assets/AssamDistrictsImages/
+    - assets/ChhattisgarhDistrictsImages/
+    - assets/GujaratDistrictsImages/
+    - assets/HaryanaDistrictsImages/
+    - assets/HimachalPradeshDistrictsImages/
+    - assets/JharkhandDistrictsImages/
+    - assets/KarnatakaDistrictsImages/
+    - assets/KeralaDistrictsImages/
+    - assets/MadhyaPradeshDistrictsImages/
+    - assets/UttarPradeshDistrictsImages/
+    - assets/MaharashtraDistrictsImages/
+    - assets/ManipurDistrictsImages/
+    - assets/MeghalayaDistrictsImages/
+    - assets/MizoramDistrictsImages/
+    - assets/NagalandDistrictsImages/
+    - assets/TelanganaDistrictsImages/
+    - assets/PunjabDistrictsImages/
+    - assets/OdishaDistrictsImages/
+    - assets/SikkimDistrictsImages/
+    - assets/TamilNaduDistrictsImages/
+    - assets/TripuraDistrictsImages/
+    - assets/UttarakhandDistrictsImages/
+    - assets/RajasthanDistrictsImages/
+    - assets/WestBengalDistrictsImages/
+    - assets/AndamanNicobarDistrictsImages/
+    - assets/DamanDiuDistrictsImages/
+    - assets/DelhiDistrictsImages/
+    - assets/JammuKashmirDistrictsImages/
+    - assets/LadakhDistrictsImages/
+    - assets/PuducherryDistrictsImage/
+    - assets/LakshadweepDistrictsImages/

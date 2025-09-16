@@ -1,31 +1,40 @@
 import 'package:flutter/material.dart';
 
-class HaryanaPlaceDetailsPage extends StatelessWidget {
-  final String placeName;
-  final String placeDescription;
-  final String placeImage;
+class PlaceDetailsPage extends StatelessWidget {
+  final String name;
+  final String image;
+  final String description;
 
-  HaryanaPlaceDetailsPage({
-    required this.placeName,
-    required this.placeDescription,
-    required this.placeImage,
-  });
+  const PlaceDetailsPage({
+    Key? key,
+    required this.name,
+    required this.image,
+    required this.description,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(placeName)),
+      appBar: AppBar(title: Text(name)),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(placeImage, fit: BoxFit.cover),
+            Image.asset(
+              image,
+              width: double.infinity,
+              height: 250,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 16),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                placeDescription,
-                style: TextStyle(fontSize: 18),
+                description,
+                style: const TextStyle(fontSize: 16, height: 1.5),
               ),
             ),
+            const SizedBox(height: 24),
           ],
         ),
       ),

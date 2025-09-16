@@ -4,15 +4,22 @@ import 'TouristPlacesPage.dart';
 class DamanDiuDistrictsPage extends StatelessWidget {
   final List<Map<String, String>> districts = [
     {
+      "name": "Dadra & Nagar Haveli (दादरा और नगर हवेली)",
+      "image": "assets/images/dnh_diu.jpg",
+      "description":
+      "Known for lush greenery, tribal culture, and Dudhani Lake. "
+          "दादरा और नगर हवेली अपनी हरियाली, आदिवासी संस्कृति और दूधनी झील के लिए प्रसिद्ध है।"
+    },
+    {
       "name": "Daman (दमन)",
-      "image": "assets/images/daman.jpg",
+      "image": "assets/DamanDiuDistrictsImages/daman.jpeg",
       "description":
       "Daman is a coastal district known for serene beaches and Portuguese-era forts. "
           "दमन एक समुद्री जिला है जो शांत समुद्र तटों और पुर्तगाली दौर के किलों के लिए प्रसिद्ध है।"
     },
     {
       "name": "Diu (दिउ)",
-      "image": "assets/images/diu.jpg",
+      "image": "assets/DamanDiuDistrictsImages/diu.jpeg",
       "description":
       "Diu is an island famed for its fort, caves and beautiful beaches. "
           "दिउ एक द्वीप है जो अपने किले, गुफाओं और खूबसूरत समुद्र तटों के लिए प्रसिद्ध है।"
@@ -22,7 +29,9 @@ class DamanDiuDistrictsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Daman & Diu Districts (दमन और दिउ जिले)")),
+      appBar: AppBar(
+          title: const Text("Dadra & Nagar Haveli and Daman & Diu Districts (दादरा और नगर हवेली और दमन-दिउ जिले)")
+      ),
       body: ListView.builder(
         itemCount: districts.length,
         itemBuilder: (context, index) {

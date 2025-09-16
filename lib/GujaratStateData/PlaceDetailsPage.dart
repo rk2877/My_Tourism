@@ -1,30 +1,56 @@
 import 'package:flutter/material.dart';
 
 class PlaceDetailsPage extends StatelessWidget {
-  final String placeName;
+  final String name;
   final String description;
-  final String imagePath;
+  final String image;
 
   PlaceDetailsPage({
-    required this.placeName,
+    required this.name,
     required this.description,
-    required this.imagePath,
+    required this.image,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(placeName)),
+      appBar: AppBar(title: Text(name)),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(imagePath, width: double.infinity, height: 250, fit: BoxFit.cover),
+            // Internet image loading
+            Image.network(
+              image,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  height: 200,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  ),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  height: 200,
+                  color: Colors.grey[300],
+                  child: Icon(Icons.broken_image, size: 50, color: Colors.grey[700]),
+                );
+              },
+            ),
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Text(
                 description,
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 18),
               ),
             ),
           ],
