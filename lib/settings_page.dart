@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart'; // ✅ NEW IMPORT
 import 'dart:io';
 import 'translations.dart';
 
@@ -174,6 +175,13 @@ class _SettingsPageState extends State<SettingsPage> {
     }
   }
 
+  void _shareApp() {
+    Share.share(
+      'Check out My Tourism App! Download here: https://play.google.com/store/apps/details?id=com.yourcompany.yourapp',
+      subject: 'My Tourism App',
+    );
+  }
+
   Future<void> _authenticate() async {
     bool canCheck = await auth.canCheckBiometrics;
     if (!canCheck) {
@@ -333,6 +341,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: const Icon(Icons.star_rate),
                 title: Text(t("rate_us")),
                 onTap: _rateUs,
+              ),
+              ListTile(
+                leading: const Icon(Icons.share), // ✅ NEW OPTION
+                title: Text(t("share_app")),
+                onTap: _shareApp,
               ),
             ],
           ),
