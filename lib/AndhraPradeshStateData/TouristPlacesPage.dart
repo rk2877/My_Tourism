@@ -861,7 +861,7 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       }
     ],
 
-    "Dr. B.R. Ambedkar Konaseema": [
+    "East Godavari (पूर्वी गोदावरी)": [
       {
         "name": "Konaseema Backwaters (कोनासीमा बैकवाटर्स)",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkUpgd-2ZzcN0UDw41E7uAlDxjEdW7zeceBg&s",
@@ -904,7 +904,7 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       }
     ],
 
-    "Eluru": [
+    "Eluru (एलुरु)": [
       {
         "name": "Eluru Buddha Park (एलूरु बुद्ध पार्क)",
         "image": "https://upload.wikimedia.org/wikipedia/commons/1/14/Buddha_Park_in_Eluru_%28May_2019%29_9.jpg",
@@ -937,7 +937,7 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       }
     ],
 
-    "Kakinada": [
+    "Kakinada (काकीनाडा)": [
       {
         "name": "Kakinada Beach (काकिनाडा बीच)",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX6RAvVQDUacgLs2lkvIlMcPNPFLkPf_4iLA&s",
@@ -985,7 +985,7 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       }
     ],
 
-    "Nandyal": [
+    "Nandyal (नंद्याल)": [
       {
         "name": "Srisailam Temple (श्रीशैलम मंदिर)",
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Srisailam.jpg/960px-Srisailam.jpg",
@@ -1023,7 +1023,7 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       }
     ],
 
-    "NTR": [
+    "NTR (एनटीआर जिला)": [
       {
         "name": "Amaravati Stupa (अमरावती स्तूप)",
         "image": "https://upload.wikimedia.org/wikipedia/commons/d/de/British_Museum_Asia_14.jpg",
@@ -1036,7 +1036,7 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       }
     ],
 
-    "Palnadu": [
+    "Palnadu (पलनाडु)": [
       {
         "name": "Nagarjuna Sagar Dam (नगरजुना सागर बांध)",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd1G-ufHxiKTce-pSKalMh91o0Vzu9CzSxqQ&s",
@@ -1079,7 +1079,7 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       }
     ],
 
-    "Parvathipuram Manyam": [
+    "Vijayanagar (विजयनगरम)": [
       {
         "name": "Araku Valley (अरकु वैली)",
         "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/03/7b/31/15/araku-valley.jpg?w=900&h=-1&s=1",
@@ -1107,7 +1107,7 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       }
     ],
 
-    "Sri Sathya Sai": [
+    "Sri Sathya Sai (श्री सत्य साईं)": [
       {
         "name": "Prashanthi Nilayam (प्रशांति निकेतन)",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8OdOBXAxfGqVtocIfK5Y0mjeiK2FeP_-jFQ&s",
@@ -1138,6 +1138,14 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
         "image": "https://example.com/sai-kulwant-hall-gardens.jpg",
         "description": "Beautiful gardens near the main prayer hall. मुख्य प्रार्थना हॉल के पास सुंदर उद्यान।"
       }
+    ],
+    "Alluri Sitharama Raju (अल्लूरी सीताराम राजू)": [
+      {"name": "Araku Valley (अरकु वैली)", "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/03/7b/31/15/araku-valley.jpg?w=900&h=-1&s=1", "description": "Famous hill station with coffee plantations. कॉफी बागानों वाला प्रसिद्ध हिल स्टेशन।"},
+      {"name": "Katiki Waterfalls (काटिकी झरना)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7P7S_-pPUtzntinuh2HfPOvnOlKzjd9pMfA&s", "description": "Beautiful waterfall near Borra Caves. बोर्रा गुफाओं के पास सुंदर झरना।"},
+      {"name": "Ananthagiri Coffee Plantations (आनंथगिरि कॉफी बागान)", "image": "https://media-cdn.tripadvisor.com/media/photo-s/0c/98/97/51/coffee-plantation.jpg", "description": "Famous coffee plantations in Eastern Ghats. पूर्वी घाट में प्रसिद्ध कॉफी बागान।"},
+      {"name": "Padmapuram Gardens (पद्मापुरम गार्डन)", "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/04/57/60/padmapuram-gardens.jpg?w=1200&h=-1&s=1", "description": "Terraced garden in Araku Valley. अरकु वैली में सुंदर बाग।"},
+      {"name": "Nagavali River (नागावली नदी)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWPQXCYajW3439YVJOM-JBOWfVUctlL7rMxA&s", "description": "Important river with natural beauty. प्राकृतिक सुंदरता वाली महत्वपूर्ण नदी।"},
+
     ],
 
   };
