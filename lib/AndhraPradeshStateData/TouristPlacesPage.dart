@@ -1145,8 +1145,23 @@ class _TouristPlacesPageState extends State<TouristPlacesPage> {
       {"name": "Ananthagiri Coffee Plantations (आनंथगिरि कॉफी बागान)", "image": "https://media-cdn.tripadvisor.com/media/photo-s/0c/98/97/51/coffee-plantation.jpg", "description": "Famous coffee plantations in Eastern Ghats. पूर्वी घाट में प्रसिद्ध कॉफी बागान।"},
       {"name": "Padmapuram Gardens (पद्मापुरम गार्डन)", "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/04/57/60/padmapuram-gardens.jpg?w=1200&h=-1&s=1", "description": "Terraced garden in Araku Valley. अरकु वैली में सुंदर बाग।"},
       {"name": "Nagavali River (नागावली नदी)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWPQXCYajW3439YVJOM-JBOWfVUctlL7rMxA&s", "description": "Important river with natural beauty. प्राकृतिक सुंदरता वाली महत्वपूर्ण नदी।"},
+],
+      "Tirupati (तिरुपति)": [
+        {"name": "Sri Venkateswara Temple (श्री वेंकटेश्वर मंदिर)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1S185C6gUp1q2TAt_RqFGEfRtcR4hR96__w&s", "description": "World-famous temple of Lord Venkateswara. भगवान वेंकटेश्वर का विश्व प्रसिद्ध मंदिर।"},
+        {"name": "Silathoranam (सिलथोरनम)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEs0GGdXnPGabEy7ZQ0mCH7akAk52OQnqO3g&s", "description": "Natural rock formation in Tirumala. तिरुमला में प्राकृतिक चट्टानी संरचना।"},
+        {"name": "Sri Kapileswara Swamy Temple (श्री कपिलेश्वर स्वामी मंदिर)", "image": "https://upload.wikimedia.org/wikipedia/commons/0/00/Kapilatheertam.jpg", "description": "Ancient Shiva temple at foot of Tirumala. तिरुमला की तलहटी में स्थित प्राचीन शिव मंदिर।"},
+        {"name": "Chandragiri Fort (चंद्रगिरी किला)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAZ5z8mbJHRTqHuLUHDPYXPL1V3bpJjhe_Ng&s", "description": "Historical fort near Tirupati. तिरुपति के पास ऐतिहासिक किला।"},
+        {"name": "Talakona Waterfalls (तलाकोना झरना)", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Talakona_Waterfalls_near_Tirupati_India.jpg/250px-Talakona_Waterfalls_near_Tirupati_India.jpg", "description": "Tallest waterfall in Andhra Pradesh. आंध्र प्रदेश का सबसे ऊँचा झरना।"},
+        {"name": "Tirumala Hills (तिरुमला पहाड़ियाँ)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_gdz3XEyztf8NXJADKcOinTd53wfyNr5GfA&s", "description": "Hill range with temples and scenic views. मंदिर और मनोरम दृश्य वाली पहाड़ियाँ।"},
+        {"name": "Sri Venkateswara Zoological Park (श्री वेंकटेश्वर चिड़ियाघर)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGrqkYP_0iFm0-vwRvGQH9j25-0S8uVAi0wA&s", "description": "Zoo with diverse wildlife species. विविध वन्यजीव प्रजातियों वाला चिड़ियाघर।"},
+        {"name": "Sri Padmavathi Ammavari Temple (श्री पद्मावती अम्मावारी मंदिर)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh0RODJVSojw0GOn96bvbutm8K_u27tYAKew&s", "description": "Famous temple dedicated to Goddess Padmavathi. देवी पद्मावती को समर्पित प्रसिद्ध मंदिर।"},
+        {"name": "Govindaraja Swamy Temple (गोविंदराज स्वामी मंदिर)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaKbb1UBfTIuvTA9PQmVpZfjI4PyYnbG6tmw&s", "description": "Historic temple in Tirupati city. तिरुपति शहर में ऐतिहासिक मंदिर।"},
+        {"name": "Kapila Theertham (कपिला तीर्थ)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRemltXr4frHeKSHCWOuwTNMo6zLJrp3kNauw&s", "description": "Sacred waterfall and temple. पवित्र झरना और मंदिर।"},
+        {"name": "Sri Venkateswara Museum (श्री वेंकटेश्वर संग्रहालय)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7Wu399BytL1B0vLqCyT1INeVpeXlLu-HNjg&s", "description": "Museum showcasing temple artifacts. मंदिर की कलाकृतियों को दिखाने वाला संग्रहालय।"},
+        {"name": "Alipiri Footpath (अलीपिरी पदमार्ग)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyZkdCQzeumFwACC3K5nWPOfiEL6nHLhIS2w&s", "description": "Path for pilgrims to climb Tirumala hills. तीर्थयात्रियों के लिए तिरुमला पहाड़ियों तक का मार्ग।"},
+        {"name": "Sri Venkateswara Park (श्री वेंकटेश्वर पार्क)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNbe2wD8XfeSmNnNItC-sofqV5iIMtXnkugg&s", "description": "Beautiful park for relaxation. विश्राम के लिए सुंदर पार्क।"},
+      ],
 
-    ],
 
   };
 
