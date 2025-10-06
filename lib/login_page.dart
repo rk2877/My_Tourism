@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'services/email_auth_service.dart';
+import 'services/google_auth_service.dart';
+import 'services/facebook_auth_service.dart';
 import 'signup_page.dart';
-import 'State_page.dart';
+import 'state_page.dart';
+import 'forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -13,49 +16,86 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final EmailAuthService _emailAuth = EmailAuthService();
+  final GoogleAuthService _googleAuth = GoogleAuthService();
+  final FacebookAuthService _facebookAuth = FacebookAuthService();
+
   bool _isPasswordVisible = false;
   bool _isLoading = false;
 
+  // Email Login
   Future<void> loginWithEmail() async {
+    if (emailController.text.trim().isEmpty || passwordController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter email and password")),
+      );
+      return;
+    }
     setState(() => _isLoading = true);
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
+      await _emailAuth.loginWithEmail(
+        emailController.text.trim(),
+        passwordController.text.trim(),
       );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Login Successful!")),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const StatePage()),
       );
-      // 🔹 Main navigation will happen via authStateChanges in main.dart
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
+        SnackBar(content: Text("Email Login Failed: $e")),
       );
     } finally {
       setState(() => _isLoading = false);
     }
   }
 
+  // Google Login
   Future<void> loginWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) return;
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    setState(() => _isLoading = true);
+    try {
+      final user = await _googleAuth.signInWithGoogle();
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const StatePage()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Google Login cancelled by user")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Google Login Failed: $e")),
+      );
+    } finally {
+      setState(() => _isLoading = false);
+    }
   }
 
+  // Facebook Login
   Future<void> loginWithFacebook() async {
-    final LoginResult result = await FacebookAuth.instance.login();
-    if (result.status == LoginStatus.success) {
-      final credential = FacebookAuthProvider.credential(result.accessToken!.tokenString);
-      await FirebaseAuth.instance.signInWithCredential(credential);
-    } else {
+    setState(() => _isLoading = true);
+    try {
+      final user = await _facebookAuth.signInWithFacebook();
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const StatePage()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Facebook Login cancelled by user")),
+        );
+      }
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(result.message ?? "Facebook login failed")),
+        SnackBar(content: Text("Facebook Login Failed: $e")),
       );
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
@@ -78,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.95),
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 15,
@@ -93,7 +133,10 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 16),
                   const Text(
                     "Welcome Back",
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple),
                   ),
                   const SizedBox(height: 32),
 
@@ -129,18 +172,30 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           color: Colors.deepPurple,
                         ),
-                        onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                        onPressed: () =>
+                            setState(() => _isPasswordVisible = !_isPasswordVisible),
                       ),
                     ),
                   ),
                   const SizedBox(height: 10),
+
+                  // Forgot Password
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ForgotPasswordPage(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         "Forgot Password?",
                         style: TextStyle(color: Colors.deepPurple),
@@ -157,11 +212,14 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: _isLoading ? null : loginWithEmail,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
                       ),
                       child: _isLoading
                           ? const CircularProgressIndicator(color: Colors.white)
-                          : const Text("Login", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          : const Text("Login",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -171,38 +229,43 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: loginWithGoogle,
+                          onPressed: _isLoading ? null : loginWithGoogle,
                           icon: const Icon(Icons.g_mobiledata, color: Colors.red),
                           label: const Text("Google"),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
                           ),
                         ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: loginWithFacebook,
+                          onPressed: _isLoading ? null : loginWithFacebook,
                           icon: const Icon(Icons.facebook, color: Colors.blue),
                           label: const Text("Facebook"),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
                           ),
                         ),
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 20),
+
+                  // Sign Up
                   TextButton(
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SignupPage())),
+                    onPressed: () => Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => SignupPage())),
                     child: const Text(
                       "Don't have an account? Sign up",
-                      style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: Colors.deepPurple, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],

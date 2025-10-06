@@ -22,8 +22,8 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.my_tourism"
-        minSdk = 23                       // यहाँ minSdk को 23 पर सेट करें
+        applicationId = "com.example.my_tourism_app"
+        minSdk = flutter.minSdkVersion                       // यहाँ minSdk को 23 पर सेट करें
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
